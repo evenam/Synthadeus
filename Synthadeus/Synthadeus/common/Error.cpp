@@ -79,6 +79,31 @@ void DebugLogging::finishDebugLogger()
 	isInitialized = false;
 }
 
+void DebugLogging::dbgAssertWindowsError(const char* functionName)
+{
+	DWORD code = GetLastError();
+	if (code != 0) // error was not success
+	{
+		TCHAR buffer[256] = "Error Message.";
+		char completeErrorMessage[1024];
+		FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, NULL, code, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), buffer, (sizeof(buffer) / sizeof(TCHAR)) - 1, NULL);
+		sprintf_s(completeErrorMessage, 1024, "Windows API Error in %s(): %s [ERROR: %x]", functionName, buffer, code);
+		DebugPrintf(completeErrorMessage);
+		assert(!"Error with HRESULT, see logs.");
+	}
+}
+
+void DebugLogging::dbgAssertWindowsHRESULT(const char* functionName, HRESULT hresult)
+{
+	if (FAILED(hresult)) // error was not success
+	{
+		char completeErrorMessage[1024];
+		sprintf_s(completeErrorMessage, 1024, "Windows API Error in %s(): code: %x", functionName, hresult, hresult);
+		DebugPrintf("%s\n", completeErrorMessage);
+		assert(!"Error with HRESULT, see logs.");	
+	}
+}
+
 // macro cleanup
 #undef DEBUG_FILE_NAME
 #undef DEBUG_BUFFER_SIZE

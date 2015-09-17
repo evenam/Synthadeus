@@ -13,7 +13,15 @@
 #include <stdio.h>
 #include <Windows.h>
 
+#ifndef DEBUG_NO_LOG
 #define DebugPrintf DebugLogging::dbgPrintf
+#else
+#define DebugPrintf
+#endif
+
+#define AssertWindowsError() DebugLogging::dbgAssertWindowsError(__func__)
+#define AssertWindowsHRESULT(hresult) DebugLogging::dbgAsserWindowsHRESULT(__func__, hresult)
+
 
 /////////////////////
 // Assert function //
@@ -24,7 +32,7 @@
 #include <assert.h>
 #undef assert
 #define assert(expression) \
-	if (!expression) \
+	if (!(expression)) \
 	{ \
 		DebugPrintf("Failed assertion: " #expression "\n"); \
 		_wassert(_CRT_WIDE(#expression), _CRT_WIDE(__FILE__), (unsigned)(__LINE__)); \
@@ -66,6 +74,10 @@ namespace DebugLogging
 
 	// auto log-creating debug printing function
 	void dbgPrintf(const char* format, ...);
+
+	// windows error assertions
+	void dbgAssertWindowsError(const char* functionName);
+	void dbgAssertWindowsHRESULT(const char* functionName, HRESULT hresult);
 }
 
 // macro cleanup

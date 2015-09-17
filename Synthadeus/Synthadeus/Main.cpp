@@ -5,8 +5,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpwCmdLin
 {
 	DebugLogging::initDebugLogger();
 	DebugPrintf("Testing logging....\n");
-	MessageBox(NULL, "Hello, world!", "Synthadeus", MB_OK);
-	assert(!"Testing assertion...");
+	if (!MessageBox(NULL, "Hello, world!", "Synthadeus", MB_OK))
+		AssertWindowsError();
 	DebugLogging::finishDebugLogger();
 	return 0;
 }
