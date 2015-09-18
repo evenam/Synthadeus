@@ -14,11 +14,11 @@ private:
 public:
 	RTTI_MACRO(Semaphore);
 
-	Semaphore();
+	Semaphore(int);
 	~Semaphore();
 
 	void signal();
-	void wait();
+	void wait(HANDLE);
 	bool check();
 };
 
