@@ -9,7 +9,7 @@
 class Mutex : public Object
 {
 private:
-
+	HANDLE m;
 
 public:
 	RTTI_MACRO(Mutex);

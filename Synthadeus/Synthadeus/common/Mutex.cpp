@@ -6,6 +6,8 @@
 Mutex::Mutex()
 {
 	m = CreateMutex(NULL, FALSE, NULL);
+
+	//just assert(m != NULL && "Failed to create mutex!"); or GetLastError for more info?
 }
 
 /**
@@ -13,7 +15,8 @@ Mutex::Mutex()
 */
 Mutex::~Mutex()
 {
-	CloseHandle(m);
+	retCode = CloseHandle(m);
+	//GetLastError? or just assert(retCode != 0 && "Failed to close mutex!")
 }
 
 /**
@@ -21,7 +24,10 @@ Mutex::~Mutex()
 */
 void Mutex::lock()
 {
-	WaitForSingleObject(m, INFINITE);
+	retCode = WaitForSingleObject(m, INFINITE);
+	assert(retCode != WAIT_ABANDONED && "A mutex has been abandoned!");
+
+	//GetLastError? or just assert(retCode != WAIT_FAILED && "Failed to wait for mutex!");
 }
 
 /**
@@ -29,7 +35,9 @@ void Mutex::lock()
 */
 void Mutex::unlock()
 {
-	ReleaseMutex(m);
+	retCode = ReleaseMutex(m);
+
+	//GetLastError? or just assert(retCode != 0 && "Failed to release unlock mutex!");
 }
 
 /**
@@ -38,5 +46,10 @@ void Mutex::unlock()
 */
 bool Mutex::check()
 {
-	return WaitForSingleObject(m, 0) == WAIT_OBJECT_0;
+	retCode = WaitForSingleObject(m, 0);
+	assert(retCode != WAIT_ABANDONED && "A mutex has been abandoned!");
+
+	//GetLastError? or just assert(retCode != WAIT_FAILED && "Failed to wait for mutex!");
+
+	return retCode == WAIT_OBJECT_0;
 }
