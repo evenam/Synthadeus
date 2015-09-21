@@ -45,6 +45,7 @@ DWORD WINAPI Thread::threadFunc(LPVOID lParam)
 {
 	Thread* thread = (Thread*)lParam;
 	thread->run();
+	return 0;
 }
 
 void Thread::wait(Thread* thread)
