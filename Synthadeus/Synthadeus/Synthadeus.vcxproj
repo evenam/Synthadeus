@@ -134,6 +134,7 @@
     <ClCompile Include="common\Mutex.cpp" />
     <ClCompile Include="common\Object.cpp" />
     <ClCompile Include="common\Semaphore.cpp" />
+    <ClCompile Include="common\Thread.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="platform\Window.cpp" />
   </ItemGroup>
@@ -143,6 +144,7 @@
     <ClInclude Include="common\Mutex.h" />
     <ClInclude Include="common\Object.h" />
     <ClInclude Include="common\Semaphore.h" />
+    <ClInclude Include="common\Thread.h" />
     <ClInclude Include="platform\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

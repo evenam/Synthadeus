@@ -66,6 +66,9 @@
     <ClCompile Include="platform\Window.cpp">
       <Filter>Source Files\platform</Filter>
     </ClCompile>
+    <ClCompile Include="common\Thread.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CFMaths.h">
@@ -85,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="platform\Window.h">
       <Filter>Header Files\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="common\Thread.h">
+      <Filter>Header Files\common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
