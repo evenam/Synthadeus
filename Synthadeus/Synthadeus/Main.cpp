@@ -4,7 +4,7 @@
 //do we need to add a windowParam to these parameters?  - hunter
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpwCmdLine, int nCmdShow)
 {
-	//Should we register window class here? - hunter
+	//Should we register window class here or in initialize? - hunter
 	HWND hWnd;
 	MSG msg;
 	WNDCLASSEX wcex = { sizeof(WNDCLASSEX) };
@@ -22,9 +22,24 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpwCmdLin
 	if (retCode == 0) //throws error if it is not registered - hunter
 		AssertWindowsError();
 
-	//assumes constructor will assign default values - hunter
+	//assumes constructor will assign default values for width/height - hunter
 	//assigning the created window to the window handler - hunter
-	hWnd = Window();
+	hWnd = Window(); //should this be hWnd = Window.getWindowHandle? - hunter
+	if(hWnd == NULL)
+    {
+    	AssertWindowsError();
+        /* from winprog.org, but we throw assert instead - hunter
+        MessageBox(NULL, "Window Creation Failed!", "Error!",
+            MB_ICONEXCLAMATION | MB_OK);
+        return 0;*/
+    }
+    //window is registered, handler not null, so show and update window - hunter
+    ShowWindow(hwnd, nCmdShow);
+    UpdateWindow(hwnd);
+    //window is functioning, add loop
+    hWnd.runMessageLoop();
+    //msg sent in Main to Window class to be handled, right? - hunter
+    //LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) -> go to Window.handleMessage;?
 
 	DebugLogging::initDebugLogger();
 	DebugPrintf("Testing logging....\n");

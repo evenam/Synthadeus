@@ -28,7 +28,7 @@
     }
 */
 //Constructor that creates window!
-Window::W
+Window::Window(int wndWidth, int wndHeight)
 {
 	//close window if already open
 	uninitialize();
@@ -75,5 +75,31 @@ HWND& Window::getWindowHandle()
 //either processes messages or sends messages to be processed
 void Window::handleMessage(UINT msg)
 {
-
+	//switch for all msg 
+	//is this where WndProc is? or is it in main? 
+	/* from functionx.com
+	* uints will be from http://ahkscript.org/docs/misc/SendMessageList.htm
+	LRESULT CALLBACK WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
+{
+    switch(Msg)
+    {
+    case WM_CREATE:
+	break;
+    case WM_SHOWWINDOW:
+	break;
+    case WM_ACTIVATE:
+	break;
+    case WM_PAINT:
+	break;
+    case WM_SIZE:
+	break;
+    case WM_DESTROY:
+        PostQuitMessage(WM_QUIT);
+        break;
+    default:
+        return DefWindowProc(hWnd, Msg, wParam, lParam);
+    }
+    return 0;
+}
+	*/
 }
