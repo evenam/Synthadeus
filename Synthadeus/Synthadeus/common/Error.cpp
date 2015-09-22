@@ -109,3 +109,4 @@ void DebugLogging::dbgAssertWindowsHRESULT(const char* functionName, HRESULT hre
 #undef DEBUG_BUFFER_SIZE
 #undef __DebugPrintToDebuggerArea__
 #undef __DebugPrintToLogFile__
+#undef NO_MSG_assert

@@ -3,7 +3,8 @@
 Thread::Thread() : 
 	sharedMemory(NULL), 
 	memorySize(0), 
-	memoryOwner(false)
+	memoryOwner(false),
+	stopFlag(false)
 {
 	initialize();
 }
@@ -11,7 +12,8 @@ Thread::Thread() :
 Thread::Thread(unsigned int sharedMemorySize) : 
 	sharedMemory(new char[sharedMemorySize]), 
 	memorySize(sharedMemorySize), 
-	memoryOwner(true)
+	memoryOwner(true),
+	stopFlag(false)
 {
 	initialize();
 }
@@ -19,7 +21,8 @@ Thread::Thread(unsigned int sharedMemorySize) :
 Thread::Thread(void * const previouslyAllocatedSharedMemory) : 
 	sharedMemory(previouslyAllocatedSharedMemory), 
 	memorySize(sizeof(previouslyAllocatedSharedMemory)), 
-	memoryOwner(false)
+	memoryOwner(false),
+	stopFlag(false)
 {
 	initialize();
 }
@@ -50,5 +53,6 @@ DWORD WINAPI Thread::threadFunc(LPVOID lParam)
 
 void Thread::wait(Thread* thread)
 {
+	thread->stopFlag = true;
 	WaitForSingleObject(thread->threadHandle, INFINITE);
 }

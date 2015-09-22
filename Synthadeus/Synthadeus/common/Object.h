@@ -14,7 +14,9 @@
 #include <stdlib.h>
 #include <limits.h>
 
-#define RTTI_MACRO(cls) inline virtual const char* getClassName() { return #cls; }
+#define RTTI_MACRO(cls) \
+inline virtual const char* getClassName() { return #cls; } \
+inline static const char* nameString() { return #cls; }
 
 class Object
 {

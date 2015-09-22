@@ -32,6 +32,9 @@ private:
 	DWORD threadID;
 	void initialize();
 
+protected:
+	bool stopFlag;
+
 public:
 	RTTI_MACRO(Thread);
 

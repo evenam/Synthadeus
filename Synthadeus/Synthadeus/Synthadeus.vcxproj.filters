@@ -69,6 +69,9 @@
     <ClCompile Include="common\Thread.cpp">
       <Filter>Source Files\common</Filter>
     </ClCompile>
+    <ClCompile Include="render\RenderThread.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CFMaths.h">
@@ -92,5 +95,13 @@
     <ClInclude Include="common\Thread.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
+    <ClInclude Include="render\RenderThread.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="SynthadeusIcon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
