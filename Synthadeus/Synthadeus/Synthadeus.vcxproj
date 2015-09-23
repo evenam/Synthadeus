@@ -148,9 +148,14 @@
     <ClInclude Include="common\Thread.h" />
     <ClInclude Include="platform\Window.h" />
     <ClInclude Include="render\RenderThread.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\Users\Justin\Desktop\Synthadeus icon.bmp" />
     <Image Include="SynthadeusIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

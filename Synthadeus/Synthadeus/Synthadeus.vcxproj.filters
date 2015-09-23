@@ -98,8 +98,19 @@
     <ClInclude Include="render\RenderThread.h">
       <Filter>Header Files\render</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ResourceCompile Include="Resource.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Users\Justin\Desktop\Synthadeus icon.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
     <Image Include="SynthadeusIcon.ico">
       <Filter>Resource Files</Filter>
     </Image>
