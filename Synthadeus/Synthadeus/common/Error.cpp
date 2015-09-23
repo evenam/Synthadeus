@@ -98,7 +98,7 @@ void DebugLogging::dbgAssertWindowsHRESULT(const char* functionName, HRESULT hre
 	if (FAILED(hresult)) // error was not success
 	{
 		char completeErrorMessage[1024];
-		sprintf_s(completeErrorMessage, 1024, "Windows API Error in %s(): code: %x", functionName, hresult, hresult);
+		sprintf_s(completeErrorMessage, 1024, "Windows API Error in %s(): code: %x", functionName, hresult);
 		DebugPrintf("%s\n", completeErrorMessage);
 		assert(!"Error with HRESULT, see logs.");	
 	}
