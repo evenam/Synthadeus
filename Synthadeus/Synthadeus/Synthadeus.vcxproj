@@ -151,7 +151,6 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\Users\Justin\Desktop\Synthadeus icon.bmp" />
     <Image Include="SynthadeusIcon.ico" />
   </ItemGroup>
   <ItemGroup>

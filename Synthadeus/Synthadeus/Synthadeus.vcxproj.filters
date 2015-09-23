@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Source Files\render">
       <UniqueIdentifier>{8d90e6b8-1f07-43d8-a78d-8f76303db10b}</UniqueIdentifier>
     </Filter>
@@ -42,6 +38,9 @@
     </Filter>
     <Filter Include="Header Files\platform">
       <UniqueIdentifier>{cf967523-70c1-4ddd-892a-a3ec26effd21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{47abcc75-ae0d-498b-aebc-fb11ee15b3e7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -103,16 +102,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resource.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
+    <Image Include="SynthadeusIcon.ico">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\Users\Justin\Desktop\Synthadeus icon.bmp">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="SynthadeusIcon.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <ResourceCompile Include="Resource.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
