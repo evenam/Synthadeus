@@ -17,7 +17,7 @@
 
 struct RenderThreadShared
 {
-	int* treeQueue[RENDER_QUEUE_SIZE];
+	void* treeQueue[RENDER_QUEUE_SIZE];
 	int isQueueModified;
 };
 
@@ -26,8 +26,8 @@ class RenderThread : public Thread
 public:
 	RTTI_MACRO(RenderThread);
 
-	RenderThread(/*HWND hWnd*/);
-	~RenderThread();
+	//RenderThread(/*HWND hWnd*/);
+	//~RenderThread();
 
 	virtual void run();
 
