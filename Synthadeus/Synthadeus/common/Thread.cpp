@@ -21,9 +21,9 @@ Thread::Thread(unsigned int sharedMemorySize) :
 {
 }
 
-Thread::Thread(void * const previouslyAllocatedSharedMemory) : 
+Thread::Thread(unsigned int sharedMemorySize, void * const previouslyAllocatedSharedMemory) :
 	sharedMemory(previouslyAllocatedSharedMemory), 
-	memorySize(sizeof(previouslyAllocatedSharedMemory)), 
+	memorySize(sharedMemorySize), 
 	memoryOwner(false),
 	stopFlag(false),
 	threadState(IDLE)
@@ -70,10 +70,13 @@ void Thread::wait(Thread* thread)
 	assert(thread != NULL);
 	thread->stopFlag = true;
 	DWORD code = 0;
+	// wait for shared memory to free
+	thread->sharedMemoryLock.lock();
 	code = WaitForSingleObject(thread->threadHandle, INFINITE);
 	assert(code != WAIT_ABANDONED && "A thread has been abandoned! ");
 	if (code == WAIT_FAILED)
 		AssertWindowsError();
+	thread->sharedMemoryLock.unlock();
 	thread->threadState = IDLE;
 	numThreads--;
 	DebugPrintf("Thread has stopped normally: %s\n", thread->getClassName());
@@ -85,8 +88,11 @@ void Thread::stop(Thread* thread)
 	assert(thread != NULL);
 	thread->stopFlag = true;
 	DWORD code = 0;
+	// wait for shared memory to free
+	thread->sharedMemoryLock.lock();
 	if (!TerminateThread(thread->threadHandle, code))
 		AssertWindowsError();
+	thread->sharedMemoryLock.unlock();
 	thread->threadState = IDLE;
 	numThreads--;
 	DebugPrintf("Thread terminated: %s\n", thread->getClassName());

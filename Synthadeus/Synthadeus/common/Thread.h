@@ -47,7 +47,7 @@ public:
 
 	Thread(); // Thread with no shared memory
 	Thread(unsigned int sharedMemorySize); // Thread with owned, newly created heap memory
-	Thread(void* const previouslyAllocatedSharedMemory); // Thread with non-owned heap memory
+	Thread(unsigned int sharedMemorySize, void* const previouslyAllocatedSharedMemory); // Thread with non-owned heap memory
 	~Thread();
 
 	// get access to shared memory
@@ -69,7 +69,6 @@ public:
 	inline void releaseSharedMemory() 
 	{
 		assert(sharedMemory != NULL); 
-		assert(!sharedMemoryLock.check()); 
 		sharedMemoryLock.unlock(); 
 	}
 
