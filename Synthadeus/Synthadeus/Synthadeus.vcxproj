@@ -135,7 +135,7 @@
     <ClCompile Include="common\Object.cpp" />
     <ClCompile Include="common\Semaphore.cpp" />
     <ClCompile Include="common\Thread.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="platform\Main.cpp" />
     <ClCompile Include="platform\Window.cpp" />
     <ClCompile Include="render\RenderThread.cpp" />
   </ItemGroup>
@@ -146,9 +146,9 @@
     <ClInclude Include="common\Object.h" />
     <ClInclude Include="common\Semaphore.h" />
     <ClInclude Include="common\Thread.h" />
+    <ClInclude Include="platform\resource.h" />
     <ClInclude Include="platform\Window.h" />
     <ClInclude Include="render\RenderThread.h" />
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="SynthadeusIcon.ico" />

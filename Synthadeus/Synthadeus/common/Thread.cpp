@@ -76,7 +76,7 @@ void Thread::wait(Thread* thread)
 		AssertWindowsError();
 	thread->threadState = IDLE;
 	numThreads--;
-	DebugPrintf("Thread has stopped normally: %s\n", thread->getClassName())
+	DebugPrintf("Thread has stopped normally: %s\n", thread->getClassName());
 }
 
 void Thread::stop(Thread* thread)
@@ -89,5 +89,5 @@ void Thread::stop(Thread* thread)
 		AssertWindowsError();
 	thread->threadState = IDLE;
 	numThreads--;
-	DebugPrintf("Thread terminated: %s\n", thead->getClassName());
+	DebugPrintf("Thread terminated: %s\n", thread->getClassName());
 }
