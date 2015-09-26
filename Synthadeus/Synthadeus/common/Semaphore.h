@@ -16,7 +16,6 @@ private:
 
 	//define constants
 	CONST int LockTime= 1000;
-	CONST long MaxCount =10;
 	CONST long InitCount =0;
 	//the amount to increment semaphore
 	CONST long IncCount = 1;
@@ -24,7 +23,7 @@ private:
 public:
 	RTTI_MACRO(Semaphore);
 
-	Semaphore(int, LPCTSTR);
+	Semaphore(long, LPCTSTR);
 	~Semaphore();
 
 	void signal();
