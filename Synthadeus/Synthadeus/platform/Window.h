@@ -1,6 +1,13 @@
 #pragma once
 
 #include <Windows.h>
+#include "Error.h"
+
+#ifndef HINST_THISCOMPONENT
+EXTERN_C IMAGE_DOS_HEADER __ImageBase;
+#define HINST_THISCOMPONENT ((HINSTANCE)&__ImageBase)
+#endif
+
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
 //   Window Something or other                                                //
@@ -22,6 +29,8 @@ private:
 	void handleMessage(UINT msg); // one cycle of the event loop, eventually we will run this on a separate thread or two
 	HWND hWnd;
 	int wndHeight, wndWidth;
+	static LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	static const char* wndClassName;
 	
 public:
 

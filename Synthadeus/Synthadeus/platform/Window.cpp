@@ -9,6 +9,8 @@
 //   static members on class                                                  //
 ////////////////////////////////////////////////////////////////////////////////
 
+const char* Window::wndClassName = "NULL";
+
 //Constructor that creates window!
 Window::Window(int inWidth, int inHeight)
 {
@@ -19,17 +21,17 @@ Window::Window(int inWidth, int inHeight)
 	//Give parameters to the window at creation
 	//is this even c++? 
 	WNDCLASSEX wcex = { sizeof(WNDCLASSEX) };
-        wcex.style = CS_HREDRAW | CS_VREDRAW;
-        wcex.lpfnWndProc = Window::WndProc;
-        wcex.cbClsExtra = 0;
-        wcex.cbWndExtra = sizeof(LONG_PTR);
-        wcex.hInstance = THIS_HINSTANCE;
-        wcex.hbrBackground = NULL;
-        wcex.lpszMenuName = NULL;
-        wcex.lpszClassName = wndClassName;
+    wcex.style = CS_HREDRAW | CS_VREDRAW;
+    wcex.lpfnWndProc = Window::WndProc;
+    wcex.cbClsExtra = 0;
+    wcex.cbWndExtra = sizeof(LONG_PTR);
+    wcex.hInstance = HINST_THISCOMPONENT;
+    wcex.hbrBackground = NULL;
+    wcex.lpszMenuName = NULL;
+    wcex.lpszClassName = wndClassName;
 
-		if (!RegisterClassEx(&wcex))
-			AssertWindowsError();
+	if (!RegisterClassEx(&wcex))
+		AssertWindowsError();
 		
 	this->wndWidth = wndWidth;
 	this->wndHeight = wndHeight;
@@ -45,20 +47,21 @@ Window::~Window()
 //create window
 void Window::initialize()
 {
-	
-	hWnd = CreateWindowEx(NULL, wndClassName, "Synthadaeus", CW_USEDEFAULT, CW_USEDEFAULT, this->wndWidth, this->wndHeight, NULL, NULL, THIS_HINSTANCE, this);
+	hWnd = CreateWindowEx(NULL, wndClassName, "Synthadaeus", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, this->wndWidth, this->wndHeight, NULL, NULL, HINST_THISCOMPONENT, this);
 	if(!hWnd)
 		AssertWindowsError();
 	ShowWindow(hWnd, 0); //NEEDS TO NOT BE 0
 	if (!UpdateWindow(hWnd))
 		AssertWindowsError();
+
+	SetWindowLongPtr(hWnd, 0, (LONG_PTR*)this);
 	//we don't have any behaviors right now so what does this even do?
 	
 	//once we have initialize, this resets all behavors/aspects to false/null
 	//closes window, not application
-	BOOL WINAPI DestroyWindow(
-  		_In_ HWND hWnd
-	);
+	//BOOL WINAPI DestroyWindow(
+  	//	_In_ HWND hWnd
+	//);
 }
 
 //Event handler equivalent from JS
@@ -78,9 +81,9 @@ HWND& Window::getWindowHandle()
 }
 
 //either processes messages or sends messages to be processed
-void Window::handleMessage(UINT msg)
+void Window::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	return DefWindowProc("Shut up.");
+	return DefWindowProc(hWnd, msg, wParam, lParam);
 	//switch for all msg 
 	//is this where WndProc is? or is it in main? 
 	/* from functionx.com
@@ -108,4 +111,10 @@ void Window::handleMessage(UINT msg)
     return 0;
 }
 	*/
+}
+
+LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	Window* wnd = (Window*)GetWindowLongPtr(hWnd, 0);
+	wnd->handleMessage(msg);
 }
