@@ -21,7 +21,8 @@ class Window
 private:
 	void handleMessage(UINT msg); // one cycle of the event loop, eventually we will run this on a separate thread or two
 	HWND hWnd;
-
+	int wndHeight, wndWidth;
+	
 public:
 
 	Window(int wndWidth = WINDOW_DEFAULT_HEIGHT, int wndHeight = WINDOW_DEFAULT_HEIGHT);

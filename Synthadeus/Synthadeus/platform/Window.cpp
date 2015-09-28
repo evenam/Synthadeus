@@ -9,37 +9,30 @@
 //   static members on class                                                  //
 ////////////////////////////////////////////////////////////////////////////////
 
-/* these goes somewhere in here, right? or in main.cpp? - hunter
-*WNDCLASSEX wcex = { sizeof(WNDCLASSEX) };
-*        wcex.style = CS_HREDRAW | CS_VREDRAW;
-*        wcex.lpfnWndProc = Window::WndProc;
-*        wcex.cbClsExtra = 0;
-*        wcex.cbWndExtra = sizeof(LONG_PTR);
-*        wcex.hInstance = THIS_HINSTANCE;
-*        wcex.hbrBackground = NULL;
-*        wcex.lpszMenuName = NULL;
-*        wcex.lpszClassName = wndClassName;
-*
-*	MSG msg;
-    while (GetMessage(&msg, NULL, 0, 0))
-    {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
-    }
-*/
 //Constructor that creates window!
-Window::Window(int wndWidth, int wndHeight)
+Window::Window(int inWidth, int inHeight)
 {
 	//close window if already open
 	uninitialize();
-
 	//Check for full screen eventually
 	//requires compatibility and multiple full screen window checks
-
 	//Give parameters to the window at creation
 	//is this even c++? 
-	Window.wndWidth = wndWidth;
-	Window.wndHeight = wndHeight;
+	WNDCLASSEX wcex = { sizeof(WNDCLASSEX) };
+        wcex.style = CS_HREDRAW | CS_VREDRAW;
+        wcex.lpfnWndProc = Window::WndProc;
+        wcex.cbClsExtra = 0;
+        wcex.cbWndExtra = sizeof(LONG_PTR);
+        wcex.hInstance = THIS_HINSTANCE;
+        wcex.hbrBackground = NULL;
+        wcex.lpszMenuName = NULL;
+        wcex.lpszClassName = wndClassName;
+
+		if (!RegisterClassEx(&wcex))
+			AssertWindowsError();
+		
+	this->wndWidth = wndWidth;
+	this->wndHeight = wndHeight;
 	initialize();
 }
 
@@ -52,19 +45,31 @@ Window::~Window()
 //create window
 void Window::initialize()
 {
+	
+	hWnd = CreateWindowEx(NULL, wndClassName, "Synthadaeus", CW_USEDEFAULT, CW_USEDEFAULT, this->wndWidth, this->wndHeight, NULL, NULL, THIS_HINSTANCE, this);
+	if(!hWnd)
+		AssertWindowsError();
+	ShowWindow(hWnd, 0); //NEEDS TO NOT BE 0
+	if (!UpdateWindow(hWnd))
+		AssertWindowsError();
 	//we don't have any behaviors right now so what does this even do?
-}
-
-//delete window
-void Window::uninitialize()
-{
+	
 	//once we have initialize, this resets all behavors/aspects to false/null
+	//closes window, not application
+	BOOL WINAPI DestroyWindow(
+  		_In_ HWND hWnd
+	);
 }
 
 //Event handler equivalent from JS
 void Window::runMessageLoop() 
 {
-	//return message loop on exit?
+	MSG msg;
+    while (GetMessage(&msg, NULL, 0, 0))
+    {
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+    }
 }
 
 HWND& Window::getWindowHandle()
@@ -75,6 +80,7 @@ HWND& Window::getWindowHandle()
 //either processes messages or sends messages to be processed
 void Window::handleMessage(UINT msg)
 {
+	return DefWindowProc("Shut up.");
 	//switch for all msg 
 	//is this where WndProc is? or is it in main? 
 	/* from functionx.com
