@@ -15,7 +15,8 @@ const char* Window::wndClassName = "NULL";
 Window::Window(int nCmdShow, int inWidth, int inHeight) :
 	wndWidth(inWidth),
 	wndHeight(inHeight),
-	isInitialized(false)
+	isInitialized(false),
+	windowStyle(WS_OVERLAPPEDWINDOW)
 {
 	// sanity check
 	assert(!isInitialized);
@@ -39,8 +40,11 @@ Window::Window(int nCmdShow, int inWidth, int inHeight) :
 	if (!RegisterClassEx(&wcex))
 		AssertWindowsError();
 	
+	// run initialization code
+	assert(initialize());
+
 	// create the window
-	hWnd = CreateWindowEx(NULL, wndClassName, "Synthadaeus", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, wndWidth, wndHeight, NULL, NULL, HINST_THISCOMPONENT, this);
+	hWnd = CreateWindowEx(NULL, wndClassName, "Synthadaeus", windowStyle, CW_USEDEFAULT, CW_USEDEFAULT, wndWidth, wndHeight, NULL, NULL, HINST_THISCOMPONENT, this);
 	if (!hWnd)
 		AssertWindowsError();
 
@@ -50,9 +54,6 @@ Window::Window(int nCmdShow, int inWidth, int inHeight) :
 							   // update the shown window
 	if (!UpdateWindow(hWnd))
 		AssertWindowsError();
-
-	// run initialization code
-	assert(initialize());
 	
 	// successful initialization
 	isInitialized = true;
@@ -74,6 +75,30 @@ Window::~Window()
 	isInitialized = false;
 }
 
+void setBordered(bool isBordered)
+{
+	if (isBordered)
+		windowStyle |= WS_THICKFRAME;
+	else
+		windowStyle &= ~WS_THICKFRAME;
+}
+
+void setTitlebarAndButtons(bool hasTitlebar, bool isMinimizeable, bool isMaximizeable)
+{
+	if (hasTitlebar)
+		windowStyle |= WS_CAPTION;
+	else
+		windowStyle &= ~WS_CAPTION;
+	if (isMinimizeable)
+		windowStyle |= WS_MINIMIZEBOX;
+	else
+		windowStyle &= ~WS_MINIMIZEBOX;
+	if (isMaximizeable)
+		windowStyle |= WS_MAXIMIZEBOX;
+	else
+		windowStyle &= ~WS_MAXIMIZEBOX;
+}
+
 //Event handler equivalent from JS
 void Window::runMessageLoop() 
 {
@@ -91,6 +116,14 @@ HWND Window::getWindowHandle()
 {
 	// get the window handle for renderer, child windows, etc. 
 	return hWnd;
+}
+
+void setSize(int width, int height)
+{
+	wndWidth = width;
+	wndHeight = height;
+	if (!SetWindowPos(hWnd, HWND_TOP, 0, 0, width, height, SWP_NOZORDER | SWP_NOMOVE | SWP_SHOWWINDOW))
+		AssertWindowsError();
 }
 
 LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)

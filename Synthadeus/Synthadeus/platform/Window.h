@@ -20,13 +20,12 @@ EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 #define HINST_THISCOMPONENT ((HINSTANCE)&__ImageBase)
 #endif
 
-//Arbitrary sizes
-#define WINDOW_DEFAULT_WIDTH 640
-#define WINDOW_DEFAULT_HEIGHT 480
-
 // abstract class to help with making a window
 class Window
 {
+public:
+	enum { WINDOW_DEFAULT_WIDTH = 640, WINDOW_DEFAULT_HEIGHT = 480 };
+
 private:
 	// handles a message, -1 if message not handled
 	virtual inline int handleMessage(UINT msg, WPARAM wParam, LPARAM lParam) = 0;
@@ -43,10 +42,17 @@ private:
 	// window!
 	HWND hWnd;
 	
+	// specific styles
+	void setBordered(bool isBordered);
+	void setTitlebarAndButtons(bool hasTitlebar, bool isMinimizeable, bool isMaximizeable);
+	unsigned long windowStyle;
+
 public:
 
 	Window(int nCmdShow = SW_SHOWNORMAL, int wndWidth = WINDOW_DEFAULT_HEIGHT, int wndHeight = WINDOW_DEFAULT_HEIGHT);
 	~Window();
+
+	void setSize(int width, int height);
 
 	void runMessageLoop(); // returns on application exit
 	
