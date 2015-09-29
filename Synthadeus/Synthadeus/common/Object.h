@@ -23,40 +23,18 @@ class Object
 private:
 	static unsigned short nHeapObjects;
 	static Object* heapObject[USHRT_MAX];
+	static void insertPointer(Object* pointer);
+	static void removePointer(Object* pointer);
 
 public:
-	inline void* operator new(size_t size)
-	{
-		void* ptr = malloc(size);
-		if (!ptr)
-			assert(!"Failed to allocate memory.");
-		nHeapObjects++;
-		return ptr;
-	}
-
-	inline void* operator new[](size_t size)
-	{
-		void* ptr = malloc(size);
-		if (!ptr)
-			assert(!"Failed to allocate memory.");
-		nHeapObjects++;
-		return ptr;
-	}
-
-	void operator delete(void* ptr)
-	{
-		free(ptr);
-		nHeapObjects--;
-	}
-
-	void operator delete[](void* ptr)
-	{
-		free(ptr);
-		nHeapObjects--;
-	}
+	void* operator new(size_t size);
+	void* operator new[](size_t size);
+	void operator delete(void* ptr);
+	void operator delete[](void* ptr);
 
 	inline virtual const char* getClassName() = 0;
 
-	static inline unsigned short heapObjectCount() { return nHeapObjects; }
-	static inline Object** heapObjectList() { return heapObject; }
+	static unsigned short heapObjectCount();
+	static Object** heapObjectList(); 
+	static void AssertNoAbandonObjects();
 };
