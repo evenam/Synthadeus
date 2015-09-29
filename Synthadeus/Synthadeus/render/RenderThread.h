@@ -12,7 +12,7 @@
 
 #include "Thread.h"
 #include "Semaphore.h"
-#include "RenderTree.h"
+//#include "RenderTree.h"
 #include <Windows.h>
 
 #define RENDER_QUEUE_SIZE 4
@@ -20,7 +20,7 @@
 struct RenderThreadShared
 {
 	Semaphore queueSemaphore;
-	RenderTree* treeQueue[RENDER_QUEUE_SIZE];
+	//RenderTree* treeQueue[RENDER_QUEUE_SIZE];
 	int isQueueModified;
 };
 
