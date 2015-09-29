@@ -12,15 +12,17 @@
 const char* Window::wndClassName = "NULL";
 
 //Constructor that creates window!
-Window::Window(int inWidth, int inHeight)
+Window::Window(int nCmdShow, int inWidth, int inHeight) :
+	wndWidth(inWidth),
+	wndHeight(inHeight),
+	isInitialized(false)
 {
-	//close window if already open
-	uninitialize();
-	//Check for full screen eventually
-	//requires compatibility and multiple full screen window checks
-	//Give parameters to the window at creation
-	//is this even c++? 
-	WNDCLASSEX wcex = { sizeof(WNDCLASSEX) };
+	// sanity check
+	assert(!isInitialized);
+
+	// fill out basic window class for generic overlapped windows
+	WNDCLASSEX wcex;
+	wcex.cbSize = sizeof(WNDCLASSEX);
     wcex.style = CS_HREDRAW | CS_VREDRAW;
     wcex.lpfnWndProc = Window::WndProc;
     wcex.cbClsExtra = 0;
@@ -29,44 +31,54 @@ Window::Window(int inWidth, int inHeight)
     wcex.hbrBackground = NULL;
     wcex.lpszMenuName = NULL;
     wcex.lpszClassName = wndClassName;
+	wcex.hIcon = LoadIcon(HINST_THISCOMPONENT, MAKEINTRESOURCE(IDI_ICON1));
+	wcex.hIconSm = LoadIcon(HINST_THISCOMPONENT, MAKEINTRESOURCE(IDI_ICON1));
+	wcex.hCursor = LoadCursor(HINST_THISCOMPONENT, IDC_ARROW);
 
+	// register the class
 	if (!RegisterClassEx(&wcex))
 		AssertWindowsError();
-		
-	this->wndWidth = wndWidth;
-	this->wndHeight = wndHeight;
-	initialize();
+	
+	// create the window
+	hWnd = CreateWindowEx(NULL, wndClassName, "Synthadaeus", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, wndWidth, wndHeight, NULL, NULL, HINST_THISCOMPONENT, this);
+	if (!hWnd)
+		AssertWindowsError();
+
+	// show window
+	ShowWindow(hWnd, nCmdShow); //NEEDS TO NOT BE 0
+
+							   // update the shown window
+	if (!UpdateWindow(hWnd))
+		AssertWindowsError();
+
+	// run initialization code
+	assert(initialize());
+	
+	// successful initialization
+	isInitialized = true;
 }
 
 //Closes window
 Window::~Window()
 {
-	uninitialize();
-}
+	// post the quit message 
+	PostQuitMessage(0);
 
-//create window
-void Window::initialize()
-{
-	hWnd = CreateWindowEx(NULL, wndClassName, "Synthadaeus", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, this->wndWidth, this->wndHeight, NULL, NULL, HINST_THISCOMPONENT, this);
-	if(!hWnd)
-		AssertWindowsError();
-	ShowWindow(hWnd, 0); //NEEDS TO NOT BE 0
-	if (!UpdateWindow(hWnd))
-		AssertWindowsError();
+	// sanity check
+	assert(isInitialized);
 
-	SetWindowLongPtr(hWnd, 0, (LONG_PTR*)this);
-	//we don't have any behaviors right now so what does this even do?
-	
-	//once we have initialize, this resets all behavors/aspects to false/null
-	//closes window, not application
-	//BOOL WINAPI DestroyWindow(
-  	//	_In_ HWND hWnd
-	//);
+	// run uninitialization code
+	assert(uninitialize());
+
+	// successful uninitialization
+	isInitialized = false;
 }
 
 //Event handler equivalent from JS
 void Window::runMessageLoop() 
 {
+	// literally pass everything to the WndProc
+	// TODO: accelerators
 	MSG msg;
     while (GetMessage(&msg, NULL, 0, 0))
     {
@@ -75,46 +87,36 @@ void Window::runMessageLoop()
     }
 }
 
-HWND& Window::getWindowHandle()
+HWND Window::getWindowHandle()
 {
+	// get the window handle for renderer, child windows, etc. 
 	return hWnd;
-}
-
-//either processes messages or sends messages to be processed
-void Window::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
-{
-	return DefWindowProc(hWnd, msg, wParam, lParam);
-	//switch for all msg 
-	//is this where WndProc is? or is it in main? 
-	/* from functionx.com
-	* uints will be from http://ahkscript.org/docs/misc/SendMessageList.htm
-	LRESULT CALLBACK WndProc(HWND hWnd, UINT Msg, WPARAM wParam, LPARAM lParam)
-{
-    switch(Msg)
-    {
-    case WM_CREATE:
-	break;
-    case WM_SHOWWINDOW:
-	break;
-    case WM_ACTIVATE:
-	break;
-    case WM_PAINT:
-	break;
-    case WM_SIZE:
-	break;
-    case WM_DESTROY:
-        PostQuitMessage(WM_QUIT);
-        break;
-    default:
-        return DefWindowProc(hWnd, Msg, wParam, lParam);
-    }
-    return 0;
-}
-	*/
 }
 
 LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	Window* wnd = (Window*)GetWindowLongPtr(hWnd, 0);
-	wnd->handleMessage(msg);
+	Window* wnd = NULL;
+	if (msg == WM_CREATE)
+	{
+		// retrieve window pointer passed in lParam
+		LPCREATESTRUCT pcs = (LPCREATESTRUCT)lParam;
+		wnd = (Window *)pcs->lpCreateParams;
+		if (!SetWindowLongPtr(hWnd, GWLP_USERDATA, PtrToLong(wnd)))
+			AssertWindowsError(); 
+	}
+
+	// grab a previously set window if this isn't create
+	if (!wnd)
+		wnd = reinterpret_cast<Window*>(static_cast<LONG_PTR>(GetWindowLongPtr(hWnd, GWLP_USERDATA)));
+	if (!wnd)
+	{
+		AssertWindowsError(); // this shouldn't fail if create was not called prior to other messages
+		return DefWindowProc(hWnd, msg, wParam, lParam);
+	}
+
+	// handle message
+	int eventCode = wnd->handleMessage(msg, lParam, wParam);
+	if (eventCode == -1)
+		eventCode = DefWindowProc(hWnd, msg, wParam, lParam);
+	return eventCode;
 }
