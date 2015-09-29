@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="app\Synthadeus.cpp" />
     <ClCompile Include="common\CFMaths.cpp" />
     <ClCompile Include="common\Error.cpp" />
     <ClCompile Include="common\Mutex.cpp" />
@@ -140,6 +141,7 @@
     <ClCompile Include="render\RenderThread.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="app\Synthadeus.h" />
     <ClInclude Include="common\CFMaths.h" />
     <ClInclude Include="common\Error.h" />
     <ClInclude Include="common\Mutex.h" />
