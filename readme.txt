@@ -11,11 +11,17 @@ Description of Header Files:
  - Mutex.h: Skeleton for the Mutex object wrapper.
  - Semaphore.h: Skeleton for the Semaphore object wrapper. 
  - Object.h: ARC Object base, RTTI macro, and other useful anti-leak debugging. 
+ - Thread.h: The thread interface to assist with creating threads. 
 * Render
+ - RenderThread.h: The implementation of the Rendering thread
 * App
+ - Synthadeus.h: The main app logic class. 
 * Audio
 * Platform
-- Main.cpp: Just the WinMain definition. 
+ - Window.h: An interface to assist in the creation of windows. 
+ - Resource.h: Defines app information and such.
+ - Resource.rc: The windows resource script. 
+ - Main.cpp: Just the WinMain definition. 
 
 Style:
 * Prefer stack allocation over heap
