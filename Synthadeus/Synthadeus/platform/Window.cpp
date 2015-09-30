@@ -75,7 +75,7 @@ Window::~Window()
 	isInitialized = false;
 }
 
-void setBordered(bool isBordered)
+void Window::setBordered(bool isBordered)
 {
 	if (isBordered)
 		windowStyle |= WS_THICKFRAME;
@@ -83,7 +83,7 @@ void setBordered(bool isBordered)
 		windowStyle &= ~WS_THICKFRAME;
 }
 
-void setTitlebarAndButtons(bool hasTitlebar, bool isMinimizeable, bool isMaximizeable)
+void Window::setTitlebarAndButtons(bool hasTitlebar, bool isMinimizeable, bool isMaximizeable)
 {
 	if (hasTitlebar)
 		windowStyle |= WS_CAPTION;
@@ -118,7 +118,7 @@ HWND Window::getWindowHandle()
 	return hWnd;
 }
 
-void setSize(int width, int height)
+void Window::setSize(int width, int height)
 {
 	wndWidth = width;
 	wndHeight = height;
