@@ -1,14 +1,18 @@
-﻿using System;
+﻿#include "Line.h"
 
-public class Class1
-{
+
 
     //takes input and stores.
-	public Class1(int xStart, int yStart, int xEnd, int yEnd)
+	Line::Line(float xStart, float yStart, float xEnd, float yEnd)
 	{
 		x0 = xStart;
 		y0 = yStart;
 		x1 = xEnd;
 		y1 = yEnd;
 	}
-}
+
+	Line::~Line()
+	{
+		if (!CloseHandle(s))
+			AssertWindowsError();
+	}

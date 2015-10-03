@@ -5,15 +5,16 @@
 
 
 
-class Mutex : public Object
+class Line : public Object
 {
 private:
-	int x0;
-	int y0;
-	int x1;
-	int y1;
+	float x0;
+	float y0;
+	float x1;
+	float y1;
 
 public:
-
+	Line(float, float, float, float);
+	~Line();
 };
 
