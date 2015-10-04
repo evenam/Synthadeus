@@ -13,6 +13,4 @@
 
 	Line::~Line()
 	{
-		if (!CloseHandle(s))
-			AssertWindowsError();
 	}
