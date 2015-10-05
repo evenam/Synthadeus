@@ -139,10 +139,10 @@
     <ClCompile Include="platform\Main.cpp" />
     <ClCompile Include="platform\Window.cpp" />
     <ClCompile Include="render\RenderThread.cpp" />
+    <ClCompile Include="render\Line.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\Synthadeus.h" />
-    <ClInclude Include="common\BezierCurve.h" />
     <ClInclude Include="common\CFMaths.h" />
     <ClInclude Include="common\Error.h" />
     <ClInclude Include="common\Mutex.h" />
@@ -152,6 +152,8 @@
     <ClInclude Include="platform\resource.h" />
     <ClInclude Include="platform\Window.h" />
     <ClInclude Include="render\RenderThread.h" />
+    <ClInclude Include="render\BezierCurve.h" />
+    <ClInclude Include="render\Line.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="SynthadeusIcon.ico" />
