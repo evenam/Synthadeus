@@ -106,6 +106,9 @@
     <ClInclude Include="app\Synthadeus.h">
       <Filter>Header Files\app</Filter>
     </ClInclude>
+    <ClInclude Include="common\BezierCurve.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="SynthadeusIcon.ico">

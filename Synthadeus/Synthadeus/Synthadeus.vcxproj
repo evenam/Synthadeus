@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\Synthadeus.h" />
+    <ClInclude Include="common\BezierCurve.h" />
     <ClInclude Include="common\CFMaths.h" />
     <ClInclude Include="common\Error.h" />
     <ClInclude Include="common\Mutex.h" />
