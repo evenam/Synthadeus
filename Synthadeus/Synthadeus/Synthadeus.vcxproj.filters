@@ -77,6 +77,9 @@
     <ClCompile Include="render\Line.cpp">
       <Filter>Source Files\render</Filter>
     </ClCompile>
+    <ClCompile Include="common\Vector2D.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CFMaths.h">
@@ -113,6 +116,12 @@
       <Filter>Header Files\render</Filter>
     </ClInclude>
     <ClInclude Include="render\Line.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\Renderable.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="common\Vector2D.h">
       <Filter>Header Files\render</Filter>
     </ClInclude>
   </ItemGroup>
