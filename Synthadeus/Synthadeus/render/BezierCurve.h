@@ -15,12 +15,14 @@
 #include "Vector2D.h"
 #include <stdarg.h>
 #include "Object.h"
+#include "Renderable.h"
 
-template <int N> class BezierCurve : public Object
+template <int N> class BezierCurve : public Object, public Renderable
 {
 private:
 	Point pointList[N];
 	float coefList[N];
+	float minX, minY, maxX, maxY;
 
 	inline void initializeDefault()
 	{
@@ -75,9 +77,17 @@ public:
 		va_list vl;
 		int num = N;
 		pointList[0] = first;
+		maxX = minX = first.x;
+		maxY = minY = first.x;
 		va_start(vl, first);
 		for (int i = 1; i < N; i++)
+		{
 			pointList[i] = *(Point*)&va_arg(vl, Vector2D);
+			if (pointList[i].x < minX) minX = pointList[i].x;
+			if (pointList[i].x < minY) minX = pointList[i].y;
+			if (pointList[i].x > maxX) minX = pointList[i].x;
+			if (pointList[i].x > maxY) minX = pointList[i].y;
+		}
 		va_end(vl);
 	}
 
@@ -90,4 +100,11 @@ public:
 	// datapoint manipulation
 	inline void setPoint(int point, Point p) { assert(point >= 0); assert(point < N); pointList[point] = p; }
 	inline Point& getPoint(int point) { assert(point >= 0); assert(point < N); return pointList[point]; }
+
+	// Renderable Inherited Methods
+	inline virtual void render() {} // TODO: fill this out
+	inline virtual bool inView(float viewLeft, float viewTop, float viewRight, float viewBottom) 
+	{ 
+		return collisionCheckBoundingBox(minX, minY, maxX, maxY, viewLeft, viewTop, viewRight, viewBottom);
+	}
 };
