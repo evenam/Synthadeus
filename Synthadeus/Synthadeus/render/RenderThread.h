@@ -14,28 +14,57 @@
 #include "Semaphore.h"
 //#include "RenderTree.h"
 #include <Windows.h>
+#include <d2d1.h>
+#include <d2d1helper.h>
+
+#pragma comment(lib, "d2d1.lib")
 
 #define RENDER_QUEUE_SIZE 4
 
+template<class Interface>
+inline void SafeRelease(
+	Interface **ppInterfaceToRelease
+	)
+{
+	if (*ppInterfaceToRelease != NULL)
+	{
+		(*ppInterfaceToRelease)->Release();
+
+		(*ppInterfaceToRelease) = NULL;
+	}
+}
+
 struct RenderThreadShared
 {
-	Semaphore queueSemaphore;
+	//Semaphore queueSemaphore;
 	//RenderTree* treeQueue[RENDER_QUEUE_SIZE];
-	int isQueueModified;
+	//int isQueueModified;
+	int x = 0;
 };
 
 class RenderThread : public Thread
 {
+private:
+	ID2D1Factory* d2dFactory;
+	//ID2D1Brush* brushes[10];
+	ID2D1HwndRenderTarget* renderTarget;
+	ID2D1SolidColorBrush* sampleBrush1;
+	//ID2D1SolidColorBrush* sampleBrush2;
+	HWND hWnd;
+
+	void createDeviceDependentResources();
+	void removeDeviceDependentResources();
+
+	void render();
 
 public:
 	RTTI_MACRO(RenderThread);
 
-	//RenderThread(/*HWND hWnd*/);
-	//~RenderThread();
-	inline RenderThread() : Thread(sizeof(RenderThreadShared)) {}
+	RenderThread(ID2D1Factory* factory, HWND hWnd);
+	~RenderThread();
 
 	virtual void run();
 
-	enum { QueueModified = 1, QueueNotModified = 2 };
+	//enum { QueueModified = 1, QueueNotModified = 2 };
 };
 

@@ -80,6 +80,15 @@
     <ClCompile Include="common\Vector2D.cpp">
       <Filter>Source Files\render</Filter>
     </ClCompile>
+    <ClCompile Include="app\MainWindow.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\InputDeviceState.cpp">
+      <Filter>Source Files\platform</Filter>
+    </ClCompile>
+    <ClCompile Include="render\Render2D.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CFMaths.h">
@@ -122,6 +131,15 @@
       <Filter>Header Files\render</Filter>
     </ClInclude>
     <ClInclude Include="common\Vector2D.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="app\MainWindow.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\InputDeviceState.h">
+      <Filter>Header Files\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="render\Render2D.h">
       <Filter>Header Files\render</Filter>
     </ClInclude>
   </ItemGroup>

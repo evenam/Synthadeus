@@ -16,7 +16,8 @@ Window::Window(int nCmdShow, int inWidth, int inHeight) :
 	wndWidth(inWidth),
 	wndHeight(inHeight),
 	isInitialized(false),
-	windowStyle(WS_OVERLAPPEDWINDOW)
+	windowStyle(WS_OVERLAPPEDWINDOW),
+	hWnd(NULL)
 {
 	// sanity check
 	assert(!isInitialized);
@@ -29,7 +30,7 @@ Window::Window(int nCmdShow, int inWidth, int inHeight) :
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = sizeof(LONG_PTR);
     wcex.hInstance = HINST_THISCOMPONENT;
-    wcex.hbrBackground = NULL;
+    wcex.hbrBackground = CreateSolidBrush(RGB(255, 255, 255));
     wcex.lpszMenuName = NULL;
     wcex.lpszClassName = wndClassName;
 	wcex.hIcon = LoadIcon(HINST_THISCOMPONENT, MAKEINTRESOURCE(IDI_ICON1));
@@ -134,14 +135,14 @@ LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPar
 		// retrieve window pointer passed in lParam
 		LPCREATESTRUCT pcs = (LPCREATESTRUCT)lParam;
 		wnd = (Window *)pcs->lpCreateParams;
-		if (!SetWindowLongPtr(hWnd, GWLP_USERDATA, PtrToLong(wnd)))
+		if (!SetWindowLongPtrW(hWnd, GWLP_USERDATA, PtrToLong(wnd)))
 			AssertWindowsError(); 
 	}
 
 	// grab a previously set window if this isn't create
 	if (!wnd)
-		wnd = reinterpret_cast<Window*>(static_cast<LONG_PTR>(GetWindowLongPtr(hWnd, GWLP_USERDATA)));
-	if (!wnd)
+		wnd = reinterpret_cast<Window*>(static_cast<LONG_PTR>(GetWindowLongPtrW(hWnd, GWLP_USERDATA)));
+	if (!wnd || !wnd->isInitialized)
 	{
 		AssertWindowsError(); // this shouldn't fail if create was not called prior to other messages
 		return DefWindowProc(hWnd, msg, wParam, lParam);
