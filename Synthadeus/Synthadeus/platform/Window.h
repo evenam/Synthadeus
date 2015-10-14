@@ -27,29 +27,31 @@ public:
 	enum { WINDOW_DEFAULT_WIDTH = 640, WINDOW_DEFAULT_HEIGHT = 480 };
 
 private:
-	// handles a message, -1 if message not handled
-	virtual inline int handleMessage(UINT msg, WPARAM wParam, LPARAM lParam) = 0;
 	int wndHeight, wndWidth;
 	bool isInitialized;
-
-	virtual inline bool initialize() { return true;  } // set up the window, present it
-	virtual inline bool uninitialize() { return true; } // safely free all of the resources
 
 	// windows specific statics
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	static const char* wndClassName;
 
 	// window!
-	HWND hWnd;
+	HWND hWnd;	
+	unsigned long windowStyle;
 	
+protected:
 	// specific styles
 	void setBordered(bool isBordered);
 	void setTitlebarAndButtons(bool hasTitlebar, bool isMinimizeable, bool isMaximizeable);
-	unsigned long windowStyle;
+
+	virtual bool initialize() { return true; } // set up the window, present it
+	virtual bool uninitialize() { return true; } // safely free all of the resources
+	
+	// handles a message, -1 if message not handled
+	virtual int handleMessage(UINT msg, WPARAM wParam, LPARAM lParam) = 0;
 
 public:
 
-	Window(int nCmdShow = SW_SHOWNORMAL, int wndWidth = WINDOW_DEFAULT_HEIGHT, int wndHeight = WINDOW_DEFAULT_HEIGHT);
+	Window(int nCmdShow = SW_SHOWNORMAL, int wndWidth = WINDOW_DEFAULT_WIDTH, int wndHeight = WINDOW_DEFAULT_HEIGHT);
 	~Window();
 
 	void setSize(int width, int height);

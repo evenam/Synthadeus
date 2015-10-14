@@ -11,6 +11,7 @@
 #pragma once
 
 #include <Windows.h>
+#include <atomic>
 #include "Mutex.h"
 #include "Error.h"
 #include "Object.h"
@@ -39,7 +40,7 @@ private:
 	static Thread* threads[MAX_RUNNING_THREADS]; // sick threads dude! (all running threads)
 
 protected:
-	bool stopFlag;
+	std::atomic<bool> stopFlag;
 	virtual void run() = 0;
 
 public:

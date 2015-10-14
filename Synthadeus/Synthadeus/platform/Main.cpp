@@ -1,7 +1,5 @@
-#include <Windows.h>
 #include "Error.h"
-#include "Window.h"
-#include "RenderThread.h"
+#include "Synthadeus.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpwCmdLine, int nCmdShow)
 {
@@ -11,12 +9,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpwCmdLin
 	HeapSetInformation(NULL, HeapEnableTerminationOnCorruption, NULL, 0);
 	if (SUCCEEDED(CoInitialize(NULL)))
 	{
+		Synthadeus synthesizer;
 		CoUninitialize();
 	}
 
 	// uninitialize subcomponents and 
 	DebugLogging::finishDebugLogger();
-	Thread::assertAllThreadsHaveTerminated();
-	Object::AssertNoAbandonObjects();
+	//Thread::assertAllThreadsHaveTerminated();
+	//Object::AssertNoAbandonObjects();
 	return 0;
 }

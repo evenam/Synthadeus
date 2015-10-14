@@ -68,15 +68,15 @@ void Thread::wait(Thread* thread)
 {
 	DebugPrintf("Waiting for thread to stop: %s\n", thread->getClassName());
 	assert(thread != NULL);
-	thread->stopFlag = true;
 	DWORD code = 0;
+	thread->stopFlag = true;
 	// wait for shared memory to free
-	thread->sharedMemoryLock.lock();
+	//thread->sharedMemoryLock.lock();
 	code = WaitForSingleObject(thread->threadHandle, INFINITE);
-	assert(code != WAIT_ABANDONED && "A thread has been abandoned! ");
-	if (code == WAIT_FAILED)
-		AssertWindowsError();
-	thread->sharedMemoryLock.unlock();
+	//assert(code != WAIT_ABANDONED && "A thread has been abandoned! ");
+	//if (code == WAIT_FAILED)
+	//	AssertWindowsError();
+	//thread->sharedMemoryLock.unlock();
 	thread->threadState = IDLE;
 	numThreads--;
 	DebugPrintf("Thread has stopped normally: %s\n", thread->getClassName());
@@ -86,13 +86,10 @@ void Thread::stop(Thread* thread)
 {
 	DebugPrintf("Terminating thread: %s\n", thread->getClassName());
 	assert(thread != NULL);
-	thread->stopFlag = true;
 	DWORD code = 0;
 	// wait for shared memory to free
-	thread->sharedMemoryLock.lock();
 	if (!TerminateThread(thread->threadHandle, code))
 		AssertWindowsError();
-	thread->sharedMemoryLock.unlock();
 	thread->threadState = IDLE;
 	numThreads--;
 	DebugPrintf("Thread terminated: %s\n", thread->getClassName());
