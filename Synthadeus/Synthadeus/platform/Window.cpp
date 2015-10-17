@@ -17,7 +17,8 @@ Window::Window(int nCmdShow, int inWidth, int inHeight) :
 	wndHeight(inHeight),
 	isInitialized(false),
 	windowStyle(WS_OVERLAPPEDWINDOW),
-	hWnd(NULL)
+	hWnd(NULL),
+	cmdShow(nCmdShow)
 {
 	// sanity check
 	assert(!isInitialized);
@@ -40,24 +41,8 @@ Window::Window(int nCmdShow, int inWidth, int inHeight) :
 	// register the class
 	if (!RegisterClassEx(&wcex))
 		AssertWindowsError();
-	
-	// run initialization code
-	assert(initialize());
 
-	// create the window
-	hWnd = CreateWindowEx(NULL, wndClassName, "Synthadaeus", windowStyle, CW_USEDEFAULT, CW_USEDEFAULT, wndWidth, wndHeight, NULL, NULL, HINST_THISCOMPONENT, this);
-	if (!hWnd)
-		AssertWindowsError();
-
-	// show window
-	ShowWindow(hWnd, nCmdShow); //NEEDS TO NOT BE 0
-
-							   // update the shown window
-	if (!UpdateWindow(hWnd))
-		AssertWindowsError();
-	
-	// successful initialization
-	isInitialized = true;
+	// wait for createWindow
 }
 
 //Closes window
@@ -153,4 +138,31 @@ LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPar
 	if (eventCode == -1)
 		eventCode = DefWindowProc(hWnd, msg, wParam, lParam);
 	return eventCode;
+}
+
+void Window::createWindow()
+{
+	// run initialization code
+	assert(initialize());
+
+	// create the window
+	hWnd = CreateWindowEx(NULL, wndClassName, "Synthadaeus", windowStyle, CW_USEDEFAULT, CW_USEDEFAULT, wndWidth, wndHeight, NULL, NULL, HINST_THISCOMPONENT, this);
+	if (!hWnd)
+		AssertWindowsError();
+
+	// show window
+	ShowWindow(hWnd, cmdShow); //NEEDS TO NOT BE 0
+
+								// update the shown window
+	if (!UpdateWindow(hWnd))
+		AssertWindowsError();
+
+	// successful initialization
+	isInitialized = true;
+}
+
+void Window::destroyWindow()
+{
+	assert(uninitialize());
+	isInitialized = false;
 }

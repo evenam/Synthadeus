@@ -16,6 +16,7 @@
 #include <Windows.h>
 #include <d2d1.h>
 #include <d2d1helper.h>
+#include <atomic>
 
 #pragma comment(lib, "d2d1.lib")
 
@@ -51,11 +52,10 @@ private:
 	ID2D1SolidColorBrush* sampleBrush1;
 	//ID2D1SolidColorBrush* sampleBrush2;
 	HWND hWnd;
+	std::atomic<bool> rendering;
 
 	void createDeviceDependentResources();
 	void removeDeviceDependentResources();
-
-	void render();
 
 public:
 	RTTI_MACRO(RenderThread);
@@ -64,6 +64,9 @@ public:
 	~RenderThread();
 
 	virtual void run();
+
+	void render();
+	void blockForRender();
 
 	//enum { QueueModified = 1, QueueNotModified = 2 };
 };

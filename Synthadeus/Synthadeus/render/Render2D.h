@@ -31,6 +31,7 @@ public:
 
 	void beginRenderThread();
 	void endRenderThread();
+	inline void forceRender() { renderThread->blockForRender();  renderThread->render(); };
 
 	inline void addToRenderTree(/*Renderable* geometry*/) {};
 	inline void removeFromRenderTree(/*Renderable* geometry*/) {};
