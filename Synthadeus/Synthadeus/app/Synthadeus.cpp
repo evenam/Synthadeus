@@ -6,10 +6,11 @@
 Synthadeus::Synthadeus()
 {
 	MainWindow wnd(SW_SHOWNORMAL);
-	Render2D renderer(wnd.getWindowHandle());
-	renderer.beginRenderThread();
+	wnd.createWindow();
+	wnd.startRenderer();
 	wnd.runMessageLoop();
-	renderer.endRenderThread();
+	wnd.endRenderer();
+	wnd.destroyWindow();
 }
 
 Synthadeus::~Synthadeus()

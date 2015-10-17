@@ -16,11 +16,17 @@
 class MainWindow : public Window
 {
 protected:
+	Render2D* renderer;
+
 	virtual int handleMessage(UINT msg, WPARAM wParam, LPARAM lParam);
 
 	virtual bool initialize();
 	virtual bool uninitialize();
 
 	using Window::Window;
+
+public:
+	void startRenderer();
+	void endRenderer();
 };
 

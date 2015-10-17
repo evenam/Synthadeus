@@ -37,6 +37,7 @@ private:
 	// window!
 	HWND hWnd;	
 	unsigned long windowStyle;
+	int cmdShow;
 	
 protected:
 	// specific styles
@@ -59,5 +60,8 @@ public:
 	void runMessageLoop(); // returns on application exit
 	
 	HWND getWindowHandle(); //window handler
+
+	void createWindow();
+	void destroyWindow();
 };
 
