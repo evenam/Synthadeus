@@ -9,18 +9,14 @@ int MainWindow::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		PostQuitMessage(0);
 		return 0;
 		break;
-	case WM_PAINT:
-	case WM_SIZE:
-		renderer->forceRender();
-		return 1;
 	}
 	return -1;
 }
 
 bool MainWindow::initialize()
 {
-	//setBordered(false);
-	//setTitlebarAndButtons(true, true, false);
+	setBordered(false);
+	setTitlebarAndButtons(false, false, false);
 	return true;
 }
 
