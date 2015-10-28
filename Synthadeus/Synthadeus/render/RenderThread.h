@@ -10,8 +10,8 @@
 
 #pragma once
 
-#include "Thread.h"
-#include "Semaphore.h"
+#include "../common/Thread.h"
+#include "../common/Semaphore.h"
 //#include "RenderTree.h"
 #include <Windows.h>
 #include <d2d1.h>
