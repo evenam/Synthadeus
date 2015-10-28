@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "Object.h"
+#include "../common/Object.h"
 
 class Renderable : public Object
 {

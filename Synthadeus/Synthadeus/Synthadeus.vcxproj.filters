@@ -89,6 +89,9 @@
     <ClCompile Include="render\Render2D.cpp">
       <Filter>Source Files\render</Filter>
     </ClCompile>
+    <ClCompile Include="render\Rectangle.cpp">
+      <Filter>Header Files\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CFMaths.h">
@@ -141,6 +144,9 @@
     </ClInclude>
     <ClInclude Include="render\Render2D.h">
       <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\Rectangle.h">
+      <Filter>Header Files\common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
