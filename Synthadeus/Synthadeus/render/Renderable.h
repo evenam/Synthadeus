@@ -11,13 +11,38 @@
 #pragma once
 
 #include "Object.h"
+#include <d2d1.h>
+#include <d2d1helper.h>
+
+#pragma comment(lib, "d2d1.lib")
+
+#define COLOR_CODE_WHITE 0xFFFFFF
+#define COLOR_CODE_BLACK 0x000000
+#define COLOR_CODE_RED	 0xFF0000
+#define COLOR_CODE_BLUE	 0x0000FF
+
+#define COLOR_WHITE 0
+#define COLOR_BLACK 1
+#define COLOR_RED	2
+#define COLOR_BLUE	3
 
 class Renderable : public Object
 {
 public:
 	RTTI_MACRO(Renderable);
+	inline ~Renderable()
+	{
+		if (child) delete child;
+		if (next) delete next;
+	}
 
-	virtual void render() = 0; // issue D2D commands
+	inline void renderList(ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette)
+	{
+		render(renderTarget, colorPalette);
+		if (child) child->render(renderTarget, colorPalette);
+		if (next) next->render(renderTarget, colorPalette);
+	}
+	virtual void render(ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette) = 0; // issue D2D commands
 	virtual bool inView(float viewLeft, float viewTop, float viewRight, float viewBottom) = 0; // are we inside rectangle?
 	
 	// collision check against two axis aligned rectangles
@@ -30,4 +55,6 @@ public:
 		if (top2 > bottom1) return false;
 		return false;
 	}
+
+	Renderable *next = NULL, *child = NULL;
 };

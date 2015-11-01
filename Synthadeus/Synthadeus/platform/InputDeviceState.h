@@ -15,32 +15,33 @@
 #include "Vector2D.h"
 #include "Mutex.h"
 
+class Button
+{
+public:
+	inline bool check() { return isHeld && !isDebounced; };
+	inline bool checkPressed() { return isPressed && !isDebounced; };
+	inline bool checkReleased() { return isReleased && !isDebounced; };
+	void update(bool isCurrentlyPressed);
+
+	inline void debounce() { isDebounced = true; };
+	Button();
+
+private:
+	bool isPressed, isHeld, isReleased, isDebounced;
+};
+
+
 class InputDeviceState : public Object
 {
 protected:
-	// classception
-	class Button
-	{
-	public:
-		enum ButtonState { Released, Pressed };
-		Button(ButtonState state = Released) {};
-		
-		bool check() { return true; };
-		bool checkPressed() { return true; };
-		bool checkReleased() { return true; };
-		void update(ButtonState status) {};
+	Button leftMouse, rightMouse;
 
-		void debounce();
-		void setState(bool pressed, bool released, bool current);
-
-	private:
-		ButtonState state;
-	} buttons[256];
 	Point mousePosition;
 
 	Mutex lock;
 
 public:
-	InputDeviceState() {};
+	InputDeviceState();
+	void update();
 };
 

@@ -21,3 +21,14 @@ void Render2D::endRenderThread()
 {
 	Thread::wait(renderThread);
 }
+
+void Render2D::sendRenderList(Renderable* item)
+{
+	while (!renderThread->ready);
+
+	RenderThreadShared* shared = renderThread->getSharedMemory<RenderThreadShared>();
+	if (shared->list)
+		delete (shared->list);
+	shared->list = item;
+	renderThread->releaseSharedMemory();
+}
