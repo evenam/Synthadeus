@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+//   Semaphore															      //
+//   James Bellard                                                            //
+//   9-27-15                                                                  //
+//                                                                            //
+//   Locks and unlocks the semaphore and thus manages its resources.		  //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
 #pragma once
 
 #include <Windows.h>
