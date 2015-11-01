@@ -10,11 +10,11 @@
 
 #pragma once
 
-#include "Error.h"
-#include "CFMaths.h"
-#include "Vector2D.h"
+#include "../common/Error.h"
+#include "../common/CFMaths.h"
+#include "../common/Vector2D.h"
 #include <stdarg.h>
-#include "Object.h"
+#include "../common/Object.h"
 #include "Renderable.h"
 
 template <int N> class BezierCurve : public Object, public Renderable

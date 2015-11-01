@@ -141,6 +141,7 @@
     <ClCompile Include="platform\InputDeviceState.cpp" />
     <ClCompile Include="platform\Main.cpp" />
     <ClCompile Include="platform\Window.cpp" />
+    <ClCompile Include="render\Rectangle.cpp" />
     <ClCompile Include="render\Render2D.cpp" />
     <ClCompile Include="render\RenderThread.cpp" />
     <ClCompile Include="render\Line.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="platform\InputDeviceState.h" />
     <ClInclude Include="platform\resource.h" />
     <ClInclude Include="platform\Window.h" />
+    <ClInclude Include="render\Rectangle.h" />
     <ClInclude Include="render\Render2D.h" />
     <ClInclude Include="render\Renderable.h" />
     <ClInclude Include="render\RenderThread.h" />

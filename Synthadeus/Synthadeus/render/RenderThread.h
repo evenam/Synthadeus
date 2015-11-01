@@ -12,6 +12,7 @@
 
 #include "Thread.h"
 #include "Semaphore.h"
+//#include "RenderTree.h"
 #include <Windows.h>
 #include <d2d1.h>
 #include <d2d1helper.h>
