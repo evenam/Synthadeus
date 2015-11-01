@@ -28,7 +28,7 @@ public:
 
 private:
 	Mutex sharedMemoryLock;
-	void* const sharedMemory;
+	void* sharedMemory;
 	const bool memoryOwner;
 	const unsigned int memorySize;
 	static DWORD WINAPI threadFunc(LPVOID lParam);

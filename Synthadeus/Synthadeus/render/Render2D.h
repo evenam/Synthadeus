@@ -29,13 +29,11 @@ public:
 	Render2D(HWND hWnd);
 	~Render2D();
 
+	// start and end the render thread
 	void beginRenderThread();
 	void endRenderThread();
 
-	inline void addToRenderTree(/*Renderable* geometry*/) {};
-	inline void removeFromRenderTree(/*Renderable* geometry*/) {};
-
-	//void setMaxFPS();
-	//float getFPS();
+	// once you use this, DO NOT touch the memory again
+	void sendRenderList(Renderable* item);
 };
 

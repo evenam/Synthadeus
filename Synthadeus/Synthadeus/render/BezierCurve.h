@@ -102,7 +102,28 @@ public:
 	inline Point& getPoint(int point) { assert(point >= 0); assert(point < N); return pointList[point]; }
 
 	// Renderable Inherited Methods
-	inline virtual void render() {} // TODO: fill this out
+	inline virtual void render(ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette)
+	{
+		const int segments = 20;
+		float t = 0.f, dt = 1.f / segments;
+		for (int i = 0; i < segments; i++)
+		{
+			// set up the points
+			float p1x, p1y, p2x, p2y;
+			p1x = getX(t);
+			p1y = getY(t);
+			t += dt;
+			p2x = getX(t);
+			p2y = getY(t);
+
+			// render a segment
+			renderTarget->DrawLine(D2D1::Point2F(p1x, p1y),
+				D2D1::Point2F(p2x, p2y),
+				colorPalette[COLOR_RED],
+				4.f);
+		}
+	}
+
 	inline virtual bool inView(float viewLeft, float viewTop, float viewRight, float viewBottom) 
 	{ 
 		return collisionCheckBoundingBox(minX, minY, maxX, maxY, viewLeft, viewTop, viewRight, viewBottom);

@@ -19,6 +19,7 @@ Thread::Thread(unsigned int sharedMemorySize) :
 	stopFlag(false),
 	threadState(IDLE)
 {
+	ZeroMemory(sharedMemory, sharedMemorySize);
 }
 
 Thread::Thread(unsigned int sharedMemorySize, void * const previouslyAllocatedSharedMemory) :

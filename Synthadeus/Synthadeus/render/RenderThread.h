@@ -12,16 +12,18 @@
 
 #include "Thread.h"
 #include "Semaphore.h"
-//#include "RenderTree.h"
 #include <Windows.h>
 #include <d2d1.h>
 #include <d2d1helper.h>
 #include <atomic>
 
+#include "BezierCurve.h"
+
 #pragma comment(lib, "d2d1.lib")
 
-#define RENDER_QUEUE_SIZE 4
+#define RENDER_COLOR_PALETTE_SIZE 4
 
+// safe release is handy for removing unwanted resources
 template<class Interface>
 inline void SafeRelease(
 	Interface **ppInterfaceToRelease
@@ -35,22 +37,19 @@ inline void SafeRelease(
 	}
 }
 
+// structure to pass renderable list to the thread
 struct RenderThreadShared
 {
-	//Semaphore queueSemaphore;
-	//RenderTree* treeQueue[RENDER_QUEUE_SIZE];
-	//int isQueueModified;
-	int x = 0;
+	Renderable* list;
 };
 
+// render thread with direct2d specific stuff
 class RenderThread : public Thread
 {
 private:
 	ID2D1Factory* d2dFactory;
-	//ID2D1Brush* brushes[10];
 	ID2D1HwndRenderTarget* renderTarget;
-	ID2D1SolidColorBrush* sampleBrush1;
-	//ID2D1SolidColorBrush* sampleBrush2;
+	ID2D1SolidColorBrush* colorPalette[RENDER_COLOR_PALETTE_SIZE];
 	HWND hWnd;
 	std::atomic<bool> rendering;
 
@@ -68,6 +67,6 @@ public:
 	void render();
 	void blockForRender();
 
-	//enum { QueueModified = 1, QueueNotModified = 2 };
+	std::atomic<bool> ready;
 };
 
