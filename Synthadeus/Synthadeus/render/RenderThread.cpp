@@ -20,22 +20,22 @@ void RenderThread::createDeviceDependentResources()
 		// create brushes, definitions in Renderable
 		if (SUCCEEDED(hr))
 		{
-			hr = renderTarget->CreateSolidColorBrush(D2D1::ColorF(0xFFFFFF), &colorPalette[0]);
+			hr = renderTarget->CreateSolidColorBrush(D2D1::ColorF(0xFFFFFF, 1.0f), &colorPalette[0]);
 		}
 
 		if (SUCCEEDED(hr))
 		{
-			hr = renderTarget->CreateSolidColorBrush(D2D1::ColorF(0x000000), &colorPalette[1]);
+			hr = renderTarget->CreateSolidColorBrush(D2D1::ColorF(0x000000, 1.0f), &colorPalette[1]);
 		}
 
 		if (SUCCEEDED(hr))
 		{
-			hr = renderTarget->CreateSolidColorBrush(D2D1::ColorF(0xFF0000), &colorPalette[2]);
+			hr = renderTarget->CreateSolidColorBrush(D2D1::ColorF(0xFF0000, 1.0f), &colorPalette[2]);
 		}
 
 		if (SUCCEEDED(hr))
 		{
-			hr = renderTarget->CreateSolidColorBrush(D2D1::ColorF(0x0000FF), &colorPalette[3]);
+			hr = renderTarget->CreateSolidColorBrush(D2D1::ColorF(0x0000FF, 1.0f), &colorPalette[3]);
 		}
 
 		if (FAILED(hr))

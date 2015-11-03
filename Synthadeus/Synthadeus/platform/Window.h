@@ -27,7 +27,6 @@ public:
 	enum { WINDOW_DEFAULT_WIDTH = 640, WINDOW_DEFAULT_HEIGHT = 480 };
 
 private:
-	int wndHeight, wndWidth;
 	bool isInitialized;
 
 	// windows specific statics
@@ -40,6 +39,8 @@ private:
 	int cmdShow;
 	
 protected:
+	int wndHeight, wndWidth;
+
 	// specific styles
 	void setBordered(bool isBordered);
 	void setTitlebarAndButtons(bool hasTitlebar, bool isMinimizeable, bool isMaximizeable);
