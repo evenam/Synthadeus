@@ -35,5 +35,7 @@ public:
 
 	// once you use this, DO NOT touch the memory again
 	void sendRenderList(Renderable* item);
+
+	inline void forceReRender() { renderThread->blockForRender(); }
 };
 

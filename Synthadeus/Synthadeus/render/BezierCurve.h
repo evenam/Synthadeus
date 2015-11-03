@@ -116,6 +116,8 @@ public:
 			p2x = getX(t);
 			p2y = getY(t);
 
+			renderTarget->FillRectangle(D2D1::RectF(0.f, 0.f, 1280.f, 720.f), colorPalette[COLOR_BLUE]);
+
 			// render a segment
 			renderTarget->DrawLine(D2D1::Point2F(p1x, p1y),
 				D2D1::Point2F(p2x, p2y),
