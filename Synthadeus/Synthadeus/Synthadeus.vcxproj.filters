@@ -92,6 +92,12 @@
     <ClCompile Include="render\BackgroundGrid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="RoundedRectangle.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CFMaths.h">
@@ -147,6 +153,12 @@
     </ClInclude>
     <ClInclude Include="render\BackgroundGrid.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="RoundedRectangle.h">
+      <Filter>Header Files\render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
