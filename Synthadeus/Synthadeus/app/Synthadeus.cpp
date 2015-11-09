@@ -5,7 +5,7 @@
 
 Synthadeus::Synthadeus()
 {
-	MainWindow wnd(SW_SHOWNORMAL, 1280, 720);
+	MainWindow wnd(SW_SHOWNORMAL, 1200, 800);
 	wnd.createWindow();
 	wnd.startRenderer();
 	wnd.runMessageLoop();

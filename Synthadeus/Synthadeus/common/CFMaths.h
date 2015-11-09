@@ -54,3 +54,8 @@ namespace CFMathsHelpers
 #define swapf(x, y) (CFMathsHelpers::__inplace_swap(x, y))
 #define factf(x) (CFMathsHelpers::__regular_factorial(x))
 #define CONST_FACTORIAL(a) CFMathsHelpers::__factorial_templ<(a)>::val();
+
+#define sinl(x) (CFMathsHelpers::__lookup_sin(x))
+#define cosl(x) (CFMathsHelpers::__lookup_sin(x))
+#define asinl(x) (CFMathsHelpers::__lookup_sin(x))
+#define acosl(x) (CFMathsHelpers::__lookup_sin(x))

@@ -17,7 +17,7 @@
 #include "../common/Object.h"
 #include "Renderable.h"
 
-template <int N> class BezierCurve : public Object, public Renderable
+template <int N> class BezierCurve : public Renderable
 {
 private:
 	Point pointList[N];
@@ -102,10 +102,11 @@ public:
 	inline Point& getPoint(int point) { assert(point >= 0); assert(point < N); return pointList[point]; }
 
 	// Renderable Inherited Methods
-	inline virtual void render(ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette)
+	inline virtual void render(ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette)
 	{
 		const int segments = 20;
 		float t = 0.f, dt = 1.f / segments;
+
 		for (int i = 0; i < segments; i++)
 		{
 			// set up the points
@@ -116,18 +117,11 @@ public:
 			p2x = getX(t);
 			p2y = getY(t);
 
-			renderTarget->FillRectangle(D2D1::RectF(0.f, 0.f, 1280.f, 720.f), colorPalette[COLOR_BLUE]);
-
 			// render a segment
 			renderTarget->DrawLine(D2D1::Point2F(p1x, p1y),
 				D2D1::Point2F(p2x, p2y),
 				colorPalette[COLOR_RED],
 				4.f);
 		}
-	}
-
-	inline virtual bool inView(float viewLeft, float viewTop, float viewRight, float viewBottom) 
-	{ 
-		return collisionCheckBoundingBox(minX, minY, maxX, maxY, viewLeft, viewTop, viewRight, viewBottom);
 	}
 };

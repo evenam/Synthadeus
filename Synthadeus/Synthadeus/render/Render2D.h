@@ -13,29 +13,48 @@
 #include <Windows.h>
 #include <d2d1.h>
 #include <d2d1helper.h>
+#include <dwrite.h>
 
 #pragma comment(lib, "d2d1.lib")
+#pragma comment(lib, "dwrite.lib")
 
-#include "RenderThread.h"
+#include "Renderable.h"
+
+// safe release is handy for removing unwanted resources
+template<class Interface>
+inline void SafeRelease(
+	Interface **ppInterfaceToRelease
+	)
+{
+	if (*ppInterfaceToRelease != NULL)
+	{
+		(*ppInterfaceToRelease)->Release();
+
+		(*ppInterfaceToRelease) = NULL;
+	}
+}
 
 class Render2D
 {
 private:
-	//float maxFPS;
-	RenderThread* renderThread;
 	ID2D1Factory* factory;
+	ID2D1HwndRenderTarget* renderTarget;
+	ID2D1SolidColorBrush* colorPalette[RENDER_COLOR_PALETTE_SIZE];
+	HWND hWnd;
+
+	IDWriteFactory* dwFactory;
+	IDWriteTextFormat* fontPalette[RENDER_FONT_PALETTE_SIZE];
+
+	void createDeviceDependentResources();
+	void createDeviceFontResources();
+	void removeDeviceDependentResources();
+	Renderable* renderList;
 
 public:
 	Render2D(HWND hWnd);
 	~Render2D();
-
-	// start and end the render thread
-	void beginRenderThread();
-	void endRenderThread();
-
-	// once you use this, DO NOT touch the memory again
-	void sendRenderList(Renderable* item);
-
-	inline void forceReRender() { renderThread->blockForRender(); }
+	void render();
+	void addToRenderList(Renderable* item);
+	void clearList();
 };
 
