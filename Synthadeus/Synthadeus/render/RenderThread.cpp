@@ -55,15 +55,15 @@ void RenderThread::render()
 	rendering = true;
 
 	// update to window size;
-	RECT clientSize;
-	GetClientRect(hWnd, &clientSize);
-	D2D1_SIZE_F renderSize = renderTarget->GetSize();
-	D2D1_SIZE_F size = D2D1::SizeF(clientSize.right - clientSize.left, clientSize.bottom - clientSize.top);
-	if (renderSize.height != size.height && renderSize.width != size.width)
-	{
-		renderTarget->Resize(D2D1::SizeU(clientSize.right - clientSize.left, clientSize.bottom - clientSize.top));
-	}
-	ValidateRect(hWnd, &clientSize);
+	//RECT clientSize;
+	//GetClientRect(hWnd, &clientSize);
+	//D2D1_SIZE_F renderSize = renderTarget->GetSize();
+	//D2D1_SIZE_F size = D2D1::SizeF(clientSize.right - clientSize.left, clientSize.bottom - clientSize.top);
+	//if (renderSize.height != size.height && renderSize.width != size.width)
+	//{
+	//	renderTarget->Resize(D2D1::SizeU(clientSize.right - clientSize.left, clientSize.bottom - clientSize.top));
+	//}
+	//ValidateRect(hWnd, &clientSize);
 
 	renderTarget->BeginDraw();
 

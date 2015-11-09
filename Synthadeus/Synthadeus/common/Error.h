@@ -20,7 +20,7 @@
 #endif
 
 #define AssertWindowsError() DebugLogging::dbgAssertWindowsError(__func__)
-#define AssertWindowsHRESULT(hresult) DebugLogging::dbgAsserWindowsHRESULT(__func__, hresult)
+#define AssertWindowsHRESULT(hresult) DebugLogging::dbgAssertWindowsHRESULT(__func__, hresult)
 
 
 /////////////////////

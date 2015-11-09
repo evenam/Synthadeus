@@ -16,6 +16,8 @@
 
 #pragma comment(lib, "d2d1.lib")
 
+#define RENDER_COLOR_PALETTE_SIZE 4
+
 #define COLOR_CODE_WHITE 0xFFFFFF
 #define COLOR_CODE_BLACK 0x000000
 #define COLOR_CODE_RED	 0xFF0000
@@ -26,35 +28,34 @@
 #define COLOR_RED	2
 #define COLOR_BLUE	3
 
+#define RENDER_FONT_PALETTE_SIZE 1
+
+#define FONT_ARIAL20 0
+
 class Renderable : public Object
 {
 public:
 	RTTI_MACRO(Renderable);
+	inline Renderable()
+	{
+		next = NULL;
+		child = NULL;
+	}
+
 	inline ~Renderable()
 	{
 		if (child) delete child;
 		if (next) delete next;
 	}
 
-	inline void renderList(ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette)
+	inline void renderList(ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette)
 	{
-		render(renderTarget, colorPalette);
-		if (child) child->render(renderTarget, colorPalette);
-		if (next) next->render(renderTarget, colorPalette);
+		render(renderTarget, colorPalette, fontPalette);
+		if (child) child->renderList(renderTarget, colorPalette, fontPalette);
+		if (next) next->renderList(renderTarget, colorPalette, fontPalette);
 	}
-	virtual void render(ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette) = 0; // issue D2D commands
-	virtual bool inView(float viewLeft, float viewTop, float viewRight, float viewBottom) = 0; // are we inside rectangle?
-	
-	// collision check against two axis aligned rectangles
-	static inline bool collisionCheckBoundingBox(float left1, float top1, float right1, float bottom1, 
-												 float left2, float top2, float right2, float bottom2)
-	{
-		if (left1 > right2) return false;
-		if (left2 > right1) return false;
-		if (top1 < bottom2) return false;
-		if (top2 > bottom1) return false;
-		return false;
-	}
+	virtual void render(ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette) = 0; // issue D2D commands
 
+	// hooray C++11
 	Renderable *next = NULL, *child = NULL;
 };

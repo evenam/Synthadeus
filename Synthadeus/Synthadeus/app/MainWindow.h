@@ -25,8 +25,12 @@ protected:
 
 	using Window::Window;
 
+	Renderable* generateDrawArea();
+	bool shouldDrawRect;
+
 public:
 	void startRenderer();
 	void endRenderer();
+	void forceRender();
 };
 

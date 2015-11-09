@@ -50,15 +50,6 @@ Window::~Window()
 {
 	// post the quit message 
 	PostQuitMessage(0);
-
-	// sanity check
-	assert(isInitialized);
-
-	// run uninitialization code
-	assert(uninitialize());
-
-	// successful uninitialization
-	isInitialized = false;
 }
 
 void Window::setBordered(bool isBordered)
@@ -146,14 +137,15 @@ void Window::createWindow()
 	assert(initialize());
 
 	// create the window
-	hWnd = CreateWindowEx(NULL, wndClassName, "Synthadaeus", windowStyle, CW_USEDEFAULT, CW_USEDEFAULT, wndWidth, wndHeight, NULL, NULL, HINST_THISCOMPONENT, this);
+	hWnd = CreateWindowEx(NULL, wndClassName, "Synthadaeus", windowStyle, CW_USEDEFAULT, CW_USEDEFAULT, wndWidth + 16, wndHeight + 39, NULL, NULL, HINST_THISCOMPONENT, this);
 	if (!hWnd)
 		AssertWindowsError();
 
 	// show window
-	ShowWindow(hWnd, cmdShow); //NEEDS TO NOT BE 0
+	if (!ShowWindow(hWnd, cmdShow)) //NEEDS TO NOT BE 0
+		AssertWindowsError();
 
-								// update the shown window
+	// update the shown window
 	if (!UpdateWindow(hWnd))
 		AssertWindowsError();
 

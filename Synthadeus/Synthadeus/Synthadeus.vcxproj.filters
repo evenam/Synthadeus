@@ -44,13 +44,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="common\Semaphore.cpp">
-      <Filter>Source Files\common</Filter>
-    </ClCompile>
     <ClCompile Include="common\Object.cpp">
-      <Filter>Source Files\common</Filter>
-    </ClCompile>
-    <ClCompile Include="common\Mutex.cpp">
       <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="common\Error.cpp">
@@ -61,12 +55,6 @@
     </ClCompile>
     <ClCompile Include="platform\Window.cpp">
       <Filter>Source Files\platform</Filter>
-    </ClCompile>
-    <ClCompile Include="common\Thread.cpp">
-      <Filter>Source Files\common</Filter>
-    </ClCompile>
-    <ClCompile Include="render\RenderThread.cpp">
-      <Filter>Source Files\render</Filter>
     </ClCompile>
     <ClCompile Include="platform\Main.cpp">
       <Filter>Source Files\platform</Filter>
@@ -90,7 +78,10 @@
       <Filter>Source Files\render</Filter>
     </ClCompile>
     <ClCompile Include="render\BackgroundGrid.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="render\Text.cpp">
+      <Filter>Source Files\render</Filter>
     </ClCompile>
     <ClCompile Include="Rectangle.cpp">
       <Filter>Source Files\render</Filter>
@@ -106,23 +97,11 @@
     <ClInclude Include="common\Error.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
-    <ClInclude Include="common\Mutex.h">
-      <Filter>Header Files\common</Filter>
-    </ClInclude>
     <ClInclude Include="common\Object.h">
-      <Filter>Header Files\common</Filter>
-    </ClInclude>
-    <ClInclude Include="common\Semaphore.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
     <ClInclude Include="platform\Window.h">
       <Filter>Header Files\platform</Filter>
-    </ClInclude>
-    <ClInclude Include="common\Thread.h">
-      <Filter>Header Files\common</Filter>
-    </ClInclude>
-    <ClInclude Include="render\RenderThread.h">
-      <Filter>Header Files\render</Filter>
     </ClInclude>
     <ClInclude Include="platform\resource.h">
       <Filter>Header Files\platform</Filter>
@@ -152,7 +131,10 @@
       <Filter>Header Files\render</Filter>
     </ClInclude>
     <ClInclude Include="render\BackgroundGrid.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\Text.h">
+      <Filter>Header Files\render</Filter>
     </ClInclude>
     <ClInclude Include="Rectangle.h">
       <Filter>Header Files\render</Filter>

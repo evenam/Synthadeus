@@ -38,8 +38,6 @@ protected:
 
 	Point mousePosition;
 
-	Mutex lock;
-
 public:
 	InputDeviceState();
 	void update();
