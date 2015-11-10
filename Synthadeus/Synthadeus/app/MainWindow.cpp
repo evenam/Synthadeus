@@ -3,6 +3,8 @@
 #include "BezierCurve.h"
 #include "Line.h"
 #include "Text.h"
+#include "Rectangle2.h"
+#include "RoundedRectangle.h"
 
 int MainWindow::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -24,7 +26,7 @@ int MainWindow::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 bool MainWindow::initialize()
 {
 	this->setBordered(false);
-	this->setTitlebarAndButtons(false, false, false);
+	this->setTitlebarAndButtons(true, true, false);
 	shouldDrawRect = false;
 	return true;
 }
@@ -37,7 +39,12 @@ bool MainWindow::uninitialize()
 Renderable* MainWindow::generateDrawArea()
 {
 	BackgroundGrid* grid = new BackgroundGrid(Point(0.f, 0.f), Point((float)wndWidth, (float)wndHeight), Point(50.f, 50.f), COLOR_WHITE, COLOR_BLACK);
-	grid->child = new Text("Synthadeus v0.1", Point(0.f, 0.f), Point(150.f, 20.f), FONT_ARIAL20, COLOR_WHITE);
+	RoundedRectangle* synthadeusVersionTagBackground = new RoundedRectangle(Point(5.f, 5.f), Point(185.f, 45.f), COLOR_WHITE, COLOR_BLACK, 5.f, 5.f);
+	Text* synthadeusVersionText = new Text("Synthadeus v0.1", Point(10.f, 10.f), Point(170.f, 30.f), FONT_ARIAL20, COLOR_WHITE);
+	
+	synthadeusVersionTagBackground->child = synthadeusVersionText;
+	grid->child = synthadeusVersionTagBackground;
+
 	return grid;
 }
 
@@ -57,8 +64,5 @@ void MainWindow::endRenderer()
 
 void MainWindow::forceRender()
 {
-	Renderable* list = generateDrawArea();
-	renderer->clearList();
-	renderer->addToRenderList(list);
 	renderer->render();
 }

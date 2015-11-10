@@ -27,6 +27,7 @@ public:
 	Point getPoint2();
 	unsigned int getColor();
 	int getWidth();
-	virtual void render(ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette);
+	virtual void render(Render2D* render2d, ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette);
+	virtual Point getOrigin();
 };
 

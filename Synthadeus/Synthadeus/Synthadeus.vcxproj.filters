@@ -42,6 +42,12 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{47abcc75-ae0d-498b-aebc-fb11ee15b3e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\render\geoms">
+      <UniqueIdentifier>{bc546590-1d6c-4014-8a2f-47ad0a3a9f84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\render\geoms">
+      <UniqueIdentifier>{c3bfe80d-5794-41f6-9c74-82b70f36ea08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\Object.cpp">
@@ -62,9 +68,6 @@
     <ClCompile Include="app\Synthadeus.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
-    <ClCompile Include="render\Line.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
     <ClCompile Include="common\Vector2D.cpp">
       <Filter>Source Files\render</Filter>
     </ClCompile>
@@ -78,16 +81,19 @@
       <Filter>Source Files\render</Filter>
     </ClCompile>
     <ClCompile Include="render\BackgroundGrid.cpp">
-      <Filter>Source Files\render</Filter>
+      <Filter>Source Files\render\geoms</Filter>
+    </ClCompile>
+    <ClCompile Include="render\Line.cpp">
+      <Filter>Source Files\render\geoms</Filter>
     </ClCompile>
     <ClCompile Include="render\Text.cpp">
-      <Filter>Source Files\render</Filter>
+      <Filter>Source Files\render\geoms</Filter>
     </ClCompile>
-    <ClCompile Include="Rectangle.cpp">
-      <Filter>Source Files\render</Filter>
+    <ClCompile Include="render\RoundedRectangle.cpp">
+      <Filter>Source Files\render\geoms</Filter>
     </ClCompile>
-    <ClCompile Include="RoundedRectangle.cpp">
-      <Filter>Source Files\render</Filter>
+    <ClCompile Include="render\Rectangle2.cpp">
+      <Filter>Source Files\render\geoms</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -109,12 +115,6 @@
     <ClInclude Include="app\Synthadeus.h">
       <Filter>Header Files\app</Filter>
     </ClInclude>
-    <ClInclude Include="render\BezierCurve.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="render\Line.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
     <ClInclude Include="render\Renderable.h">
       <Filter>Header Files\render</Filter>
     </ClInclude>
@@ -131,16 +131,22 @@
       <Filter>Header Files\render</Filter>
     </ClInclude>
     <ClInclude Include="render\BackgroundGrid.h">
-      <Filter>Header Files\render</Filter>
+      <Filter>Header Files\render\geoms</Filter>
+    </ClInclude>
+    <ClInclude Include="render\BezierCurve.h">
+      <Filter>Header Files\render\geoms</Filter>
+    </ClInclude>
+    <ClInclude Include="render\Line.h">
+      <Filter>Header Files\render\geoms</Filter>
     </ClInclude>
     <ClInclude Include="render\Text.h">
-      <Filter>Header Files\render</Filter>
+      <Filter>Header Files\render\geoms</Filter>
     </ClInclude>
-    <ClInclude Include="Rectangle.h">
-      <Filter>Header Files\render</Filter>
+    <ClInclude Include="render\RoundedRectangle.h">
+      <Filter>Header Files\render\geoms</Filter>
     </ClInclude>
-    <ClInclude Include="RoundedRectangle.h">
-      <Filter>Header Files\render</Filter>
+    <ClInclude Include="render\Rectangle2.h">
+      <Filter>Header Files\render\geoms</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

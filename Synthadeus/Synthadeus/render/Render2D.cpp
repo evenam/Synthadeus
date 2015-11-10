@@ -1,4 +1,5 @@
 #include "Render2D.h"
+#include "Renderable.h"
 
 void Render2D::createDeviceDependentResources()
 {
@@ -72,6 +73,37 @@ void Render2D::removeDeviceDependentResources()
 		SafeRelease(&fontPalette[i]);
 }
 
+Point Render2D::getInstance()
+{
+	// cumulation of relative origins
+	return origin;
+}
+
+void Render2D::instance(Point otherOrigin)
+{
+	// add it to the origin
+	origin[0] += otherOrigin[0];
+	origin[1] += otherOrigin[1];
+	
+	// push it onto the stack
+	instanceStack[instanceStackSize][0] = otherOrigin[0];
+	instanceStack[instanceStackSize][1] = otherOrigin[1];
+	instanceStackSize++;
+}
+
+void Render2D::restore()
+{
+	// pop the origin off the stack
+	instanceStackSize--;
+	Point otherOrigin;
+	otherOrigin[0] = instanceStack[instanceStackSize][0];
+	otherOrigin[1] = instanceStack[instanceStackSize][1];
+
+	// subtract it from the cumulative origin
+	origin[0] -= otherOrigin[0];
+	origin[1] -= otherOrigin[1];
+}
+
 Render2D::Render2D(HWND wnd)
 {
 	hWnd = wnd;
@@ -80,6 +112,10 @@ Render2D::Render2D(HWND wnd)
 	DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&dwFactory));
 	createDeviceDependentResources();
 	createDeviceFontResources();
+
+	instanceStackSize = 0;
+	origin[0] = 0.f;
+	origin[1] = 0.f;
 }
 
 Render2D::~Render2D()
@@ -94,16 +130,23 @@ void Render2D::render()
 	GetClientRect(hWnd, &clientSize);
 	D2D1_SIZE_F renderSize = renderTarget->GetSize();
 	D2D1_SIZE_F size = D2D1::SizeF(clientSize.right - clientSize.left, clientSize.bottom - clientSize.top);
-	if (renderSize.height != size.height && renderSize.width != size.width)
-		renderTarget->Resize(D2D1::SizeU(clientSize.right - clientSize.left, clientSize.bottom - clientSize.top));
-	ValidateRect(hWnd, &clientSize);
+	renderTarget->Resize(D2D1::SizeU(clientSize.right - clientSize.left, clientSize.bottom - clientSize.top));
 
+	assert(instanceStackSize == 0);
 	renderTarget->BeginDraw();
 
 	if (renderList)
-		renderList->renderList(renderTarget, colorPalette, fontPalette);
+		renderList->renderList(this, renderTarget, colorPalette, fontPalette);
 
-	renderTarget->EndDraw();
+	HRESULT result = renderTarget->EndDraw();
+	if (FAILED(result))
+	{
+		removeDeviceDependentResources();
+		createDeviceDependentResources();
+	}
+
+	ValidateRect(hWnd, &clientSize);
+	assert(instanceStackSize == 0);
 }
 
 void Render2D::addToRenderList(Renderable * item)

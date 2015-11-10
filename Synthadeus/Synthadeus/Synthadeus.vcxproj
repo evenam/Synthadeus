@@ -139,12 +139,12 @@
     <ClCompile Include="platform\InputDeviceState.cpp" />
     <ClCompile Include="platform\Main.cpp" />
     <ClCompile Include="platform\Window.cpp" />
-    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="render\Rectangle2.cpp" />
     <ClCompile Include="render\BackgroundGrid.cpp" />
     <ClCompile Include="render\Text.cpp" />
     <ClCompile Include="render\Render2D.cpp" />
     <ClCompile Include="render\Line.cpp" />
-    <ClCompile Include="RoundedRectangle.cpp" />
+    <ClCompile Include="render\RoundedRectangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\MainWindow.h" />
@@ -156,14 +156,14 @@
     <ClInclude Include="platform\InputDeviceState.h" />
     <ClInclude Include="platform\resource.h" />
     <ClInclude Include="platform\Window.h" />
-    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="render\Rectangle2.h" />
     <ClInclude Include="render\BackgroundGrid.h" />
     <ClInclude Include="render\Text.h" />
     <ClInclude Include="render\Render2D.h" />
     <ClInclude Include="render\Renderable.h" />
     <ClInclude Include="render\BezierCurve.h" />
     <ClInclude Include="render\Line.h" />
-    <ClInclude Include="RoundedRectangle.h" />
+    <ClInclude Include="render\RoundedRectangle.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="SynthadeusIcon.ico" />

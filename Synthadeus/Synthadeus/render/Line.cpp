@@ -52,8 +52,15 @@ int Line::getWidth()
 	return width;
 }
 
-void Line::render(ID2D1HwndRenderTarget * renderTarget, ID2D1SolidColorBrush ** colorPalette, IDWriteTextFormat** fontPalette)
+void Line::render(Render2D* render2d, ID2D1HwndRenderTarget * renderTarget, ID2D1SolidColorBrush ** colorPalette, IDWriteTextFormat** fontPalette)
 {
-	renderTarget->DrawLine(D2D1::Point2F(point1[0], point1[1]), D2D1::Point2F(point2[0], point2[1]), colorPalette[color], width);
+	Point origin = render2d->getInstance();
+	renderTarget->DrawLine(D2D1::Point2F(point1[0] + origin[0], point1[1] + origin[1]), 
+						   D2D1::Point2F(point2[0] + origin[0], point2[1] + origin[1]), colorPalette[color], width);
+}
+
+Point Line::getOrigin()
+{
+	return point1;
 }
 	
