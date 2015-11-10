@@ -10,12 +10,14 @@
 
 #pragma once
 
-#include "../common/Error.h"
-#include "../common/CFMaths.h"
-#include "../common/Vector2D.h"
+#include "Error.h"
+#include "CFMaths.h"
+#include "Vector2D.h"
 #include <stdarg.h>
-#include "../common/Object.h"
 #include "Renderable.h"
+
+#define BEZIER_COLOR COLOR_BLUE;
+#define BEZIER_WIDTH 2.5f
 
 template <int N> class BezierCurve : public Renderable
 {
@@ -102,26 +104,32 @@ public:
 	inline Point& getPoint(int point) { assert(point >= 0); assert(point < N); return pointList[point]; }
 
 	// Renderable Inherited Methods
-	inline virtual void render(ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette)
+	inline virtual void render(Render2D* render2d, ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette)
 	{
 		const int segments = 20;
 		float t = 0.f, dt = 1.f / segments;
+		Point origin = render2d->getInstance();
 
 		for (int i = 0; i < segments; i++)
 		{
 			// set up the points
 			float p1x, p1y, p2x, p2y;
-			p1x = getX(t);
-			p1y = getY(t);
+			p1x = getX(t) + oritin[0];
+			p1y = getY(t) + origin[1];
 			t += dt;
-			p2x = getX(t);
-			p2y = getY(t);
+			p2x = getX(t) + origin[0];
+			p2y = getY(t) + origin[1];
 
 			// render a segment
 			renderTarget->DrawLine(D2D1::Point2F(p1x, p1y),
 				D2D1::Point2F(p2x, p2y),
-				colorPalette[COLOR_RED],
-				4.f);
+				colorPalette[COLOR_BEZIER],
+				BEZIER_WIDTH);
 		}
+	}
+
+	inline virtual Point getOrigin()
+	{
+		return Point(minX, minY);
 	}
 };

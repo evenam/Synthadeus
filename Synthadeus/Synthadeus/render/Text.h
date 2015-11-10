@@ -27,6 +27,7 @@ public:
 	Text(char* string, Point p1, Point p2, int fontType, unsigned int fontColor);
 	void setAttributes(char* string, int fontType, unsigned int fontColor);
 	void setArea(Point p1, Point p2);
-	virtual void render(ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette);
+	virtual void render(Render2D* render2d, ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette);
+	virtual Point getOrigin();
 };
 
