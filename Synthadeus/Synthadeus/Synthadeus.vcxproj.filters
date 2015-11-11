@@ -48,6 +48,12 @@
     <Filter Include="Header Files\render\geoms">
       <UniqueIdentifier>{c3bfe80d-5794-41f6-9c74-82b70f36ea08}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ux_comp">
+      <UniqueIdentifier>{616967a3-e5bd-44ba-9872-464cdc2bb391}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ux_comp">
+      <UniqueIdentifier>{9760c66d-2795-4f61-a733-d069dc1f47d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\Object.cpp">
@@ -147,6 +153,9 @@
     </ClInclude>
     <ClInclude Include="render\Rectangle2.h">
       <Filter>Header Files\render\geoms</Filter>
+    </ClInclude>
+    <ClInclude Include="ux_comp\Component.h">
+      <Filter>Header Files\ux_comp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

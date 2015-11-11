@@ -2,26 +2,15 @@ Synthadeus - A Digital Synthesizer in C++
 Class project for CSC4330
 
 Dependencies - Windows, DirectX
- More specifically, this app uses Direct2D, DirectWrite, and the Windows API. Subject to change. 
+ More specifically, this app uses PortAudio, Direct2D, DirectWrite, and the Windows API. Subject to change. 
 
-Description of Header Files:
-* Common
- - CFMaths.h: Low precision, quick floating point math functions. 
- - Error.h: The assert macro and debug logging for offensive programming. 
- - Mutex.h: Skeleton for the Mutex object wrapper.
- - Semaphore.h: Skeleton for the Semaphore object wrapper. 
- - Object.h: ARC Object base, RTTI macro, and other useful anti-leak debugging. 
- - Thread.h: The thread interface to assist with creating threads. 
-* Render
- - RenderThread.h: The implementation of the Rendering thread
-* App
- - Synthadeus.h: The main app logic class. 
-* Audio
-* Platform
- - Window.h: An interface to assist in the creation of windows. 
- - Resource.h: Defines app information and such.
- - Resource.rc: The windows resource script. 
- - Main.cpp: Just the WinMain definition. 
+Description of Project Directories
+* Common: files common to code segments
+* Render: files involved with controlling Direct2D
+* App: files involved with the main application logic
+* Audio: files involved with controlling PortAudio
+* Platform: files involved with handling the ugly Windows API
+* UX_Comp: files related to creating GUI components
 
 Style:
 * Prefer stack allocation over heap
@@ -36,7 +25,9 @@ Style:
 * #pragma once header guard
 * #pragma comment .lib files in as needed
 * Do not alter the project config unless absolutely necessary
-* Overuse asserts, DebugPrintf, RTTI_MACRO, and inheriting from Object
+* Refractor, Refractor, Refractor!
+* Overuse asserts, DebugPrintf, RTTI_MACRO, and inheriting from Object to help with error reporting
 * Make sure to check for Windows error codes from functions that return RESULT
 * Make sure to check for Windows error codes from functions that return NULL
+* Handle as many errors as possible in release build (report the errors too!)
 * Have fun! :D 
