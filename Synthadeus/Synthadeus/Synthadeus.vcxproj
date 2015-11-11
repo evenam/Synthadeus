@@ -69,7 +69,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/common;$(ProjectDir)/app;$(ProjectDir)/render;$(ProjectDir)/audio;$(ProjectDir)/platform</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/common;$(ProjectDir)/app;$(ProjectDir)/render;$(ProjectDir)/audio;$(ProjectDir)/platform;$(ProjectDir)/ux_comp</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/common;$(ProjectDir)/app;$(ProjectDir)/render;$(ProjectDir)/audio;$(ProjectDir)/platform</IncludePath>
@@ -164,6 +164,7 @@
     <ClInclude Include="render\BezierCurve.h" />
     <ClInclude Include="render\Line.h" />
     <ClInclude Include="render\RoundedRectangle.h" />
+    <ClInclude Include="ux_comp\Component.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="SynthadeusIcon.ico" />

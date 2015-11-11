@@ -64,5 +64,8 @@ void MainWindow::endRenderer()
 
 void MainWindow::forceRender()
 {
+	Renderable* list = generateDrawArea();
+	renderer->clearList();
+	renderer->addToRenderList(list);
 	renderer->render();
 }
