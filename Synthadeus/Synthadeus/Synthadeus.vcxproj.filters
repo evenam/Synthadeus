@@ -157,6 +157,9 @@
     <ClInclude Include="ux_comp\Component.h">
       <Filter>Header Files\ux_comp</Filter>
     </ClInclude>
+    <ClInclude Include="render\Palettes.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="SynthadeusIcon.ico">

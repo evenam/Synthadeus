@@ -10,37 +10,30 @@
 
 #pragma once
 
-#define RENDER_INSTANCE_STACK_SIZE 8
+// windows is fat, so we go to the gym before we release it
+#if !defined(DEBUG) && !defined(_DEBUG)
+#define WIN32_LEAN_AND_MEAN
+#endif
 
-#define RENDER_COLOR_PALETTE_SIZE 4
-
-#define COLOR_CODE_WHITE 0xFFFFFF
-#define COLOR_CODE_BLACK 0x000000
-#define COLOR_CODE_RED	 0xFF0000
-#define COLOR_CODE_BLUE	 0x0000FF
-
-#define COLOR_WHITE 0
-#define COLOR_BLACK 1
-#define COLOR_RED	2
-#define COLOR_BLUE	3
-
-#define RENDER_FONT_PALETTE_SIZE 1
-
-#define FONT_ARIAL20 0
-
+// windows/directx specific headers
 #include <Windows.h>
 #include <d2d1.h>
 #include <d2d1helper.h>
 #include <dwrite.h>
 
+// link in the appropriate binaries for the API calls
 #pragma comment(lib, "d2d1.lib")
 #pragma comment(lib, "dwrite.lib")
 
 #include "Vector2D.h"
+#include "Palettes.h"
 
 class Renderable;
 
-// safe release is handy for removing unwanted resources
+// increase as necessary. small value to start with
+#define RENDER_INSTANCE_STACK_SIZE 8
+
+// safe release is handy for removing unwanted resources and nullifying the pointer
 template<class Interface>
 inline void SafeRelease(
 	Interface **ppInterfaceToRelease
@@ -57,30 +50,50 @@ inline void SafeRelease(
 class Render2D
 {
 private:
+	// D2D and Dwrite factory instances for making Directx resources
 	ID2D1Factory* factory;
-	ID2D1HwndRenderTarget* renderTarget;
-	ID2D1SolidColorBrush* colorPalette[RENDER_COLOR_PALETTE_SIZE];
-	HWND hWnd;
-
 	IDWriteFactory* dwFactory;
+
+	// the canvas on which we paint our GUI
+	HWND hWnd;
+	ID2D1HwndRenderTarget* renderTarget;
+
+	// palettes of resources (see Palette.h)
+	ID2D1SolidColorBrush* colorPalette[RENDER_COLOR_PALETTE_SIZE];
 	IDWriteTextFormat* fontPalette[RENDER_FONT_PALETTE_SIZE];
 
+	// handle the dynamic creation of resources as they are created and invalidated
 	void createDeviceDependentResources();
-	void createDeviceFontResources();
 	void removeDeviceDependentResources();
+
+	// routine to simplify resource creation
+	HRESULT createFont(int font, CONST WCHAR* name, float size, DWRITE_FONT_WEIGHT weight, DWRITE_TEXT_ALIGNMENT hAlign, DWRITE_PARAGRAPH_ALIGNMENT vAlign);
+	HRESULT createBrush(int color, unsigned int colorCode, float alpha);
+
+	// list of renderables which need drawing
 	Renderable* renderList;
 
+	// instancing stack for relative drawing positions
 	Vector2D instanceStack[RENDER_INSTANCE_STACK_SIZE];
 	Point origin;
 	int instanceStackSize;
 
+	// TODO: viewport matrix (optional)
+	// Matrix3 viewport;
+
 public:
+	// create and devistate
 	Render2D(HWND hWnd);
 	~Render2D();
+
+	// render the current list
 	void render();
+
+	// set or remove the current render list
 	void addToRenderList(Renderable* item);
 	void clearList();
 
+	// instance and restore relative drawing positions
 	Point getInstance();
 	void instance(Point otherOrigin);
 	void restore();

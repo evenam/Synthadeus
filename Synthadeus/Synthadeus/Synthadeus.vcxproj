@@ -156,6 +156,7 @@
     <ClInclude Include="platform\InputDeviceState.h" />
     <ClInclude Include="platform\resource.h" />
     <ClInclude Include="platform\Window.h" />
+    <ClInclude Include="render\Palettes.h" />
     <ClInclude Include="render\Rectangle2.h" />
     <ClInclude Include="render\BackgroundGrid.h" />
     <ClInclude Include="render\Text.h" />

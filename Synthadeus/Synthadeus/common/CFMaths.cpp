@@ -1,6 +1,6 @@
 #include "CFMaths.h"
 
-float CFMathsHelpers::__radian_bound(float x)
+float CFMaths::__radian_bound(float x)
 {
 	float ret = x;
 	ret /= 2.f * PI;
@@ -14,7 +14,7 @@ float CFMathsHelpers::__radian_bound(float x)
 }
 
 // X macro'd taylor series, attempted 6 digit accuracy
-float CFMathsHelpers::__fast_sin(float t)
+float CFMaths::__fast_sin(float t)
 {
 	// accuracy reduced to 4 digits if radians are out of bounds
 	if ((float)((int)t & 0x7FFFFFF) > PI) t = __radian_bound(t);
@@ -27,7 +27,7 @@ float CFMathsHelpers::__fast_sin(float t)
 }
 
 // X macro'd taylor series, attempted 6 digit accuracy
-float CFMathsHelpers::__fast_cos(float t)
+float CFMaths::__fast_cos(float t)
 {
 	// accuracy reduced to 4 digits if radians are out of bounds
 	if ((float)((int)t & 0x7FFFFFF) > PI) t = __radian_bound(t);
@@ -39,7 +39,7 @@ float CFMathsHelpers::__fast_cos(float t)
 	return total;
 }
 
-float CFMathsHelpers::__fast_abs(float t)
+float CFMaths::__fast_abs(float t)
 {
 	// just unset the sign bit
 	float ret = 0.f;
@@ -49,7 +49,7 @@ float CFMathsHelpers::__fast_abs(float t)
 	return ret;
 }
 
-void CFMathsHelpers::__inplace_swap(float& f1, float& f2)
+void CFMaths::__inplace_swap(float& f1, float& f2)
 {
 	// xor inplace swap algorithm
 	unsigned int n1 = *(unsigned int*)&f1;
@@ -61,11 +61,26 @@ void CFMathsHelpers::__inplace_swap(float& f1, float& f2)
 	f2 = *(float*)&n2;
 }
 
-float CFMathsHelpers::__regular_factorial(float x)
+float CFMaths::__regular_factorial(float x)
 {
 	// linear-time non-recursive factorial
 	float fact = 1.f;
 	for (float n = x; n > 1.f; n -= 1.f)
 		fact *= n;
 	return fact;
+}
+
+float CFMaths::__lookup_sin(float radians)
+{
+	int index = (int)(__radian_bound(radians) * 1000.f);
+	return __sinTable[index];
+}
+
+void CFMaths::init()
+{
+	for (int i = 0; i < TABLE_SIZE; i++)
+	{
+		float radians = (float)i / 1000.f;
+		__sinTable[i] = fsinf(radians);
+	}
 }

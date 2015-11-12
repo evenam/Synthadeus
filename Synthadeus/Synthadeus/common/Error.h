@@ -11,6 +11,12 @@
 #pragma once
 
 #include <stdio.h>
+
+// windows is fat, so we go to the gym before we release it
+#if !defined(DEBUG) && !defined(_DEBUG)
+#define WIN32_LEAN_AND_MEAN
+#endif
+
 #include <Windows.h>
 
 #ifndef DEBUG_NO_LOG

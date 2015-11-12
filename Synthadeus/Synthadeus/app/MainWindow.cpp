@@ -48,6 +48,10 @@ Renderable* MainWindow::generateDrawArea()
 	return grid;
 }
 
+MainWindow::MainWindow(Synthadeus * application, int nCmdShow, int wndWidth, int wndHeight)
+{
+}
+
 void MainWindow::startRenderer()
 {
 	// make renderer, initial render

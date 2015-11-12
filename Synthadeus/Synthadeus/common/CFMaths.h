@@ -15,7 +15,7 @@
 #define E   2.7182818f
 #define PHI 1.6180340f
 
-namespace CFMathsHelpers
+namespace CFMaths
 {
 	// precision constants for helping compute compounded error. 
 	const static float __cfepsilon = 0.000001f;
@@ -33,7 +33,8 @@ namespace CFMathsHelpers
 		}
 	};
 
-	template<> struct __factorial_templ<1>
+	// base case factorial
+	template<> struct __factorial_templ<0>
 	{
 		static inline float val()
 		{
@@ -41,21 +42,34 @@ namespace CFMathsHelpers
 		}
 	};
 
+	// via taylor series
 	float __fast_sin(float t);
 	float __fast_cos(float t);
+
+	// via bit twiddling
 	float __fast_abs(float t);
 	void __inplace_swap(float& f1, float& f2);
+
+	// via loop :(
 	float __regular_factorial(float x);
+
+	// table size is 4 digit precision radians
+	enum { TABLE_SIZE = (1571 * 4) };
+	extern float __sinTable[TABLE_SIZE];
+
+	// table queries
+	float __lookup_sin(float radians);
+
+	// initialize the lookup tables
+	void init();
 }
 
-#define sinf(x) (CFMathsHelpers::__fast_sin(x))
-#define cosf(x) (CFMathsHelpers::__fast_cos(x))
-#define absf(x) (CFMathsHelpers::__fast_abs(x))
-#define swapf(x, y) (CFMathsHelpers::__inplace_swap(x, y))
-#define factf(x) (CFMathsHelpers::__regular_factorial(x))
-#define CONST_FACTORIAL(a) CFMathsHelpers::__factorial_templ<(a)>::val();
+#define fsinf(x) (CFMaths::__fast_sin(x))
+#define fcosf(x) (CFMaths::__fast_cos(x))
+#define fabsf(x) (CFMaths::__fast_abs(x))
 
-#define sinl(x) (CFMathsHelpers::__lookup_sin(x))
-#define cosl(x) (CFMathsHelpers::__lookup_sin(x))
-#define asinl(x) (CFMathsHelpers::__lookup_sin(x))
-#define acosl(x) (CFMathsHelpers::__lookup_sin(x))
+#define iswapf(x, y) (CFMaths::__inplace_swap(x, y))
+#define rfactf(x) (CFMaths::__regular_factorial(x))
+#define CONST_FACTORIAL(a) CFMaths::__factorial_templ<(a)>::val();
+
+#define lsinf(x) (CFMaths::__lookup_sin(x))
