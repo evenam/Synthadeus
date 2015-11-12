@@ -18,14 +18,14 @@ class Rectangle2 : public Renderable
 {
 protected:
 	// data for the rectangle
-	Point x;
-	Point y;
+	Point origin;
+	Point size;
 	unsigned int lineColor;
 	unsigned int bkgColor;
 
 public:
 	// set up a rectangle
-	Rectangle2(Point X, Point Y, unsigned int lineCol, unsigned int bkgCol);
+	Rectangle2(Point rectOrigin, Point rectSize, unsigned int lineCol, unsigned int bkgCol);
 
 	// overrides from renderable
 	virtual void render(Render2D* render2d, ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette);

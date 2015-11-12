@@ -100,6 +100,16 @@ void Render2D::restore()
 	origin[1] -= otherOrigin[1];
 }
 
+Vector2D Render2D::applyViewportTransform(Vector2D p)
+{
+	return Vector2D();
+}
+
+float Render2D::applyViewportTransform(float f)
+{
+	return 0.0f;
+}
+
 Render2D::Render2D(HWND wnd)
 {
 	// grab the window handle and clear the renderlist
@@ -189,4 +199,9 @@ void Render2D::clearList()
 	// clear out the render list and free memory
 	delete renderList;
 	renderList = NULL;
+}
+
+Renderable * Render2D::getRenderList()
+{
+	return renderList;
 }

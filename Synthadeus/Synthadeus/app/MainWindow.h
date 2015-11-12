@@ -31,13 +31,19 @@ protected:
 	// pointer to application logic object
 	Synthadeus* application;
 
-	// constructor from window to initialize the window and the logic object
-	MainWindow(Synthadeus* application, int nCmdShow = SW_SHOWNORMAL, int wndWidth = WINDOW_DEFAULT_WIDTH, int wndHeight = WINDOW_DEFAULT_HEIGHT);
-
 public:
 	// start, stop and render with the window renderer
 	void render();
 	void startRenderer();
 	void endRenderer();
+
+	// modify render list for window's renderer
+	void addToRenderList(Renderable* list);
+	void clearRenderList();
+	void setRenderList(Renderable* list);
+	Renderable* getRenderList();
+
+	// constructor from window to initialize the window and the logic object
+	MainWindow(Synthadeus* app, int nCmdShow = SW_SHOWNORMAL, int wndWidth = WINDOW_DEFAULT_WIDTH, int wndHeight = WINDOW_DEFAULT_HEIGHT);
 };
 

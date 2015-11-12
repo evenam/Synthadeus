@@ -10,6 +10,9 @@
 
 #pragma once
 
+// these [Error.h/cpp] are by far the most messy files (thanks to CPP commands)
+// probably the worst place to grade for neatness Dr. Nash :(
+
 #include <stdio.h>
 
 // windows is fat, so we go to the gym before we release it
@@ -19,6 +22,7 @@
 
 #include <Windows.h>
 
+// define a switch to enable the log file
 #ifndef DEBUG_NO_LOG
 #define DebugPrintf DebugLogging::dbgPrintf
 #else
@@ -28,11 +32,7 @@
 #define AssertWindowsError() DebugLogging::dbgAssertWindowsError(__func__)
 #define AssertWindowsHRESULT(hresult) DebugLogging::dbgAssertWindowsHRESULT(__func__, hresult)
 
-
-/////////////////////
-// Assert function //
-/////////////////////
-
+// Assert function 
 #if defined(DEBUG) || defined(_DEBUG) // turn on assert breaks
 
 #include <assert.h>
@@ -50,9 +50,7 @@
 
 #endif // Assert functions
 
-///////////////////////////////
-// Debug segmenting function //
-///////////////////////////////
+// Debug segmenting function 
 #if defined(DEBUG) || defined(_DEBUG) // turn on assert breaks
 
 #define DEBUG_ONLY
@@ -63,13 +61,12 @@
 
 #endif // Assert functions
 
-/////////////////////////////
-// Debug logging functions //
-/////////////////////////////
+// Debug logging functions
 #define DEBUG_FNAME_SIZE 32
 
 namespace DebugLogging
 {
+	// log file name, handle, and open status
 	static char debugFileName[DEBUG_FNAME_SIZE] = "\0";
 	static FILE* log = NULL;
 	static bool isInitialized = false;

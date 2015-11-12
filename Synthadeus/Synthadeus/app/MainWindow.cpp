@@ -1,10 +1,4 @@
 #include "MainWindow.h"
-#include "BackgroundGrid.h"
-#include "BezierCurve.h"
-#include "Line.h"
-#include "Text.h"
-#include "Rectangle2.h"
-#include "RoundedRectangle.h"
 
 int MainWindow::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -12,12 +6,14 @@ int MainWindow::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_QUIT:
 	case WM_CLOSE:
+		// handle quit message
 		PostQuitMessage(0);
 		return 0;
 		break;
 	case WM_PAINT:
 	case WM_SIZE:
-		forceRender();
+		// we need to re-render the window contents
+		render();
 	}
 
 	return -1;
@@ -25,51 +21,66 @@ int MainWindow::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 
 bool MainWindow::initialize()
 {
-	this->setBordered(false);
-	this->setTitlebarAndButtons(true, true, false);
-	shouldDrawRect = false;
+	// make the window be non-resizeable and only have a close button
+	setBordered(false);
+	setTitlebarAndButtons(true, true, false);
 	return true;
 }
 
 bool MainWindow::uninitialize()
 {
+	// nothing to uninitialize
 	return true;
 }
 
-Renderable* MainWindow::generateDrawArea()
+MainWindow::MainWindow(Synthadeus* app, int nCmdShow, int wndWidth, int wndHeight)
+	: Window(nCmdShow, wndWidth, wndHeight)
 {
-	BackgroundGrid* grid = new BackgroundGrid(Point(0.f, 0.f), Point((float)wndWidth, (float)wndHeight), Point(50.f, 50.f), COLOR_WHITE, COLOR_BLACK);
-	RoundedRectangle* synthadeusVersionTagBackground = new RoundedRectangle(Point(5.f, 5.f), Point(185.f, 45.f), COLOR_WHITE, COLOR_BLACK, 5.f, 5.f);
-	Text* synthadeusVersionText = new Text("Synthadeus v0.1", Point(10.f, 10.f), Point(170.f, 30.f), FONT_ARIAL20, COLOR_WHITE);
-	
-	synthadeusVersionTagBackground->child = synthadeusVersionText;
-	grid->child = synthadeusVersionTagBackground;
-
-	return grid;
+	// save off application pointer
+	application = app;
 }
 
-MainWindow::MainWindow(Synthadeus * application, int nCmdShow, int wndWidth, int wndHeight)
+void MainWindow::render()
 {
+	// render the window contents
+	renderer->render();
 }
 
 void MainWindow::startRenderer()
 {
-	// make renderer, initial render
+	// make renderer
 	renderer = new Render2D(getWindowHandle());
-	Renderable* list = generateDrawArea();
-	renderer->addToRenderList(list);
-	renderer->render();
 }
 
 void MainWindow::endRenderer()
 {
+	// remove the renderer
 	delete renderer;
 }
 
-void MainWindow::forceRender()
+void MainWindow::addToRenderList(Renderable * list)
 {
-	Renderable* list = generateDrawArea();
-	renderer->clearList();
+	// add the item to the renderer's list
 	renderer->addToRenderList(list);
-	renderer->render();
+}
+
+void MainWindow::clearRenderList()
+{
+	// clear the renderer's list
+	renderer->clearList();
+}
+
+void MainWindow::setRenderList(Renderable * list)
+{
+	// clear the render list
+	renderer->clearList();
+
+	// update the list to the new list
+	renderer->addToRenderList(list);
+}
+
+Renderable * MainWindow::getRenderList()
+{
+	// get the render list from the renderer
+	return renderer->getRenderList();
 }

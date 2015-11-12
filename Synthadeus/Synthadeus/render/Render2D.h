@@ -34,15 +34,13 @@ class Renderable;
 #define RENDER_INSTANCE_STACK_SIZE 8
 
 // safe release is handy for removing unwanted resources and nullifying the pointer
-template<class Interface>
-inline void SafeRelease(
-	Interface **ppInterfaceToRelease
-	)
+template <class Interface> inline void SafeRelease(Interface **ppInterfaceToRelease)
 {
+	// release if and only if not invalid
 	if (*ppInterfaceToRelease != NULL)
 	{
+		// release and nulify
 		(*ppInterfaceToRelease)->Release();
-
 		(*ppInterfaceToRelease) = NULL;
 	}
 }
@@ -78,8 +76,9 @@ private:
 	Point origin;
 	int instanceStackSize;
 
-	// TODO: viewport matrix (optional)
-	// Matrix3 viewport;
+	// viewport data
+	Vector2D viewportOrigin;
+	float viewportZoom;
 
 public:
 	// create and devistate
@@ -92,10 +91,19 @@ public:
 	// set or remove the current render list
 	void addToRenderList(Renderable* item);
 	void clearList();
+	Renderable* getRenderList();
 
 	// instance and restore relative drawing positions
 	Point getInstance();
 	void instance(Point otherOrigin);
 	void restore();
+
+	// apply viewport transform to 1D and 2D vectors
+	Vector2D applyViewportTransform(Vector2D p);
+	float applyViewportTransform(float f);
+
+	// modify the viewport
+	//void viewportApplyZoom(float relativeZoom);
+	//void viewportApplyScale(float relativeScale);
 };
 
