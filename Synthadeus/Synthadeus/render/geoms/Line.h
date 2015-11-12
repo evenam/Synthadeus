@@ -1,28 +1,29 @@
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
-//   Rounded Rectangle renderable object									  //
-//   Justin Ross                                                              //
-//   11-4-15                                                                  //
+//   Line																      //
+//   James Bellard                                                            //
+//   9-27-15                                                                  //
 //                                                                            //
-//   A rectangle with x and y radius to round the corners                  	  //
+//   Stores the 2 points of a line data and draws the line on the screen.	  //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 
 #pragma once
 
 #include "Renderable.h"
-#include "Rectangle2.h"
+#include "Vector2D.h"
 
-class RoundedRectangle : public Rectangle2
+class Line : public Renderable
 {
 private:
-	// radiuses for rounding the rectangle
-	float xRadius;
-	float yRadius;
+	// line data
+	Point point1, point2;
+	unsigned int color;
+	int width;
 
 public:
-	// construct a rounded rectangle
-	RoundedRectangle(Point X, Point Y, unsigned int lineColor, unsigned int bkgColor, float XRadius, float YRadius);
+	// set up the line
+	Line(Point startPoint, Point endPoint, unsigned int lineColor, int lineWidth);
 
 	// overrides from renderable
 	virtual void render(Render2D* render2d, ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette);

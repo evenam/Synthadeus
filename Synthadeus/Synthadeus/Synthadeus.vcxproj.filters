@@ -86,19 +86,19 @@
     <ClCompile Include="render\Render2D.cpp">
       <Filter>Source Files\render</Filter>
     </ClCompile>
-    <ClCompile Include="render\BackgroundGrid.cpp">
+    <ClCompile Include="render\geoms\BackgroundGrid.cpp">
       <Filter>Source Files\render\geoms</Filter>
     </ClCompile>
-    <ClCompile Include="render\Line.cpp">
+    <ClCompile Include="render\geoms\Line.cpp">
       <Filter>Source Files\render\geoms</Filter>
     </ClCompile>
-    <ClCompile Include="render\Text.cpp">
+    <ClCompile Include="render\geoms\Rectangle2.cpp">
       <Filter>Source Files\render\geoms</Filter>
     </ClCompile>
-    <ClCompile Include="render\RoundedRectangle.cpp">
+    <ClCompile Include="render\geoms\RoundedRectangle.cpp">
       <Filter>Source Files\render\geoms</Filter>
     </ClCompile>
-    <ClCompile Include="render\Rectangle2.cpp">
+    <ClCompile Include="render\geoms\Text.cpp">
       <Filter>Source Files\render\geoms</Filter>
     </ClCompile>
   </ItemGroup>
@@ -136,29 +136,32 @@
     <ClInclude Include="render\Render2D.h">
       <Filter>Header Files\render</Filter>
     </ClInclude>
-    <ClInclude Include="render\BackgroundGrid.h">
-      <Filter>Header Files\render\geoms</Filter>
-    </ClInclude>
-    <ClInclude Include="render\BezierCurve.h">
-      <Filter>Header Files\render\geoms</Filter>
-    </ClInclude>
-    <ClInclude Include="render\Line.h">
-      <Filter>Header Files\render\geoms</Filter>
-    </ClInclude>
-    <ClInclude Include="render\Text.h">
-      <Filter>Header Files\render\geoms</Filter>
-    </ClInclude>
-    <ClInclude Include="render\RoundedRectangle.h">
-      <Filter>Header Files\render\geoms</Filter>
-    </ClInclude>
-    <ClInclude Include="render\Rectangle2.h">
-      <Filter>Header Files\render\geoms</Filter>
-    </ClInclude>
     <ClInclude Include="ux_comp\Component.h">
       <Filter>Header Files\ux_comp</Filter>
     </ClInclude>
     <ClInclude Include="render\Palettes.h">
       <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\Renderables.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\geoms\BackgroundGrid.h">
+      <Filter>Header Files\render\geoms</Filter>
+    </ClInclude>
+    <ClInclude Include="render\geoms\BezierCurve.h">
+      <Filter>Header Files\render\geoms</Filter>
+    </ClInclude>
+    <ClInclude Include="render\geoms\Line.h">
+      <Filter>Header Files\render\geoms</Filter>
+    </ClInclude>
+    <ClInclude Include="render\geoms\Rectangle2.h">
+      <Filter>Header Files\render\geoms</Filter>
+    </ClInclude>
+    <ClInclude Include="render\geoms\RoundedRectangle.h">
+      <Filter>Header Files\render\geoms</Filter>
+    </ClInclude>
+    <ClInclude Include="render\geoms\Text.h">
+      <Filter>Header Files\render\geoms</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

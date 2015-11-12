@@ -53,6 +53,6 @@ void InputDeviceState::update()
 	GetCursorInfo(&cursorInfo);
 	mousePosition.x = cursorInfo.ptScreenPos.x;
 	mousePosition.y = cursorInfo.ptScreenPos.y;
-	leftMouse.update((bool)GetAsyncKeyState(VK_LBUTTON));
-	leftMouse.update((bool)GetAsyncKeyState(VK_RBUTTON));
+	leftMouse.update((GetAsyncKeyState(VK_LBUTTON) ? true : false));
+	leftMouse.update((GetAsyncKeyState(VK_RBUTTON) ? true : false));
 }

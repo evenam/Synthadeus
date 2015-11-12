@@ -23,11 +23,11 @@ private:
 	char buffer[TEXT_MAX_STRING_LENGTH];
 	int font;
 	int color;
-	Point point1, point2;
+	Point origin, size;
 
 public:
 	// set up the text renderable
-	Text(char* string, Point p1, Point p2, int fontType, unsigned int fontColor);
+	Text(char* string, Point textOrigin, Point textSize, int fontType, unsigned int fontColor);
 
 	// overrides from renderable
 	virtual void render(Render2D* render2d, ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette);

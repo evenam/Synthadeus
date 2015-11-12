@@ -13,7 +13,6 @@
 #include "Error.h"
 #include "Object.h"
 #include "Vector2D.h"
-#include "Mutex.h"
 
 class Button
 {

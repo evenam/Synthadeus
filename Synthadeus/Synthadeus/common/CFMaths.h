@@ -53,17 +53,19 @@ namespace CFMaths
 	// via loop :(
 	float __regular_factorial(float x);
 
-	// table size is 4 digit precision radians
-	enum { TABLE_SIZE = (1571 * 4) };
-	extern float __sinTable[TABLE_SIZE];
+	// table size is 4 digit precision radians aka 5 quadrants
+	enum { PI_OVER_2 = 1571, TABLE_SIZE = (1571 * 5) };
+	extern float __lookupTable[TABLE_SIZE];
 
 	// table queries
 	float __lookup_sin(float radians);
+	float __lookup_cos(float radians);
 
 	// initialize the lookup tables
 	void init();
 }
 
+// quick redefines for these functions
 #define fsinf(x) (CFMaths::__fast_sin(x))
 #define fcosf(x) (CFMaths::__fast_cos(x))
 #define fabsf(x) (CFMaths::__fast_abs(x))
