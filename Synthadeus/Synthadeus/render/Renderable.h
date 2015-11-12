@@ -23,25 +23,34 @@ class Renderable : public Object
 {
 public:
 	RTTI_MACRO(Renderable);
+
 	inline Renderable()
 	{
+		// nullify to reduce errors in release builds for uninitialized variables
 		next = NULL;
 		child = NULL;
 	}
 
 	inline ~Renderable()
 	{
+		// delete the whole tree
 		if (child) delete child;
 		if (next) delete next;
 	}
 
 	inline void renderList(Render2D* render2d, ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette)
 	{
+		// render me in the current render setting
 		render(render2d, renderTarget, colorPalette, fontPalette);
+		
+		// instance the rendering and render the child
 		render2d->instance(getOrigin());
-		if (child) child->renderList(render2d, renderTarget, colorPalette, fontPalette);
-		if (next) next->renderList(render2d, renderTarget, colorPalette, fontPalette);
+		if (child) 
+			child->renderList(render2d, renderTarget, colorPalette, fontPalette);
 		render2d->restore();
+
+		// render the next item in the render list after restoring the rendering instance
+		if (next) next->renderList(render2d, renderTarget, colorPalette, fontPalette);
 	}
 	virtual void render(Render2D* render2d, ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette) = 0; // issue D2D commands
 	virtual Point getOrigin() = 0;

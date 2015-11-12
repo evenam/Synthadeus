@@ -87,6 +87,7 @@ public:
 		return true;
 	}
 
+	// get the index-th child
 	inline Component* child(int index)
 	{
 		return children[index];
