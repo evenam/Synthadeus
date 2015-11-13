@@ -146,8 +146,17 @@ void Window::createWindow()
 	// run initialization code
 	assert(initialize());
 
+	// calculate window size from client area
+	RECT windowRect;
+	windowRect.top = 0;
+	windowRect.left = 0;
+	windowRect.bottom = wndHeight;
+	windowRect.right = wndWidth;
+	if (!AdjustWindowRect(&windowRect, windowStyle, false))
+		AssertWindowsError();
+
 	// create the window
-	hWnd = CreateWindowEx(NULL, wndClassName, "Synthadaeus", windowStyle, CW_USEDEFAULT, CW_USEDEFAULT, wndWidth, wndHeight, NULL, NULL, HINST_THISCOMPONENT, this);
+	hWnd = CreateWindowEx(NULL, wndClassName, "Synthadaeus", windowStyle, CW_USEDEFAULT, CW_USEDEFAULT, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top, NULL, NULL, HINST_THISCOMPONENT, this);
 	if (!hWnd)
 		AssertWindowsError();
 

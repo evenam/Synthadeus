@@ -10,8 +10,11 @@ int MainWindow::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		PostQuitMessage(0);
 		return 0;
 		break;
-	case WM_PAINT:
 	case WM_SIZE:
+		// calculate the resized client area
+		updateWindowDimensions();
+
+	case WM_PAINT:
 		// we need to re-render the window contents
 		render();
 	}
@@ -22,8 +25,8 @@ int MainWindow::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 bool MainWindow::initialize()
 {
 	// make the window be non-resizeable and only have a close button
-	setBordered(false);
-	setTitlebarAndButtons(true, true, false);
+	//setBordered(false);
+	//setTitlebarAndButtons(true, true, false);
 	return true;
 }
 
@@ -72,6 +75,14 @@ void MainWindow::update()
 		// render
 		renderer->render();
 	}
+}
+
+void MainWindow::updateWindowDimensions()
+{
+	RECT windowRect;
+	GetClientRect(getWindowHandle(), &windowRect);
+	wndWidth = windowRect.right - windowRect.left;
+	wndHeight = windowRect.bottom - windowRect.top;
 }
 
 void MainWindow::render()
