@@ -14,7 +14,7 @@
 #define DEBUG_BUFFER_SIZE 512
 #define DEBUG_FNAME_SIZE 64
 
-// a special assert to avoid infinite recursion
+// a special assert to avoid infinite recursion (AKA a standard assert)
 #define NO_MSG_assert(expression) (void)(                                                       \
             (!!(expression)) ||                                                              \
             (_wassert(_CRT_WIDE(#expression), _CRT_WIDE(__FILE__), (unsigned)(__LINE__)), 0) \
@@ -57,6 +57,8 @@ void DebugLogging::initDebugLogger()
 	fopen_s(&log, debugFileName, "a");
 #endif
 #endif
+
+	// establish the file is opened and module is initialized
 	isInitialized = true;
 }
 
@@ -96,6 +98,8 @@ void DebugLogging::finishDebugLogger()
 	fclose(log);
 #endif 
 #endif
+
+	// establish the module is uninitialized
 	isInitialized = false;
 }
 

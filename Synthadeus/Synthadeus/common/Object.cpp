@@ -82,7 +82,7 @@ void Object::AssertNoAbandonObjects()
 		DebugPrintf("%s\n", "List of objects not freed:\n------------------------------");
 		for (int i = 0; i < nHeapObjects; i++)
 		{
-			DebugPrintf("\t%s\n", heapObject[i]->getClassName());
+			DebugPrintf(" *\t%s\n", heapObject[i]->getClassName());
 			delete heapObject[i];
 			heapObject[i] = NULL;
 		}

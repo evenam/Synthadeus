@@ -16,8 +16,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpwCmdLin
 	if (SUCCEEDED(CoInitialize(NULL)))
 	{
 		// run the application
-		Synthadeus synthesizer;
-		synthesizer.run();
+		Synthadeus* synthesizer = new Synthadeus();
+		synthesizer->run();
+		delete synthesizer;
 
 		// uninitialize COM
 		CoUninitialize();

@@ -22,6 +22,8 @@ private:
 	int width;
 
 public:
+	RTTI_MACRO(Line);
+
 	// set up the line
 	Line(Point startPoint, Point endPoint, unsigned int lineColor, int lineWidth);
 

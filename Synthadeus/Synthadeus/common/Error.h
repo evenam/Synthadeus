@@ -4,7 +4,7 @@
 //   Everett Moser                                                            //
 //   9-8-15                                                                   //
 //                                                                            //
-//   Definitions for assert, DebugPrintf, and DEBUG_ONLY                      //
+//   Definitions for error reporting and logging functionality                //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 

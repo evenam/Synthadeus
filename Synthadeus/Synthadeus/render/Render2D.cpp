@@ -78,6 +78,8 @@ Point Render2D::getInstance()
 
 void Render2D::instance(Point otherOrigin)
 {
+	assert(instanceStackSize < RENDER_INSTANCE_STACK_SIZE);
+
 	// add it to the origin
 	origin[0] += otherOrigin[0];
 	origin[1] += otherOrigin[1];
@@ -90,6 +92,8 @@ void Render2D::instance(Point otherOrigin)
 
 void Render2D::restore()
 {
+	assert(instanceStackSize > 0);
+
 	// pop the origin off the stack
 	instanceStackSize--;
 	Point otherOrigin;
@@ -127,6 +131,9 @@ Render2D::Render2D(HWND wnd)
 
 Render2D::~Render2D()
 {
+	// make sure the renderlist is free
+	clearList();
+
 	// free all resources and factories
 	removeDeviceDependentResources();
 	SafeRelease(&factory);
@@ -203,9 +210,22 @@ void Render2D::clearList()
 	renderList = NULL;
 }
 
-Renderable * Render2D::getRenderList()
+Renderable* Render2D::getRenderList()
 {
 	return renderList;
+}
+
+Vector2D Render2D::applyViewportTransform(Vector2D p)
+{
+	// scale a translated point relative to the center of the screen
+	// naive first
+	return (viewportZoom * p);
+}
+
+float Render2D::applyViewportTransform(float f)
+{
+	// this is to scale line widths and such
+	return (f * viewportZoom);
 }
 
 void Render2D::viewportApplyZoom(float relativeZoom)

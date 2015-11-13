@@ -24,6 +24,8 @@ protected:
 	unsigned int bkgColor;
 
 public:
+	RTTI_MACRO(Rectangle2);
+
 	// set up a rectangle
 	Rectangle2(Point rectOrigin, Point rectSize, unsigned int lineCol, unsigned int bkgCol);
 

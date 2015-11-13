@@ -26,6 +26,8 @@ private:
 	Point origin, size;
 
 public:
+	RTTI_MACRO(Text);
+
 	// set up the text renderable
 	Text(char* string, Point textOrigin, Point textSize, int fontType, unsigned int fontColor);
 
