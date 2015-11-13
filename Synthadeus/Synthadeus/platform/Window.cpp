@@ -48,8 +48,7 @@ Window::Window(int nCmdShow, int inWidth, int inHeight) :
 //Closes window
 Window::~Window()
 {
-	// post the quit message 
-	PostQuitMessage(0);
+	DestroyWindow(hWnd);
 }
 
 void Window::setBordered(bool isBordered)

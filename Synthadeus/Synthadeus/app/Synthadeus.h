@@ -15,6 +15,7 @@
 
 class Synthadeus : public Application
 {
+private:
 	// pointer to the window
 	MainWindow* appWindow;
 
@@ -27,6 +28,9 @@ class Synthadeus : public Application
 	const float viewportMaxZoomSpeed;
 	Point viewportMoveAmount;
 	float viewportZoomAmount;
+
+	// viewport modification with arrow keys and scroll wheel
+	void updateViewport();
 
 public:
 	// create and destroy the application

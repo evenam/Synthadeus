@@ -10,6 +10,7 @@ private:
 	Point gridOrigin, gridSize, gridCellSize;
 	unsigned int gridColor, gridBackground;
 public:
+	RTTI_MACRO(BackgroundGrid);
 
 	// initialize the grid
 	BackgroundGrid(Point origin, Point size, Point cellSize, unsigned int lineColor, unsigned int bgkColor);

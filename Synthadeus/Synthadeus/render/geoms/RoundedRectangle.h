@@ -21,6 +21,8 @@ private:
 	float yRadius;
 
 public:
+	RTTI_MACRO(RoundedRectangle);
+
 	// construct a rounded rectangle
 	RoundedRectangle(Point rectOrigin, Point rectSize, unsigned int lineColor, unsigned int bkgColor, float XRadius, float YRadius);
 
