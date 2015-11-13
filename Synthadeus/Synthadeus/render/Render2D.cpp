@@ -19,7 +19,8 @@ void Render2D::createDeviceDependentResources()
 		AssertWindowsHRESULT(createBrush(COLOR_WHITE, COLOR_CODE_WHITE, 1.0));
 		AssertWindowsHRESULT(createBrush(COLOR_BLACK, COLOR_CODE_BLACK, 1.0));
 		AssertWindowsHRESULT(createBrush(COLOR_BLUE , COLOR_CODE_BLUE , 1.0));
-		AssertWindowsHRESULT(createBrush(COLOR_RED  , COLOR_CODE_RED  , 1.0));
+		AssertWindowsHRESULT(createBrush(COLOR_RED, COLOR_CODE_RED, 1.0));
+		AssertWindowsHRESULT(createBrush(COLOR_GREY, COLOR_CODE_GREY, 1.0));
 
 		// create fonts, definitions in pallet.h
 		AssertWindowsHRESULT(createFont(FONT_ARIAL20, L"Arial", 20.f, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT_CENTER));
@@ -72,7 +73,7 @@ void Render2D::removeDeviceDependentResources()
 Point Render2D::getInstance()
 {
 	// cumulation of relative origins
-	return origin;
+	return (origin + viewportOrigin);
 }
 
 void Render2D::instance(Point otherOrigin)
@@ -100,16 +101,6 @@ void Render2D::restore()
 	origin[1] -= otherOrigin[1];
 }
 
-Vector2D Render2D::applyViewportTransform(Vector2D p)
-{
-	return Vector2D();
-}
-
-float Render2D::applyViewportTransform(float f)
-{
-	return 0.0f;
-}
-
 Render2D::Render2D(HWND wnd)
 {
 	// grab the window handle and clear the renderlist
@@ -127,11 +118,19 @@ Render2D::Render2D(HWND wnd)
 	instanceStackSize = 0;
 	origin[0] = 0.f;
 	origin[1] = 0.f;
+
+	// initialize the viewport to default (1x zoom and center screen origin)
+	viewportZoom = 1.f;
+	viewportOrigin[0] = 0.f;
+	viewportOrigin[1] = 0.f;
 }
 
 Render2D::~Render2D()
 {
+	// free all resources and factories
+	removeDeviceDependentResources();
 	SafeRelease(&factory);
+	SafeRelease(&dwFactory);
 }
 
 void Render2D::render()
@@ -152,6 +151,9 @@ void Render2D::render()
 
 	// begin the draw phase
 	renderTarget->BeginDraw();
+
+	// clear the area to a grey color
+	renderTarget->Clear(D2D1::ColorF(COLOR_CODE_GREY, 1.f));
 
 	// traverse and render the renderlist
 	if (renderList)
@@ -204,4 +206,25 @@ void Render2D::clearList()
 Renderable * Render2D::getRenderList()
 {
 	return renderList;
+}
+
+void Render2D::viewportApplyZoom(float relativeZoom)
+{
+	// possibly exponential?
+	viewportZoom += relativeZoom;
+}
+
+void Render2D::viewportApplyTranslation(Point relativeTranslation)
+{
+	// shift the viewport
+	viewportOrigin[0] += relativeTranslation[0];
+	viewportOrigin[1] += relativeTranslation[1];
+}
+
+void Render2D::viewportSetDefault()
+{
+	// reset the viewport to default (1x zoom and center screen origin)
+	viewportZoom = 1.f;
+	viewportOrigin[0] = 0.f;
+	viewportOrigin[1] = 0.f;
 }

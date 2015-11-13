@@ -30,7 +30,7 @@
 
 class Renderable;
 
-// increase as necessary. small value to start with
+// increase as necessary. small value to start with. max number of times we can instance rendering
 #define RENDER_INSTANCE_STACK_SIZE 8
 
 // safe release is handy for removing unwanted resources and nullifying the pointer
@@ -103,7 +103,8 @@ public:
 	float applyViewportTransform(float f);
 
 	// modify the viewport
-	//void viewportApplyZoom(float relativeZoom);
-	//void viewportApplyScale(float relativeScale);
+	void viewportApplyZoom(float relativeZoom);
+	void viewportApplyTranslation(Point relativeTranslation);
+	void viewportSetDefault();
 };
 

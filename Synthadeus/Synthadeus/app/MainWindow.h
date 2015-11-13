@@ -58,6 +58,11 @@ public:
 	void setRenderList(Renderable* list);
 	Renderable* getRenderList();
 
+	// modify the renderer viewport
+	void viewportApplyZoom(float factor);
+	void viewportApplyTranslation(Point factor);
+	void viewportSetDefault();
+
 	// constructor from window to initialize the window and the logic object
 	MainWindow(Application* app, int nCmdShow = SW_SHOWNORMAL, int wndWidth = WINDOW_DEFAULT_WIDTH, int wndHeight = WINDOW_DEFAULT_HEIGHT);
 };

@@ -33,6 +33,21 @@ bool MainWindow::uninitialize()
 	return true;
 }
 
+void MainWindow::viewportApplyZoom(float factor)
+{
+	renderer->viewportApplyZoom(factor);
+}
+
+void MainWindow::viewportApplyTranslation(Point factor)
+{
+	renderer->viewportApplyTranslation(factor);
+}
+
+void MainWindow::viewportSetDefault()
+{
+	renderer->viewportSetDefault();
+}
+
 MainWindow::MainWindow(Application* app, int nCmdShow, int wndWidth, int wndHeight)
 	: Window(nCmdShow, wndWidth, wndHeight)
 {

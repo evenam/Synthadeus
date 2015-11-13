@@ -11,19 +11,21 @@
 #pragma once
 
 // number of colors
-#define RENDER_COLOR_PALETTE_SIZE 4
+#define RENDER_COLOR_PALETTE_SIZE 5
 
 // color code values (RGB format, 0-255)
 #define COLOR_CODE_WHITE 0xFFFFFF
 #define COLOR_CODE_BLACK 0x000000
 #define COLOR_CODE_RED	 0xFF0000
 #define COLOR_CODE_BLUE	 0x0000FF
+#define COLOR_CODE_GREY 0x444444
 
 // color indices
 #define COLOR_WHITE 0
 #define COLOR_BLACK 1
 #define COLOR_RED	2
 #define COLOR_BLUE	3
+#define COLOR_GREY  4
 
 // number of fonts
 #define RENDER_FONT_PALETTE_SIZE 3
