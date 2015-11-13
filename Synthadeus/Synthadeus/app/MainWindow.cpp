@@ -33,11 +33,30 @@ bool MainWindow::uninitialize()
 	return true;
 }
 
-MainWindow::MainWindow(Synthadeus* app, int nCmdShow, int wndWidth, int wndHeight)
+MainWindow::MainWindow(Application* app, int nCmdShow, int wndWidth, int wndHeight)
 	: Window(nCmdShow, wndWidth, wndHeight)
 {
 	// save off application pointer
 	application = app;
+}
+
+void MainWindow::update()
+{
+	// update the application
+	application->update();
+
+	// render if necessary
+	if (application->needsRendering())
+	{
+		Renderable* renderList = application->getRenderList();
+
+		// reset the render list
+		renderer->clearList();
+		renderer->addToRenderList(renderList);
+
+		// render
+		renderer->render();
+	}
 }
 
 void MainWindow::render()

@@ -10,6 +10,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpwCmdLin
 	if (SUCCEEDED(CoInitialize(NULL)))
 	{
 		Synthadeus synthesizer;
+		synthesizer.run();
 		CoUninitialize();
 	}
 

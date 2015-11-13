@@ -79,14 +79,25 @@ void Window::setTitlebarAndButtons(bool hasTitlebar, bool isMinimizeable, bool i
 //Event handler equivalent from JS
 void Window::runMessageLoop() 
 {
-	// literally pass everything to the WndProc
-	// TODO: accelerators
+	// Pass events to the windows proceedure and update as fast as we can
 	MSG msg;
-    while (GetMessage(&msg, NULL, 0, 0))
-    {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
-    }
+	bool quitFlag = false;
+	while (!quitFlag)
+	{
+		// update cycle
+		update();
+
+		// handle system messages
+		while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+
+			// once we receive the quit message, end the loop
+			if (msg.message == WM_CLOSE || msg.message == WM_QUIT)
+				quitFlag = true;
+		}
+	}
 }
 
 HWND Window::getWindowHandle()
@@ -157,4 +168,14 @@ void Window::destroyWindow()
 {
 	assert(uninitialize());
 	isInitialized = false;
+}
+
+int Window::getWidth()
+{
+	return wndWidth;
+}
+
+int Window::getHeight()
+{
+	return wndHeight;
 }

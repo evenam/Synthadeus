@@ -59,6 +59,7 @@ protected:
 	
 	// handles a message, -1 if message not handled
 	virtual int handleMessage(UINT msg, WPARAM wParam, LPARAM lParam) = 0;
+	inline virtual void update() {};
 
 public:
 
@@ -66,8 +67,10 @@ public:
 	Window(int nCmdShow = SW_SHOWNORMAL, int wndWidth = WINDOW_DEFAULT_WIDTH, int wndHeight = WINDOW_DEFAULT_HEIGHT);
 	~Window();
 
-	// resize the window
+	// window sizing functions
 	void setSize(int width, int height);
+	int getWidth();
+	int getHeight();
 
 	// run the message loop
 	void runMessageLoop(); 
