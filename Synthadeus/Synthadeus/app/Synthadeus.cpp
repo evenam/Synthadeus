@@ -3,11 +3,11 @@
 
 void Synthadeus::updateViewport()
 {
-	// update viewport movement amount with keyboard state data
-	viewportMoveAmount[0] += (GetAsyncKeyState(VK_LEFT) ? viewportTranslateAcceleration : 0);
-	viewportMoveAmount[0] += (GetAsyncKeyState(VK_RIGHT) ? -viewportTranslateAcceleration : 0);
-	viewportMoveAmount[1] += (GetAsyncKeyState(VK_DOWN) ? -viewportTranslateAcceleration : 0);
-	viewportMoveAmount[1] += (GetAsyncKeyState(VK_UP) ? viewportTranslateAcceleration : 0);
+	// update viewport movement amount with keyboard state data (false = 0 by definition)
+	viewportMoveAmount[0] += inputDevice->arrowLeft.check() * viewportTranslateAcceleration;
+	viewportMoveAmount[0] += inputDevice->arrowRight.check() * -viewportTranslateAcceleration;
+	viewportMoveAmount[1] += inputDevice->arrowDown.check() * -viewportTranslateAcceleration;
+	viewportMoveAmount[1] += inputDevice->arrowUp.check() * viewportTranslateAcceleration;
 
 	// apply friction constant
 	viewportMoveAmount[0] *= viewportFriction;
@@ -33,12 +33,16 @@ void Synthadeus::updateViewport()
 	appWindow->viewportApplyTranslation(viewportMoveAmount);
 
 	// if the user presses enter, reset view
-	if (GetAsyncKeyState(VK_RETURN))
+	if (inputDevice->enterKey.checkPressed())
+	{
 		appWindow->viewportSetDefault();
+		viewportMoveAmount[0] = 0.f;
+		viewportMoveAmount[1] = 0.f;
+	}
 }
 
 Synthadeus::Synthadeus()
-	: viewportFriction(0.5f), viewportEpsilon(0.001), viewportTranslateAcceleration(2.f),
+	: viewportFriction(0.95f), viewportEpsilon(0.001), viewportTranslateAcceleration(2.f),
 	viewportZoomAcceleration(0.1), viewportMaxTranslateSpeed(5.f), viewportMaxZoomSpeed(1.f)
 {
 	DebugPrintf("Starting Synthadeus.\n");
@@ -47,6 +51,9 @@ Synthadeus::Synthadeus()
 	appWindow = new MainWindow(this, SW_SHOWNORMAL, 1200, 800);
 	appWindow->createWindow();
 	appWindow->startRenderer();
+	
+	// create the input device
+	inputDevice = new InputDeviceState();
 }
 
 Synthadeus::~Synthadeus()
@@ -57,6 +64,9 @@ Synthadeus::~Synthadeus()
 	appWindow->endRenderer();
 	appWindow->destroyWindow();
 	delete appWindow;
+
+	// free the input device
+	delete inputDevice;
 }
 
 void Synthadeus::run()
@@ -69,7 +79,10 @@ void Synthadeus::run()
 void Synthadeus::update()
 {
 	// APPLICATION CODE NEEDED!
+	// update the input device
+	inputDevice->update();
 
+	// update the viewport
 	updateViewport();
 }
 
