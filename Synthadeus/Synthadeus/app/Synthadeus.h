@@ -12,12 +12,16 @@
 
 #include "Error.h"
 #include "MainWindow.h"
+#include "InputDeviceState.h"
 
 class Synthadeus : public Application
 {
 private:
 	// pointer to the window
 	MainWindow* appWindow;
+
+	// input device
+	InputDeviceState* inputDevice;
 
 	// viewport momentum and cool stuff
 	const float viewportFriction;
