@@ -48,7 +48,7 @@ Synthadeus::Synthadeus()
 	DebugPrintf("Starting Synthadeus.\n");
 
 	// create the window and start the renderer
-	appWindow = new MainWindow(this, SW_SHOWNORMAL, 1200, 800);
+	appWindow = new MainWindow(this, SW_SHOWNORMAL, 1280, 768);
 	appWindow->createWindow();
 	appWindow->startRenderer();
 	

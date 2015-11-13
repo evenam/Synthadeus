@@ -46,6 +46,9 @@ protected:
 	// the update function override from Window
 	virtual void update();
 
+	// update the window dimensions to the actual ones (like on resize)
+	void updateWindowDimensions();
+
 public:
 	// start, stop and render with the window renderer
 	void render();
