@@ -148,12 +148,12 @@ void Window::createWindow()
 	assert(initialize());
 
 	// create the window
-	hWnd = CreateWindowEx(NULL, wndClassName, "Synthadaeus", windowStyle, CW_USEDEFAULT, CW_USEDEFAULT, wndWidth + 16, wndHeight + 39, NULL, NULL, HINST_THISCOMPONENT, this);
+	hWnd = CreateWindowEx(NULL, wndClassName, "Synthadaeus", windowStyle, CW_USEDEFAULT, CW_USEDEFAULT, wndWidth, wndHeight, NULL, NULL, HINST_THISCOMPONENT, this);
 	if (!hWnd)
 		AssertWindowsError();
 
 	// show window
-	if (!ShowWindow(hWnd, cmdShow)) //NEEDS TO NOT BE 0
+	if (!ShowWindow(hWnd, cmdShow))
 		AssertWindowsError();
 
 	// update the shown window
@@ -166,16 +166,19 @@ void Window::createWindow()
 
 void Window::destroyWindow()
 {
+	// make sure we uninitialize successfully
 	assert(uninitialize());
 	isInitialized = false;
 }
 
 int Window::getWidth()
 {
+	// window width check
 	return wndWidth;
 }
 
 int Window::getHeight()
 {
+	// window height check
 	return wndHeight;
 }

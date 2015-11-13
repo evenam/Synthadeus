@@ -18,6 +18,16 @@ class Synthadeus : public Application
 	// pointer to the window
 	MainWindow* appWindow;
 
+	// viewport momentum and cool stuff
+	const float viewportFriction;
+	const float viewportTranslateAcceleration;
+	const float viewportZoomAcceleration;
+	const float viewportEpsilon;
+	const float viewportMaxTranslateSpeed;
+	const float viewportMaxZoomSpeed;
+	Point viewportMoveAmount;
+	float viewportZoomAmount;
+
 public:
 	// create and destroy the application
 	Synthadeus();
