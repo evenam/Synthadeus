@@ -36,7 +36,7 @@ Window::Window(int nCmdShow, int inWidth, int inHeight) :
     wcex.lpszClassName = wndClassName;
 	wcex.hIcon = LoadIcon(HINST_THISCOMPONENT, MAKEINTRESOURCE(IDI_ICON1));
 	wcex.hIconSm = LoadIcon(HINST_THISCOMPONENT, MAKEINTRESOURCE(IDI_ICON1));
-	wcex.hCursor = LoadCursor(HINST_THISCOMPONENT, IDC_ARROW);
+	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
 
 	// register the class
 	if (!RegisterClassEx(&wcex))
