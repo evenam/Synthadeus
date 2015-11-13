@@ -13,7 +13,19 @@
 #include "Window.h"
 #include "Render2D.h"
 
-class Synthadeus;
+// interface so the window can render and process the application properly
+class Application
+{
+public:
+	// called as much as possible
+	virtual void update() = 0;
+
+	// figure out if we need to render
+	virtual bool needsRendering() = 0;
+
+	// called whenever we need to render
+	virtual Renderable* getRenderList() = 0;
+};
 
 class MainWindow : public Window
 {
@@ -29,7 +41,10 @@ protected:
 	virtual bool uninitialize();
 
 	// pointer to application logic object
-	Synthadeus* application;
+	Application* application;
+
+	// the update function override from Window
+	virtual void update();
 
 public:
 	// start, stop and render with the window renderer
@@ -44,6 +59,6 @@ public:
 	Renderable* getRenderList();
 
 	// constructor from window to initialize the window and the logic object
-	MainWindow(Synthadeus* app, int nCmdShow = SW_SHOWNORMAL, int wndWidth = WINDOW_DEFAULT_WIDTH, int wndHeight = WINDOW_DEFAULT_HEIGHT);
+	MainWindow(Application* app, int nCmdShow = SW_SHOWNORMAL, int wndWidth = WINDOW_DEFAULT_WIDTH, int wndHeight = WINDOW_DEFAULT_HEIGHT);
 };
 
