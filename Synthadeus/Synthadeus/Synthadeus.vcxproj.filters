@@ -205,6 +205,9 @@
     <ClInclude Include="ux_comp\base\SliderBase.h">
       <Filter>Header Files\ux_comp\base</Filter>
     </ClInclude>
+    <ClInclude Include="common\Bezier.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="SynthadeusIcon.ico">

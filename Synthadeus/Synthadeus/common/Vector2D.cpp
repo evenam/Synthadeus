@@ -18,53 +18,53 @@ float& Vector2D::operator[] (int item)
 
 float Vector2D::dot(const Vector2D& v1, const Vector2D& v2) 
 { 
-	return (v1.x * v2.x + v1.y * v2.y); 
+	return (v1[0] * v2[0] + v1[1] * v2[1]); 
 }
 
 float Vector2D::cross(const Vector2D& v1, const Vector2D& v2) 
 { 
-	return (v1.x * v2.y - v2.x * v1.y); 
+	return (v1[0] * v2[1] - v2[0] * v1[1]); 
 }
 
 Vector2D& Vector2D::operator= (const Vector2D& v)  
 { 
-	x = v.x; 
-	y = v.y; 
+	elem[0] = v[0]; 
+	elem[1] = v[1]; 
 	return *this; 
 }
 
 Vector2D& Vector2D::operator*= (const float c)     
 { 
-	x *= c; 
-	y *= c; 
+	elem[0] *= c; 
+	elem[1] *= c; 
 	return *this; 
 }
 
 Vector2D& Vector2D::operator+= (const Vector2D& v) 
 { 
-	x += v.x; 
-	y += v.y;
+	elem[0] += v[0]; 
+	elem[1] += v[1];
 	return *this; 
 }
 
 Vector2D& Vector2D::operator-= (const Vector2D& v) 
 { 
-	x -= v.x; 
-	y -= v.y; 
+	elem[0] -= v[0]; 
+	elem[1] -= v[1]; 
 	return *this; 
 }
 
 Vector2D operator* (const float c, const Vector2D& v)
 {
-	return Vector2D(c * v.x, c * v.y);
+	return Vector2D(c * v[0], c * v[1]);
 }
 
 Vector2D operator+ (const Vector2D& v1, const Vector2D& v2)
 {
-	return Vector2D(v1.x + v2.x, v1.y + v2.y);
+	return Vector2D(v1[0] + v2[0], v1[1] + v2[1]);
 }
 
 Vector2D operator- (const Vector2D& v1, const Vector2D& v2)
 {
-	return Vector2D(v1.x - v2.x, v1.y - v2.y);
+	return Vector2D(v1[0] - v2[0], v1[1] - v2[1]);
 }

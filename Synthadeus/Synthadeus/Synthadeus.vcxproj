@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="app\MainWindow.h" />
     <ClInclude Include="app\Synthadeus.h" />
+    <ClInclude Include="common\Bezier.h" />
     <ClInclude Include="ux_comp\base\SliderBase.h" />
     <ClInclude Include="ux_comp\Button.h" />
     <ClInclude Include="common\CFMaths.h" />
