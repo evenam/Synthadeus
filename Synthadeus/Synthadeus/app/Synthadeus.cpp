@@ -51,9 +51,13 @@ Synthadeus::Synthadeus()
 	appWindow = new MainWindow(this, SW_SHOWNORMAL, 1280, 768);
 	appWindow->createWindow();
 	appWindow->startRenderer();
-	
+
 	// create the input device
 	inputDevice = new InputDeviceState();
+
+	base = new GridBase(Point(-640.f, -640.f), Point(appWindow->getWidth() + 1280.f, appWindow->getHeight() + 1280.f), COLOR_WHITE, COLOR_BLACK);
+	projectPageButton = new Button(Point(660.f, 660.f), Point(200.f, 50.f), COLOR_DKGREY, COLOR_RED, "Synthadeus", FONT_ARIAL20);
+	base->addChild(projectPageButton);
 }
 
 Synthadeus::~Synthadeus()
@@ -67,6 +71,8 @@ Synthadeus::~Synthadeus()
 
 	// free the input device
 	delete inputDevice;
+	delete projectPageButton;
+	delete base;
 }
 
 void Synthadeus::run()
@@ -84,6 +90,10 @@ void Synthadeus::update()
 
 	// update the viewport
 	updateViewport();
+
+	base->updateTree();
+
+	base->handleMouseInput(this, inputDevice->mousePosition - appWindow->getViewportInstance(), inputDevice->leftMouse.check(), inputDevice->leftMouse.checkPressed(), inputDevice->leftMouse.checkReleased());
 }
 
 bool Synthadeus::needsRendering()
@@ -94,6 +104,10 @@ bool Synthadeus::needsRendering()
 
 Renderable* Synthadeus::getRenderList()
 {
-	return new BackgroundGrid(Point(0.f, 0.f), Point((float)appWindow->getWidth(), (float)appWindow->getHeight()),
-		Point(32.f, 32.f), COLOR_WHITE, COLOR_BLACK);
+	return base->getRenderTree();
+}
+
+InputDeviceState * Synthadeus::getInputDevice()
+{
+	return inputDevice;
 }

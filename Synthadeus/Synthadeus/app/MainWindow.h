@@ -14,6 +14,7 @@
 #include "Render2D.h"
 
 // interface so the window can render and process the application properly
+class InputDeviceState;
 class Application
 {
 public:
@@ -25,6 +26,9 @@ public:
 
 	// called whenever we need to render
 	virtual Renderable* getRenderList() = 0;
+
+	// get the virtual input device so we may update it
+	virtual InputDeviceState* getInputDevice() = 0;
 };
 
 class MainWindow : public Window
@@ -65,6 +69,7 @@ public:
 	void viewportApplyZoom(float factor);
 	void viewportApplyTranslation(Point factor);
 	void viewportSetDefault();
+	Point getViewportInstance();
 
 	// constructor from window to initialize the window and the logic object
 	MainWindow(Application* app, int nCmdShow = SW_SHOWNORMAL, int wndWidth = WINDOW_DEFAULT_WIDTH, int wndHeight = WINDOW_DEFAULT_HEIGHT);

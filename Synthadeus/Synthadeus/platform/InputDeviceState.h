@@ -13,32 +13,7 @@
 #include "Error.h"
 #include "Object.h"
 #include "Vector2D.h"
-
-class Button
-{
-	// we cannot directly update buttons, but the InputStateDevice can, so we friend it
-	friend class InputDeviceState;
-
-public:
-	// state checks
-	inline bool check() { return isHeld && !isDebounced; };
-	inline bool checkPressed() { return isPressed && !isDebounced; };
-	inline bool checkReleased() { return isReleased && !isDebounced; };
-
-	// reset the button state, it must be pressed again to trigger bounced state
-	inline void debounce() { isDebounced = true; };
-
-	// construct button in debounced state
-	Button();
-
-private:
-	// state variables
-	bool isPressed, isHeld, isReleased, isDebounced;
-
-	// update the state variables with the pressed status
-	void update(bool isCurrentlyPressed);
-};
-
+#include "ButtonBase.h"
 
 class InputDeviceState : public Object
 {
@@ -46,14 +21,14 @@ public:
 	RTTI_MACRO(InputDeviceState);
 
 	// mouse data members
-	Button leftMouse, rightMouse;
+	ButtonBase leftMouse, rightMouse;
 	Point mousePosition;
 	
 	// arrow keys
-	Button arrowUp, arrowDown, arrowLeft, arrowRight;
+	ButtonBase arrowUp, arrowDown, arrowLeft, arrowRight;
 
 	// enter key
-	Button enterKey;
+	ButtonBase enterKey;
 
 	// set up the initial device
 	InputDeviceState();

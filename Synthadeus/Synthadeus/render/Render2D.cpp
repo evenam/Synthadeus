@@ -16,11 +16,21 @@ void Render2D::createDeviceDependentResources()
 		AssertWindowsHRESULT(factory->CreateHwndRenderTarget(D2D1::RenderTargetProperties(), D2D1::HwndRenderTargetProperties(hWnd, size), &renderTarget));
 
 		// create brushes, definitions in the palette.h
-		AssertWindowsHRESULT(createBrush(COLOR_WHITE, COLOR_CODE_WHITE, 1.0));
-		AssertWindowsHRESULT(createBrush(COLOR_BLACK, COLOR_CODE_BLACK, 1.0));
-		AssertWindowsHRESULT(createBrush(COLOR_BLUE , COLOR_CODE_BLUE , 1.0));
-		AssertWindowsHRESULT(createBrush(COLOR_RED, COLOR_CODE_RED, 1.0));
-		AssertWindowsHRESULT(createBrush(COLOR_GREY, COLOR_CODE_GREY, 1.0));
+		AssertWindowsHRESULT(createBrush(COLOR_WHITE, COLOR_CODE_WHITE, 1.f));
+		AssertWindowsHRESULT(createBrush(COLOR_BLACK, COLOR_CODE_BLACK, 1.f));
+		AssertWindowsHRESULT(createBrush(COLOR_LTGREY, COLOR_CODE_LTGREY, 1.f));
+		AssertWindowsHRESULT(createBrush(COLOR_GREY, COLOR_CODE_GREY, 1.f));
+		AssertWindowsHRESULT(createBrush(COLOR_DKGREY, COLOR_CODE_DKGREY, 1.f));
+		AssertWindowsHRESULT(createBrush(COLOR_CORNFLOWERBLUE, COLOR_CODE_CORNFLOWERBLUE, 1.f));
+		AssertWindowsHRESULT(createBrush(COLOR_RED, COLOR_CODE_RED, 1.f));
+		AssertWindowsHRESULT(createBrush(COLOR_ORANGE, COLOR_CODE_ORANGE, 1.f));
+		AssertWindowsHRESULT(createBrush(COLOR_YELLOW, COLOR_CODE_YELLOW, 1.f));
+		AssertWindowsHRESULT(createBrush(COLOR_GREEN, COLOR_CODE_GREEN, 1.f));
+		AssertWindowsHRESULT(createBrush(COLOR_BLUE	, COLOR_CODE_BLUE, 1.f));
+		AssertWindowsHRESULT(createBrush(COLOR_MAGENTA, COLOR_CODE_MAGENTA, 1.f));
+		AssertWindowsHRESULT(createBrush(COLOR_CYAN, COLOR_CODE_CYAN, 1.f));
+		AssertWindowsHRESULT(createBrush(COLOR_PINK, COLOR_CODE_PINK, 1.f));
+		AssertWindowsHRESULT(createBrush(COLOR_BROWN, COLOR_CODE_BROWN, 1.f));
 
 		// create fonts, definitions in pallet.h
 		AssertWindowsHRESULT(createFont(FONT_ARIAL20, L"Arial", 20.f, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT_CENTER));
@@ -226,6 +236,11 @@ float Render2D::applyViewportTransform(float f)
 {
 	// this is to scale line widths and such
 	return (f * viewportZoom);
+}
+
+Point Render2D::getViewportInstance()
+{
+	return viewportOrigin;
 }
 
 void Render2D::viewportApplyZoom(float relativeZoom)

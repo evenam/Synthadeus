@@ -69,10 +69,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/common;$(ProjectDir)/app;$(ProjectDir)/ux_comp;$(ProjectDir)/audio;$(ProjectDir)/render/geoms;$(ProjectDir)/platform;$(ProjectDir)/render;$(ProjectDir)/render/geoms;$(ProjectDir)/audio;$(ProjectDir)/platform;$(ProjectDir)/ux_comp</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/common;$(ProjectDir)/app;$(ProjectDir)/ux_comp/base;$(ProjectDir)/ux_comp;$(ProjectDir)/audio;$(ProjectDir)/render/geoms;$(ProjectDir)/platform;$(ProjectDir)/render;$(ProjectDir)/render/geoms;$(ProjectDir)/audio;$(ProjectDir)/platform;$(ProjectDir)/ux_comp</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/common;$(ProjectDir)/app;$(ProjectDir)/ux_comp;$(ProjectDir)/audio;$(ProjectDir)/render/geoms;$(ProjectDir)/platform;$(ProjectDir)/render;$(ProjectDir)/audio;$(ProjectDir)/platform</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/common;$(ProjectDir)/app;$(ProjectDir)/ux_comp/base;$(ProjectDir)/ux_comp;$(ProjectDir)/audio;$(ProjectDir)/render/geoms;$(ProjectDir)/platform;$(ProjectDir)/render;$(ProjectDir)/audio;$(ProjectDir)/platform</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -132,6 +132,8 @@
   <ItemGroup>
     <ClCompile Include="app\MainWindow.cpp" />
     <ClCompile Include="app\Synthadeus.cpp" />
+    <ClCompile Include="ux_comp\base\SliderBase.cpp" />
+    <ClCompile Include="ux_comp\Button.cpp" />
     <ClCompile Include="common\CFMaths.cpp" />
     <ClCompile Include="common\Error.cpp" />
     <ClCompile Include="common\Object.cpp" />
@@ -145,10 +147,16 @@
     <ClCompile Include="render\Render2D.cpp" />
     <ClCompile Include="render\geoms\Line.cpp" />
     <ClCompile Include="render\geoms\RoundedRectangle.cpp" />
+    <ClCompile Include="ux_comp\base\ButtonBase.cpp" />
+    <ClCompile Include="ux_comp\GridBase.cpp" />
+    <ClCompile Include="ux_comp\Node.cpp" />
+    <ClCompile Include="ux_comp\Slider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\MainWindow.h" />
     <ClInclude Include="app\Synthadeus.h" />
+    <ClInclude Include="ux_comp\base\SliderBase.h" />
+    <ClInclude Include="ux_comp\Button.h" />
     <ClInclude Include="common\CFMaths.h" />
     <ClInclude Include="common\Error.h" />
     <ClInclude Include="common\Object.h" />
@@ -166,7 +174,11 @@
     <ClInclude Include="render\geoms\BezierCurve.h" />
     <ClInclude Include="render\geoms\Line.h" />
     <ClInclude Include="render\geoms\RoundedRectangle.h" />
+    <ClInclude Include="ux_comp\base\ButtonBase.h" />
     <ClInclude Include="ux_comp\Component.h" />
+    <ClInclude Include="ux_comp\GridBase.h" />
+    <ClInclude Include="ux_comp\Node.h" />
+    <ClInclude Include="ux_comp\Slider.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="SynthadeusIcon.ico" />

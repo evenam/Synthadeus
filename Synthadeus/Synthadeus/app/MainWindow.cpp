@@ -1,9 +1,16 @@
 #include "MainWindow.h"
+#include "InputDeviceState.h"
 
 int MainWindow::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	InputDeviceState* iState = application->getInputDevice();
 	switch (msg)
 	{
+	case WM_MOUSEMOVE:
+		// handle mouse movement
+		iState->mousePosition[0] = LOWORD(wParam);
+		iState->mousePosition[1] = HIWORD(wParam);
+		break;
 	case WM_QUIT:
 	case WM_CLOSE:
 		// handle quit message
@@ -49,6 +56,11 @@ void MainWindow::viewportApplyTranslation(Point factor)
 void MainWindow::viewportSetDefault()
 {
 	renderer->viewportSetDefault();
+}
+
+Point MainWindow::getViewportInstance()
+{
+	return renderer->getViewportInstance();
 }
 
 MainWindow::MainWindow(Application* app, int nCmdShow, int wndWidth, int wndHeight)
