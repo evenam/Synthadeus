@@ -104,7 +104,9 @@ bool Synthadeus::needsRendering()
 
 Renderable* Synthadeus::getRenderList()
 {
-	return base->getRenderTree();
+	return new BezierCurve<4>(Point(0.f, 0.f), Point(appWindow->getWidth() / 2.f, 0.f),
+		Point(appWindow->getWidth() / 2.f, appWindow->getHeight()), Point(appWindow->getWidth(), appWindow->getHeight()));
+	//base->getRenderTree();
 }
 
 InputDeviceState * Synthadeus::getInputDevice()

@@ -13,15 +13,22 @@
 #include "Vector2D.h"
 #include "Renderables.h"
 #include "Component.h"
+#include "ButtonBase.h"
 
 class Node : public Component
 {
+private:
+	ButtonBase btnLogicUnit;
+	Point size;
+	Point origin;
+
+
 public:
 	Node(Point origin, Point size);
 	void setSize(Point origin, Point size);
 
-	inline virtual void mouseEventHandler(Synthadeus* app, Point mousePosition, bool check, bool pressed, bool released) {};
-	inline virtual void update() {};
-	inline virtual Renderable* getRenderList() { return NULL; };
+	virtual void mouseEventHandler(Synthadeus* app, Point mousePosition, bool check, bool pressed, bool released);
+	virtual void update();
+	virtual Renderable* getRenderList();
 };
 
