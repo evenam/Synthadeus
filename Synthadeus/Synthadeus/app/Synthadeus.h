@@ -1,5 +1,3 @@
-#pragma once
-
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
 //   Synthadeus Main Application Class                                        //
@@ -10,9 +8,13 @@
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 
+#pragma once
+
 #include "Error.h"
 #include "MainWindow.h"
 #include "InputDeviceState.h"
+#include "Button.h"
+#include "GridBase.h"
 
 class Synthadeus : public Application
 {
@@ -36,6 +38,9 @@ private:
 	// viewport modification with arrow keys and scroll wheel
 	void updateViewport();
 
+	GridBase* base;
+	Button* projectPageButton;
+
 public:
 	// create and destroy the application
 	Synthadeus();
@@ -48,5 +53,6 @@ public:
 	virtual void update();
 	virtual bool needsRendering();
 	virtual Renderable* getRenderList();
+	virtual InputDeviceState* getInputDevice();
 };
 

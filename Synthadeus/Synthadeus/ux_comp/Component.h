@@ -12,9 +12,11 @@
 
 #include "Object.h"
 #include "Vector2D.h"
+#include "Renderable.h"
 
 #define COMPONENT_MAX_CHILDREN 16
 
+class Synthadeus;
 class Component : public Object
 {
 private:
@@ -42,15 +44,18 @@ protected:
 	bool interacting;
 
 public:
-	virtual void onMouseInput(void* TBD, Point mousePosition, bool check, bool pressed, bool released) = 0;
+	inline Component() { numChildren = 0; interacting = false; }
+	inline virtual void mouseEventHandler(Synthadeus* app, Point mousePosition, bool check, bool pressed, bool released) {};
+	inline virtual void update() {};
+	inline virtual Renderable* getRenderList() { return NULL; };
 
 	// depth first event handling
-	inline bool handleMouseInput(void* TBD, Point mousePosition, bool check, bool pressed, bool released)
+	inline bool handleMouseInput(Synthadeus* app, Point mousePosition, bool check, bool pressed, bool released)
 	{
 		// we currently want to hande input regardless
 		if (interacting)
 		{
-			onMouseInput(TBD, mousePosition, check, pressed, released);
+			mouseEventHandler(app, mousePosition, check, pressed, released);
 			return true;
 		}
 
@@ -64,11 +69,11 @@ public:
 		for (int i = 0; i < numChildren; i++)
 		{
 			// the event was handled
-			if (handleMouseInput(TBD, relativePoint, check, pressed, released)) return true;
+			if (children[i]->handleMouseInput(app, relativePoint, check, pressed, released)) return true;
 		}
 
 		// no child has handled the event, handle it ourselves
-		onMouseInput(TBD, relativePoint, check, pressed, released);
+		mouseEventHandler(app, relativePoint, check, pressed, released);
 		return true;
 	}
 	
@@ -144,5 +149,28 @@ public:
 	inline bool isInteracting()
 	{
 		return interacting;
+	}
+
+	inline Renderable* getRenderTree()
+	{
+		Renderable* thisList = getRenderList();
+		Renderable* current = NULL;
+		Renderable* thisChildList = current;
+		for (int i = 0; i < numChildren; i++)
+		{
+			current = children[i]->getRenderTree();
+			if (i == 0)
+				thisChildList = current;
+			current = current->next;
+		}
+		thisList->child = thisChildList;
+		return thisList;
+	}
+
+	inline void updateTree()
+	{
+		update();
+		for (int i = 0; i < numChildren; i++)
+			children[i]->updateTree();
 	}
 };

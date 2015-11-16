@@ -1,0 +1,61 @@
+#include "Button.h"
+
+Button::Button(Point origin, Point size, unsigned int bkgColor, unsigned int fgColor,
+	char* text, unsigned int font) : Component()
+{
+	// initialize all properties
+	btnOrigin[0] = origin[0];
+	btnOrigin[1] = origin[1];
+	btnSize[0] = size[0];
+	btnSize[1] = size[1];
+	btnBkgColor = bkgColor;
+	btnFgColor = fgColor;
+	btnText = text;
+	btnFont = font;
+
+	setBoundingRectangle(origin, size);
+}
+
+void Button::setSize(Point origin, Point size)
+{
+	btnOrigin[0] = origin[0];
+	btnOrigin[1] = origin[1];
+	btnSize[0] = size[0];
+	btnSize[1] = size[1];
+	setBoundingRectangle(origin, size);
+}
+
+void Button::setColorScheme(unsigned int bkgColor, unsigned int fgColor)
+{
+	btnBkgColor = bkgColor;
+	btnFgColor = fgColor;
+}
+
+void Button::setText(char* text, unsigned int font)
+{
+	btnText = text;
+	btnFont = font;
+}
+
+Renderable* Button::getRenderList()
+{
+	unsigned int realFG = btnFgColor, realBG = btnBkgColor;
+	if (interacting)
+	{
+		realFG = btnBkgColor;
+		realBG = btnFgColor;
+	}
+	Rectangle2* bounds = new Rectangle2(btnOrigin, btnSize, realFG, realBG);
+	bounds->next = new Text(btnText, btnOrigin, btnSize, btnFont, realFG);
+	return bounds;
+}
+
+void Button::update()
+{
+	logicUnit.update(interacting);
+}
+
+void Button::mouseEventHandler(Synthadeus* app, Point mousePosition, bool check, bool pressed, bool released)
+{
+	interacting = check;
+}

@@ -101,6 +101,7 @@ public:
 	// apply viewport transform to 1D and 2D vectors
 	Vector2D applyViewportTransform(Vector2D p);
 	float applyViewportTransform(float f);
+	Point getViewportInstance();
 
 	// modify the viewport
 	void viewportApplyZoom(float relativeZoom);

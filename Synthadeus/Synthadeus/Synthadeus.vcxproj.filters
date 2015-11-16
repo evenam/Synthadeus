@@ -54,6 +54,12 @@
     <Filter Include="Source Files\ux_comp">
       <UniqueIdentifier>{9760c66d-2795-4f61-a733-d069dc1f47d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ux_comp\base">
+      <UniqueIdentifier>{7fcd9226-3b03-4525-8547-229b800b2916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ux_comp\base">
+      <UniqueIdentifier>{e9a1e154-9e21-4684-a1a7-9238367350d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\Object.cpp">
@@ -100,6 +106,24 @@
     </ClCompile>
     <ClCompile Include="render\geoms\Text.cpp">
       <Filter>Source Files\render\geoms</Filter>
+    </ClCompile>
+    <ClCompile Include="ux_comp\base\ButtonBase.cpp">
+      <Filter>Source Files\ux_comp\base</Filter>
+    </ClCompile>
+    <ClCompile Include="ux_comp\Button.cpp">
+      <Filter>Source Files\ux_comp</Filter>
+    </ClCompile>
+    <ClCompile Include="ux_comp\GridBase.cpp">
+      <Filter>Source Files\ux_comp</Filter>
+    </ClCompile>
+    <ClCompile Include="ux_comp\Node.cpp">
+      <Filter>Source Files\ux_comp</Filter>
+    </ClCompile>
+    <ClCompile Include="ux_comp\Slider.cpp">
+      <Filter>Source Files\ux_comp</Filter>
+    </ClCompile>
+    <ClCompile Include="ux_comp\base\SliderBase.cpp">
+      <Filter>Source Files\ux_comp\base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +186,24 @@
     </ClInclude>
     <ClInclude Include="render\geoms\Text.h">
       <Filter>Header Files\render\geoms</Filter>
+    </ClInclude>
+    <ClInclude Include="ux_comp\base\ButtonBase.h">
+      <Filter>Header Files\ux_comp\base</Filter>
+    </ClInclude>
+    <ClInclude Include="ux_comp\Button.h">
+      <Filter>Header Files\ux_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="ux_comp\GridBase.h">
+      <Filter>Header Files\ux_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="ux_comp\Node.h">
+      <Filter>Header Files\ux_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="ux_comp\Slider.h">
+      <Filter>Header Files\ux_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="ux_comp\base\SliderBase.h">
+      <Filter>Header Files\ux_comp\base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
