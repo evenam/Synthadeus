@@ -43,7 +43,7 @@ void Synthadeus::updateViewport()
 
 Synthadeus::Synthadeus()
 	: viewportFriction(0.95f), viewportEpsilon(0.5f), viewportTranslateAcceleration(2.f),
-	viewportZoomAcceleration(0.1), viewportMaxTranslateSpeed(5.f), viewportMaxZoomSpeed(1.f)
+	viewportZoomAcceleration(0.1f), viewportMaxTranslateSpeed(5.f), viewportMaxZoomSpeed(1.f)
 {
 	DebugPrintf("Starting Synthadeus.\n");
 
@@ -62,7 +62,7 @@ Synthadeus::Synthadeus()
 
 	base = new GridBase(Point(-640.f, -640.f), Point(appWindow->getWidth() + 1280.f, appWindow->getHeight() + 1280.f), COLOR_LTGREY, COLOR_BLACK);
 	
-	testNode = new Node(Point(700.f, 200.f), Point(200.f, 200.f), COLOR_CORNFLOWERBLUE, COLOR_ABLACK);
+	testNode = new Node(Point(700.f, 700.f), Point(200.f, 200.f), COLOR_CORNFLOWERBLUE, COLOR_ABLACK);
 	projectPageButton = new Button(Point(10.f, 10.f), Point(50.f, 50.f), COLOR_ABLACK, COLOR_RED, "SIN", FONT_ARIAL11);
 	testNode->addChild(projectPageButton);
 	projectPageButton = new Button(Point(75.f, 10.f), Point(50.f, 50.f), COLOR_ABLACK, COLOR_RED, "SAW", FONT_ARIAL11);
@@ -71,9 +71,9 @@ Synthadeus::Synthadeus()
 	testNode->addChild(projectPageButton);
 	testNode->addChild(new Slider(Point(20.f, 70.f), Point(20.f, 80.f), COLOR_ABLACK, COLOR_RED, Slider::VERTICAL));
 	base->addChild(testNode);
-	testNode = new Node(Point(900.f, 200.f), Point(200.f, 200.f), COLOR_ORANGE, COLOR_ABLACK);
+	testNode = new Node(Point(950.f, 700.f), Point(200.f, 200.f), COLOR_ORANGE, COLOR_ABLACK);
 	base->addChild(testNode);
-	testNode = new Node(Point(1100.f, 200.f), Point(200.f, 200.f), COLOR_GREEN, COLOR_ABLACK);
+	testNode = new Node(Point(1200.f, 700.f), Point(200.f, 200.f), COLOR_GREEN, COLOR_ABLACK);
 	base->addChild(testNode);
 	DebugPrintf("Base Components Initialized.\n");
 }
@@ -136,7 +136,7 @@ bool Synthadeus::needsRendering()
 Renderable* Synthadeus::getRenderList()
 {
 	// create the watermark
-	Renderable* watermark = new Text(SYNTHADEUS_VERSION, -1 * appWindow->getViewportInstance(), Point(appWindow->getWidth(), 40.f), FONT_ARIAL40, COLOR_LTGREY);
+	Renderable* watermark = new Text(SYNTHADEUS_VERSION, -1.f * appWindow->getViewportInstance(), Point((float)appWindow->getWidth(), 40.f), FONT_ARIAL40, COLOR_LTGREY);
 	Renderable* renderList = base->getRenderTree();
 	renderList->next = watermark;
 	return renderList;
