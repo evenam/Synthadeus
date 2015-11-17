@@ -12,9 +12,11 @@
 
 #include "Error.h"
 #include "MainWindow.h"
-#include "InputDeviceState.h"
+#include "InputDevice.h"
 #include "Button.h"
 #include "GridBase.h"
+#include "Node.h"
+#include "Slider.h"
 
 class Synthadeus : public Application
 {
@@ -23,7 +25,7 @@ private:
 	MainWindow* appWindow;
 
 	// input device
-	InputDeviceState* inputDevice;
+	InputDevice* inputDevice;
 
 	// viewport momentum and cool stuff
 	const float viewportFriction;
@@ -40,6 +42,7 @@ private:
 
 	GridBase* base;
 	Button* projectPageButton;
+	Node* testNode;
 
 public:
 	// create and destroy the application
@@ -53,6 +56,9 @@ public:
 	virtual void update();
 	virtual bool needsRendering();
 	virtual Renderable* getRenderList();
-	virtual InputDeviceState* getInputDevice();
+	virtual InputDevice* getInputDevice();
+
+	// request the application to close
+	void quit();
 };
 

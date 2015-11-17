@@ -21,7 +21,7 @@ void GridBase::setSize(Point gridOrigin, Point gridSize)
 	setBoundingRectangle(origin, size);
 }
 
-void GridBase::mouseEventHandler(Synthadeus* app, Point mousePosition, bool check, bool pressed, bool released)
+void GridBase::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 {
 	// nothing
 }

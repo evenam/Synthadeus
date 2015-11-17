@@ -78,6 +78,8 @@ void Window::setTitlebarAndButtons(bool hasTitlebar, bool isMinimizeable, bool i
 //Event handler equivalent from JS
 void Window::runMessageLoop() 
 {
+	DebugPrintf("Message Loop Started.\n");
+
 	// Pass events to the windows proceedure and update as fast as we can
 	MSG msg;
 	bool quitFlag = false;
@@ -94,9 +96,12 @@ void Window::runMessageLoop()
 
 			// once we receive the quit message, end the loop
 			if (msg.message == WM_CLOSE || msg.message == WM_QUIT)
+			{
 				quitFlag = true;
+			}
 		}
 	}
+	DebugPrintf("Message Loop Ended.\n");
 }
 
 HWND Window::getWindowHandle()
@@ -138,6 +143,7 @@ LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPar
 	int eventCode = wnd->handleMessage(msg, lParam, wParam);
 	if (eventCode == -1)
 		eventCode = DefWindowProc(hWnd, msg, wParam, lParam);
+
 	return eventCode;
 }
 

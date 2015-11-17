@@ -14,20 +14,27 @@
 #include "Renderables.h"
 #include "Component.h"
 #include "ButtonBase.h"
+#include "InputDevice.h"
 
 class Node : public Component
 {
 private:
-	ButtonBase btnLogicUnit;
 	Point size;
 	Point origin;
+	unsigned int fgColor;
+	unsigned int bgColor;
 
+	float relativeMouseX;
+	float relativeMouseY;
 
 public:
-	Node(Point origin, Point size);
-	void setSize(Point origin, Point size);
+	RTTI_MACRO(Node);
 
-	virtual void mouseEventHandler(Synthadeus* app, Point mousePosition, bool check, bool pressed, bool released);
+	Node(Point nodeOrigin, Point nodeSize, unsigned int nodeFgColor, unsigned int nodeBgColor);
+	void setSize(Point nodeOrigin, Point nodeSize);
+	void setColorScheme(unsigned int nodeFgColor, unsigned int nodeBgColor);
+
+	virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse);
 	virtual void update();
 	virtual Renderable* getRenderList();
 };

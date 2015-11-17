@@ -46,7 +46,7 @@ Renderable* Button::getRenderList()
 		realBG = btnFgColor;
 	}
 	Rectangle2* bounds = new Rectangle2(btnOrigin, btnSize, realFG, realBG);
-	bounds->next = new Text(btnText, btnOrigin, btnSize, btnFont, realFG);
+	bounds->next = new Text(btnText, btnOrigin, btnSize, btnFont, COLOR_WHITE);
 	return bounds;
 }
 
@@ -55,7 +55,10 @@ void Button::update()
 	logicUnit.update(interacting);
 }
 
-void Button::mouseEventHandler(Synthadeus* app, Point mousePosition, bool check, bool pressed, bool released)
+void Button::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 {
-	interacting = check;
+	if (vMouse->left.checkPressed())
+		interacting = true;
+	else if (vMouse->left.checkReleased())
+		interacting = false;
 }

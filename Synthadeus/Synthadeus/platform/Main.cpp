@@ -25,7 +25,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpwCmdLin
 	}
 
 	// uninitialize subcomponents and make sure we have cleaned up
-	Object::AssertNoAbandonObjects();
+	//Object::AssertNoAbandonObjects();
 	DebugLogging::finishDebugLogger();
 
 	// exit success!

@@ -15,23 +15,48 @@
 #include "Vector2D.h"
 #include "ButtonBase.h"
 
-class InputDeviceState : public Object
+class InputDevice : public Object
 {
 public:
-	RTTI_MACRO(InputDeviceState);
+	RTTI_MACRO(InputDevice);
 
 	// mouse data members
-	ButtonBase leftMouse, rightMouse;
-	Point mousePosition;
-	
-	// arrow keys
-	ButtonBase arrowUp, arrowDown, arrowLeft, arrowRight;
 
-	// enter key
-	ButtonBase enterKey;
+	class Mouse
+	{
+	public:
+		ButtonBase left, right;
+		inline Point instancePosition() { return position - currentInstance; }
+		Point position;
+
+		void instance(Point p);
+		void restore();
+		inline Mouse() : currentInstance(0.f, 0.f) { instanceSize = 0; }
+	private:
+		enum { NUM_INSTANCES = 16 };
+		Point instances[NUM_INSTANCES];
+		int instanceSize;
+		Point currentInstance;
+	} vMouse;
+
+	struct Piano
+	{
+	} vPiano;
+
+	struct Controller
+	{
+		// arrow keys
+		ButtonBase up, down, left, right;
+
+		// enter key
+		ButtonBase center;
+
+		// escape key
+		ButtonBase quit;
+	} vController;
 
 	// set up the initial device
-	InputDeviceState();
+	InputDevice();
 
 	// update the device
 	void update();

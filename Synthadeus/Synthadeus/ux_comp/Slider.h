@@ -21,8 +21,6 @@ public:
 	enum Orientation { VERTICAL, HORIZONTAL };
 
 private:
-	// so we can respond to clicks
-	ButtonBase btnLogicUnit;
 	SliderBase sliderLogicUnit;
 
 	// slider properties
@@ -45,6 +43,6 @@ public:
 	// overrides from Component
 	virtual Renderable* getRenderList();
 	virtual void update();
-	virtual void mouseEventHandler(Synthadeus* app, Point mousePosition, bool check, bool pressed, bool released);
+	virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse);
 };
 

@@ -20,7 +20,7 @@ void Text::render(Render2D* render2d, ID2D1HwndRenderTarget * renderTarget, ID2D
 		temporaryStringBuffer[i] = (WCHAR)buffer[i];
 	renderTarget->DrawText(temporaryStringBuffer, strLength, fontPalette[font],
 		D2D1::RectF(instanceOrigin[0] + origin[0], instanceOrigin[1] + origin[1], 
-			origin[0] + size[0] + instanceOrigin[0], origin[0] + size[1] + instanceOrigin[1]), colorPalette[color]);
+			origin[0] + size[0] + instanceOrigin[0], origin[1] + size[1] + instanceOrigin[1]), colorPalette[color]);
 }
 
 Point Text::getOrigin()

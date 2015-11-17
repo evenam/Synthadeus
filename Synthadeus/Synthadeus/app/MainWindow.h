@@ -14,7 +14,7 @@
 #include "Render2D.h"
 
 // interface so the window can render and process the application properly
-class InputDeviceState;
+class InputDevice;
 class Application
 {
 public:
@@ -28,7 +28,7 @@ public:
 	virtual Renderable* getRenderList() = 0;
 
 	// get the virtual input device so we may update it
-	virtual InputDeviceState* getInputDevice() = 0;
+	virtual InputDevice* getInputDevice() = 0;
 };
 
 class MainWindow : public Window

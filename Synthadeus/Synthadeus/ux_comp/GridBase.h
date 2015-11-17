@@ -26,7 +26,7 @@ public:
 	GridBase(Point gridOrigin, Point gridSize, unsigned int gridForeground, unsigned int gridBackground);
 	void setSize(Point gridOrigin, Point gridSize);
 
-	virtual void mouseEventHandler(Synthadeus* app, Point mousePosition, bool check, bool pressed, bool released);
+	virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse);
 	virtual void update();
 	virtual Renderable* getRenderList();
 };
