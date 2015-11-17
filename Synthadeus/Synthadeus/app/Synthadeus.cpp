@@ -4,10 +4,10 @@
 void Synthadeus::updateViewport()
 {
 	// update viewport movement amount with keyboard state data (false = 0 by definition)
-	viewportMoveAmount[0] += inputDevice->arrowLeft.check() * viewportTranslateAcceleration;
-	viewportMoveAmount[0] += inputDevice->arrowRight.check() * -viewportTranslateAcceleration;
-	viewportMoveAmount[1] += inputDevice->arrowDown.check() * -viewportTranslateAcceleration;
-	viewportMoveAmount[1] += inputDevice->arrowUp.check() * viewportTranslateAcceleration;
+	viewportMoveAmount[0] += inputDevice->vController.left.check() * viewportTranslateAcceleration;
+	viewportMoveAmount[0] += inputDevice->vController.right.check() * -viewportTranslateAcceleration;
+	viewportMoveAmount[1] += inputDevice->vController.down.check() * -viewportTranslateAcceleration;
+	viewportMoveAmount[1] += inputDevice->vController.up.check() * viewportTranslateAcceleration;
 
 	// apply friction constant
 	viewportMoveAmount[0] *= viewportFriction;
@@ -33,7 +33,7 @@ void Synthadeus::updateViewport()
 	appWindow->viewportApplyTranslation(viewportMoveAmount);
 
 	// if the user presses enter, reset view
-	if (inputDevice->enterKey.checkPressed())
+	if (inputDevice->vController.center.checkPressed())
 	{
 		appWindow->viewportSetDefault();
 		viewportMoveAmount[0] = 0.f;
@@ -42,7 +42,7 @@ void Synthadeus::updateViewport()
 }
 
 Synthadeus::Synthadeus()
-	: viewportFriction(0.95f), viewportEpsilon(0.001), viewportTranslateAcceleration(2.f),
+	: viewportFriction(0.95f), viewportEpsilon(0.5f), viewportTranslateAcceleration(2.f),
 	viewportZoomAcceleration(0.1), viewportMaxTranslateSpeed(5.f), viewportMaxZoomSpeed(1.f)
 {
 	DebugPrintf("Starting Synthadeus.\n");
@@ -50,14 +50,32 @@ Synthadeus::Synthadeus()
 	// create the window and start the renderer
 	appWindow = new MainWindow(this, SW_SHOWNORMAL, 1280, 768);
 	appWindow->createWindow();
+	DebugPrintf("Window Created.\n");
+
 	appWindow->startRenderer();
+	DebugPrintf("Renderer Started.\n");
+
 
 	// create the input device
-	inputDevice = new InputDeviceState();
+	inputDevice = new InputDevice();
+	DebugPrintf("Input Device Allocated.\n");
 
-	base = new GridBase(Point(-640.f, -640.f), Point(appWindow->getWidth() + 1280.f, appWindow->getHeight() + 1280.f), COLOR_WHITE, COLOR_BLACK);
-	projectPageButton = new Button(Point(660.f, 660.f), Point(200.f, 50.f), COLOR_DKGREY, COLOR_RED, "Synthadeus", FONT_ARIAL20);
-	base->addChild(projectPageButton);
+	base = new GridBase(Point(-640.f, -640.f), Point(appWindow->getWidth() + 1280.f, appWindow->getHeight() + 1280.f), COLOR_WHITE, COLOR_DKGREY);
+	
+	testNode = new Node(Point(700.f, 200.f), Point(200.f, 200.f), COLOR_CORNFLOWERBLUE, COLOR_BLACK);
+	base->addChild(testNode);
+	testNode = new Node(Point(900.f, 200.f), Point(200.f, 200.f), COLOR_ORANGE, COLOR_BLACK);
+	base->addChild(testNode);
+	testNode = new Node(Point(1100.f, 200.f), Point(200.f, 200.f), COLOR_GREEN, COLOR_BLACK);
+	base->addChild(testNode);
+	projectPageButton = new Button(Point(10.f, 10.f), Point(50.f, 50.f), COLOR_BLACK, COLOR_RED, "SIN", FONT_ARIAL11);
+	testNode->addChild(projectPageButton);
+	projectPageButton = new Button(Point(75.f, 10.f), Point(50.f, 50.f), COLOR_BLACK, COLOR_RED, "SAW", FONT_ARIAL11);
+	testNode->addChild(projectPageButton);
+	projectPageButton = new Button(Point(140.f, 10.f), Point(50.f, 50.f), COLOR_BLACK, COLOR_RED, "SQR", FONT_ARIAL11);
+	testNode->addChild(projectPageButton);
+	testNode->addChild(new Slider(Point(20.f, 70.f), Point(20.f, 80.f), COLOR_BLACK, COLOR_RED, Slider::VERTICAL));
+	DebugPrintf("Base Components Initialized.\n");
 }
 
 Synthadeus::~Synthadeus()
@@ -66,19 +84,26 @@ Synthadeus::~Synthadeus()
 
 	// destroy the window and end the renderer
 	appWindow->endRenderer();
+	DebugPrintf("Ended Renderer.\n");
 	appWindow->destroyWindow();
 	delete appWindow;
+	DebugPrintf("Destroyed the window.\n");
 
 	// free the input device
 	delete inputDevice;
 	delete projectPageButton;
 	delete base;
+	DebugPrintf("Freed Base Components.\n");
+
+	DebugPrintf("Synthadeus Shutdown Complete.\n");
 }
 
 void Synthadeus::run()
 {
 	appWindow->setRenderList(getRenderList());
 	appWindow->render();
+	DebugPrintf("Initial Render.\n");
+
 	appWindow->runMessageLoop();
 }
 
@@ -93,7 +118,13 @@ void Synthadeus::update()
 
 	base->updateTree();
 
-	base->handleMouseInput(this, inputDevice->mousePosition - appWindow->getViewportInstance(), inputDevice->leftMouse.check(), inputDevice->leftMouse.checkPressed(), inputDevice->leftMouse.checkReleased());
+	inputDevice->vMouse.instance(appWindow->getViewportInstance());
+	//if (inputDevice->vMouse.left.check())
+		base->handleMouseInput(this, &inputDevice->vMouse);
+	inputDevice->vMouse.restore();
+
+	if (inputDevice->vController.quit.checkReleased())
+		quit();
 }
 
 bool Synthadeus::needsRendering()
@@ -104,12 +135,16 @@ bool Synthadeus::needsRendering()
 
 Renderable* Synthadeus::getRenderList()
 {
-	return new BezierCurve<4>(Point(0.f, 0.f), Point(appWindow->getWidth() / 2.f, 0.f),
-		Point(appWindow->getWidth() / 2.f, appWindow->getHeight()), Point(appWindow->getWidth(), appWindow->getHeight()));
-	//base->getRenderTree();
+	return base->getRenderTree();
 }
 
-InputDeviceState * Synthadeus::getInputDevice()
+InputDevice* Synthadeus::getInputDevice()
 {
 	return inputDevice;
+}
+
+void Synthadeus::quit()
+{
+	// give the window the quit message, terminating the realtime logic loop
+	SendMessage(appWindow->getWindowHandle(), WM_QUIT, 0, 0);
 }

@@ -41,6 +41,6 @@ public:
 	// overrides from Component
 	virtual Renderable* getRenderList();
 	virtual void update();
-	virtual void mouseEventHandler(Synthadeus* app, Point mousePosition, bool check, bool pressed, bool released);
+	virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse);
 };
 

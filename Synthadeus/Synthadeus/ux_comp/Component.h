@@ -13,6 +13,7 @@
 #include "Object.h"
 #include "Vector2D.h"
 #include "Renderable.h"
+#include "InputDevice.h"
 
 #define COMPONENT_MAX_CHILDREN 16
 
@@ -26,6 +27,20 @@ private:
 	// sub-components
 	Component* children[COMPONENT_MAX_CHILDREN];
 	int numChildren;
+
+	inline Component* sweepCurrentlyInteracting(InputDevice::Mouse* vMouse)
+	{
+		if (interacting) return this;
+		
+		for (int i = 0; i < numChildren; i++)
+		{
+			vMouse->instance(origin);
+			Component* temporary = children[i]->sweepCurrentlyInteracting(vMouse);
+			vMouse->restore();
+			if (temporary) return temporary;
+		}
+		return NULL;
+	}
 
 protected:
 	// set the bounds of this component
@@ -45,35 +60,34 @@ protected:
 
 public:
 	inline Component() { numChildren = 0; interacting = false; }
-	inline virtual void mouseEventHandler(Synthadeus* app, Point mousePosition, bool check, bool pressed, bool released) {};
+	inline virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse) {};
 	inline virtual void update() {};
 	inline virtual Renderable* getRenderList() { return NULL; };
 
 	// depth first event handling
-	inline bool handleMouseInput(Synthadeus* app, Point mousePosition, bool check, bool pressed, bool released)
+	inline bool handleMouseInput(Synthadeus* app, InputDevice::Mouse* vMouse)
 	{
-		// we currently want to hande input regardless
-		if (interacting)
-		{
-			mouseEventHandler(app, mousePosition, check, pressed, released);
-			return true;
-		}
+		// interact with the current object, if one
+		Component* currentlyInteracting = NULL;
+		if (currentlyInteracting = sweepCurrentlyInteracting(vMouse))
+			currentlyInteracting->mouseEventHandler(app, vMouse);
 
 		// if the mouse isn't over us, we do not care
-		if (!rectanglePointCollisionCheck(mousePosition, origin, size)) return false;
-
-		// determine relative mouse position
-		Point relativePoint(mousePosition[0] - origin[0], mousePosition[1] - origin[1]);
+		if (!rectanglePointCollisionCheck(vMouse->instancePosition(), origin, size)) return false;
 
 		// see if a child needs to handle this event
-		for (int i = 0; i < numChildren; i++)
+		for (int i = numChildren - 1; i >= 0; i--)
 		{
+
+			vMouse->instance(origin);
 			// the event was handled
-			if (children[i]->handleMouseInput(app, relativePoint, check, pressed, released)) return true;
+			bool handled = (children[i]->handleMouseInput(app, vMouse));
+			vMouse->restore();
+			if (handled) return true;
 		}
 
 		// no child has handled the event, handle it ourselves
-		mouseEventHandler(app, relativePoint, check, pressed, released);
+		mouseEventHandler(app, vMouse);
 		return true;
 	}
 	
@@ -154,15 +168,24 @@ public:
 	inline Renderable* getRenderTree()
 	{
 		Renderable* thisList = getRenderList();
-		Renderable* current = NULL;
-		Renderable* thisChildList = current;
+		Renderable* thisChildList = NULL;
+		Renderable* realCurrent = NULL;
 		for (int i = 0; i < numChildren; i++)
 		{
-			current = children[i]->getRenderTree();
+			Renderable* current = children[i]->getRenderTree();
 			if (i == 0)
+			{
 				thisChildList = current;
-			current = current->next;
+				realCurrent = current;
+			}
+			else
+			{
+				while (realCurrent->next != NULL)
+					realCurrent = realCurrent->next;
+				realCurrent->next = current;
+			}
 		}
+
 		thisList->child = thisChildList;
 		return thisList;
 	}

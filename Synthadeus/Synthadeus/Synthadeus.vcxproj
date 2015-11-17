@@ -138,7 +138,7 @@
     <ClCompile Include="common\Error.cpp" />
     <ClCompile Include="common\Object.cpp" />
     <ClCompile Include="common\Vector2D.cpp" />
-    <ClCompile Include="platform\InputDeviceState.cpp" />
+    <ClCompile Include="platform\InputDevice.cpp" />
     <ClCompile Include="platform\Main.cpp" />
     <ClCompile Include="platform\Window.cpp" />
     <ClCompile Include="render\geoms\Rectangle2.cpp" />
@@ -162,7 +162,7 @@
     <ClInclude Include="common\Error.h" />
     <ClInclude Include="common\Object.h" />
     <ClInclude Include="common\Vector2D.h" />
-    <ClInclude Include="platform\InputDeviceState.h" />
+    <ClInclude Include="platform\InputDevice.h" />
     <ClInclude Include="platform\resource.h" />
     <ClInclude Include="platform\Window.h" />
     <ClInclude Include="render\Palettes.h" />

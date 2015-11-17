@@ -1,15 +1,15 @@
 #include "MainWindow.h"
-#include "InputDeviceState.h"
+#include "InputDevice.h"
 
 int MainWindow::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 {
-	InputDeviceState* iState = application->getInputDevice();
+	InputDevice* iState = application->getInputDevice();
 	switch (msg)
 	{
 	case WM_MOUSEMOVE:
 		// handle mouse movement
-		iState->mousePosition[0] = LOWORD(wParam);
-		iState->mousePosition[1] = HIWORD(wParam);
+		iState->vMouse.position[0] = LOWORD(wParam);
+		iState->vMouse.position[1] = HIWORD(wParam);
 		break;
 	case WM_QUIT:
 	case WM_CLOSE:
@@ -18,10 +18,11 @@ int MainWindow::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		return 0;
 		break;
 	case WM_SIZE:
-		// calculate the resized client area
+		// calculate the resized client 
 		updateWindowDimensions();
 
 	case WM_PAINT:
+		DebugPrintf("System Requested a Repaint, rendering.\n");
 		// we need to re-render the window contents
 		render();
 	}
