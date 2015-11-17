@@ -28,16 +28,20 @@ private:
 	Component* children[COMPONENT_MAX_CHILDREN];
 	int numChildren;
 
-	inline Component* sweepCurrentlyInteracting(InputDevice::Mouse* vMouse)
+	inline Component* handleCurrentlyInteracting(Synthadeus* app, InputDevice::Mouse* vMouse)
 	{
 		if (interacting) return this;
 		
 		for (int i = 0; i < numChildren; i++)
 		{
 			vMouse->instance(origin);
-			Component* temporary = children[i]->sweepCurrentlyInteracting(vMouse);
-			if (temporary) return temporary;
+			Component* temporary = children[i]->handleCurrentlyInteracting(app, vMouse);
+			if (temporary)
+				temporary->mouseEventHandler(app, vMouse);
+			else
+				temporary = NULL;
 			vMouse->restore();
+			if (temporary) return temporary;
 		}
 		return NULL;
 	}
@@ -69,12 +73,8 @@ public:
 	{
 		// interact with the current object, if one
 		Component* currentlyInteracting = NULL;
-		if (currentlyInteracting = sweepCurrentlyInteracting(vMouse))
-		{
-			currentlyInteracting->mouseEventHandler(app, vMouse);
-			vMouse->restore();
+		if (currentlyInteracting = handleCurrentlyInteracting(app, vMouse))
 			return true;
-		}
 
 		// if the mouse isn't over us, we do not care
 		if (!rectanglePointCollisionCheck(vMouse->instancePosition(), origin, size)) return false;
