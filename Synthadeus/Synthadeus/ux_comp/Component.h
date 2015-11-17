@@ -30,20 +30,25 @@ private:
 
 	inline Component* handleCurrentlyInteracting(Synthadeus* app, InputDevice::Mouse* vMouse)
 	{
-		if (interacting) return this;
-		
+		if (interacting)
+		{
+			mouseEventHandler(app, vMouse);
+			return this;
+		}
+
 		for (int i = 0; i < numChildren; i++)
 		{
 			vMouse->instance(origin);
 			Component* temporary = children[i]->handleCurrentlyInteracting(app, vMouse);
-			if (temporary)
-				temporary->mouseEventHandler(app, vMouse);
-			else
-				temporary = NULL;
 			vMouse->restore();
 			if (temporary) return temporary;
 		}
 		return NULL;
+	}
+
+	inline Component* getComponentAtPoint(Point pt)
+	{
+		assert(!"implement this this " __FUNCSIG__);
 	}
 
 protected:
@@ -83,8 +88,8 @@ public:
 		for (int i = numChildren - 1; i >= 0; i--)
 		{
 
-			vMouse->instance(origin);
 			// the event was handled
+			vMouse->instance(origin);
 			bool handled = (children[i]->handleMouseInput(app, vMouse));
 			vMouse->restore();
 			if (handled) return true;
