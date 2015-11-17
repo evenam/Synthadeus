@@ -36,8 +36,8 @@ private:
 		{
 			vMouse->instance(origin);
 			Component* temporary = children[i]->sweepCurrentlyInteracting(vMouse);
-			vMouse->restore();
 			if (temporary) return temporary;
+			vMouse->restore();
 		}
 		return NULL;
 	}
@@ -70,7 +70,11 @@ public:
 		// interact with the current object, if one
 		Component* currentlyInteracting = NULL;
 		if (currentlyInteracting = sweepCurrentlyInteracting(vMouse))
+		{
 			currentlyInteracting->mouseEventHandler(app, vMouse);
+			vMouse->restore();
+			return true;
+		}
 
 		// if the mouse isn't over us, we do not care
 		if (!rectanglePointCollisionCheck(vMouse->instancePosition(), origin, size)) return false;
