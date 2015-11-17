@@ -18,6 +18,8 @@
 #include "Node.h"
 #include "Slider.h"
 
+#define SYNTHADEUS_VERSION "Synthadeus 0.5" // arbitrary number kek
+
 class Synthadeus : public Application
 {
 private:
@@ -60,5 +62,7 @@ public:
 
 	// request the application to close
 	void quit();
+
+	Text* createWatermark();
 };
 

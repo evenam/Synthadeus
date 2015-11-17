@@ -17,7 +17,7 @@ void Render2D::createDeviceDependentResources()
 
 		// create brushes, definitions in the palette.h
 		AssertWindowsHRESULT(createBrush(COLOR_WHITE,			COLOR_CODE_WHITE,			1.00f));
-		AssertWindowsHRESULT(createBrush(COLOR_BLACK,			COLOR_CODE_BLACK,			0.75f));
+		AssertWindowsHRESULT(createBrush(COLOR_BLACK,			COLOR_CODE_BLACK,			1.00f));
 		AssertWindowsHRESULT(createBrush(COLOR_LTGREY,			COLOR_CODE_LTGREY,			0.75f));
 		AssertWindowsHRESULT(createBrush(COLOR_GREY,			COLOR_CODE_GREY,			0.75f));
 		AssertWindowsHRESULT(createBrush(COLOR_DKGREY,			COLOR_CODE_DKGREY,			0.75f));
@@ -31,6 +31,7 @@ void Render2D::createDeviceDependentResources()
 		AssertWindowsHRESULT(createBrush(COLOR_CYAN,			COLOR_CODE_CYAN,			0.75f));
 		AssertWindowsHRESULT(createBrush(COLOR_PINK,			COLOR_CODE_PINK,			0.75f));
 		AssertWindowsHRESULT(createBrush(COLOR_BROWN,			COLOR_CODE_BROWN,			0.75f));
+		AssertWindowsHRESULT(createBrush(COLOR_ABLACK,			COLOR_CODE_ABLACK,			0.75f));
 
 		// create fonts, definitions in pallet.h
 		AssertWindowsHRESULT(createFont(FONT_ARIAL20, L"Arial", 20.f, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT_CENTER));

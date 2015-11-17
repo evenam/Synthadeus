@@ -57,6 +57,6 @@ void Node::update()
 
 Renderable* Node::getRenderList()
 {
-	Renderable* rect = new Rectangle2(origin, size, fgColor, bgColor);
+	Renderable* rect = new RoundedRectangle(origin, size, fgColor, bgColor, 5.f, 5.f);
 	return rect;
 }
