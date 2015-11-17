@@ -38,7 +38,7 @@ void InputDevice::update()
 	vController.center.update((GetAsyncKeyState(VK_RETURN) ? true : false));
 
 	// escape is the quit key
-	//vController.quit.update((GetAsyncKeyState(VK_ESCAPE) ? true : false));
+	vController.quit.update((GetAsyncKeyState(VK_ESCAPE) ? true : false));
 }
 
 void InputDevice::Mouse::instance(Point p)
