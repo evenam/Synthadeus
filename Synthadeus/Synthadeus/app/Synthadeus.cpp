@@ -60,21 +60,21 @@ Synthadeus::Synthadeus()
 	inputDevice = new InputDevice();
 	DebugPrintf("Input Device Allocated.\n");
 
-	base = new GridBase(Point(-640.f, -640.f), Point(appWindow->getWidth() + 1280.f, appWindow->getHeight() + 1280.f), COLOR_WHITE, COLOR_DKGREY);
+	base = new GridBase(Point(-640.f, -640.f), Point(appWindow->getWidth() + 1280.f, appWindow->getHeight() + 1280.f), COLOR_LTGREY, COLOR_BLACK);
 	
-	testNode = new Node(Point(700.f, 200.f), Point(200.f, 200.f), COLOR_CORNFLOWERBLUE, COLOR_BLACK);
-	base->addChild(testNode);
-	testNode = new Node(Point(900.f, 200.f), Point(200.f, 200.f), COLOR_ORANGE, COLOR_BLACK);
-	base->addChild(testNode);
-	testNode = new Node(Point(1100.f, 200.f), Point(200.f, 200.f), COLOR_GREEN, COLOR_BLACK);
-	base->addChild(testNode);
-	projectPageButton = new Button(Point(10.f, 10.f), Point(50.f, 50.f), COLOR_BLACK, COLOR_RED, "SIN", FONT_ARIAL11);
+	testNode = new Node(Point(700.f, 200.f), Point(200.f, 200.f), COLOR_CORNFLOWERBLUE, COLOR_ABLACK);
+	projectPageButton = new Button(Point(10.f, 10.f), Point(50.f, 50.f), COLOR_ABLACK, COLOR_RED, "SIN", FONT_ARIAL11);
 	testNode->addChild(projectPageButton);
-	projectPageButton = new Button(Point(75.f, 10.f), Point(50.f, 50.f), COLOR_BLACK, COLOR_RED, "SAW", FONT_ARIAL11);
+	projectPageButton = new Button(Point(75.f, 10.f), Point(50.f, 50.f), COLOR_ABLACK, COLOR_RED, "SAW", FONT_ARIAL11);
 	testNode->addChild(projectPageButton);
-	projectPageButton = new Button(Point(140.f, 10.f), Point(50.f, 50.f), COLOR_BLACK, COLOR_RED, "SQR", FONT_ARIAL11);
+	projectPageButton = new Button(Point(140.f, 10.f), Point(50.f, 50.f), COLOR_ABLACK, COLOR_RED, "SQR", FONT_ARIAL11);
 	testNode->addChild(projectPageButton);
-	testNode->addChild(new Slider(Point(20.f, 70.f), Point(20.f, 80.f), COLOR_BLACK, COLOR_RED, Slider::VERTICAL));
+	testNode->addChild(new Slider(Point(20.f, 70.f), Point(20.f, 80.f), COLOR_ABLACK, COLOR_RED, Slider::VERTICAL));
+	base->addChild(testNode);
+	testNode = new Node(Point(900.f, 200.f), Point(200.f, 200.f), COLOR_ORANGE, COLOR_ABLACK);
+	base->addChild(testNode);
+	testNode = new Node(Point(1100.f, 200.f), Point(200.f, 200.f), COLOR_GREEN, COLOR_ABLACK);
+	base->addChild(testNode);
 	DebugPrintf("Base Components Initialized.\n");
 }
 
@@ -135,7 +135,11 @@ bool Synthadeus::needsRendering()
 
 Renderable* Synthadeus::getRenderList()
 {
-	return base->getRenderTree();
+	// create the watermark
+	Renderable* watermark = new Text(SYNTHADEUS_VERSION, -1 * appWindow->getViewportInstance(), Point(appWindow->getWidth(), 40.f), FONT_ARIAL40, COLOR_LTGREY);
+	Renderable* renderList = base->getRenderTree();
+	renderList->next = watermark;
+	return renderList;
 }
 
 InputDevice* Synthadeus::getInputDevice()
