@@ -125,6 +125,9 @@ void Synthadeus::update()
 
 	if (inputDevice->vController.quit.checkReleased())
 		quit();
+
+	// reset the scroll wheel delta
+	inputDevice->vMouse.scrollDelta = 0;
 }
 
 bool Synthadeus::needsRendering()
@@ -136,7 +139,10 @@ bool Synthadeus::needsRendering()
 Renderable* Synthadeus::getRenderList()
 {
 	// create the watermark
-	Renderable* watermark = new Text(SYNTHADEUS_VERSION, -1.f * appWindow->getViewportInstance(), Point((float)appWindow->getWidth(), 40.f), FONT_ARIAL40, COLOR_LTGREY);
+	inputDevice->vMouse.instance(appWindow->getViewportInstance());
+	Component* hover = base->getComponentAtPoint(inputDevice->vMouse.instancePosition());
+	inputDevice->vMouse.restore();
+	Renderable* watermark = new Text((hover == NULL) ? SYNTHADEUS_VERSION : hover->getClassName(), -1.f * appWindow->getViewportInstance(), Point((float)appWindow->getWidth(), 40.f), FONT_ARIAL40, COLOR_LTGREY);
 	Renderable* renderList = base->getRenderTree();
 	renderList->next = watermark;
 	return renderList;
@@ -151,4 +157,9 @@ void Synthadeus::quit()
 {
 	// give the window the quit message, terminating the realtime logic loop
 	SendMessage(appWindow->getWindowHandle(), WM_QUIT, 0, 0);
+}
+
+Component* Synthadeus::findComponentAtLocation(Point pt)
+{
+	return base->getComponentAtPoint(pt);
 }

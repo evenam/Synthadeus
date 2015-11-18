@@ -46,11 +46,6 @@ private:
 		return NULL;
 	}
 
-	inline Component* getComponentAtPoint(Point pt)
-	{
-		assert(!"implement this this " __FUNCSIG__);
-	}
-
 protected:
 	// set the bounds of this component
 	inline void setBoundingRectangle(Point rectOrigin, Point rectSize)
@@ -204,5 +199,19 @@ public:
 		update();
 		for (int i = 0; i < numChildren; i++)
 			children[i]->updateTree();
+	}
+
+	inline Component* getComponentAtPoint(Point pt)
+	{
+		if (!rectanglePointCollisionCheck(pt, origin, size)) return NULL;
+
+		// instance the origin
+		pt += -1.f * origin;
+		for (int i = 0; i < numChildren; i++)
+		{
+			Component* childComp = children[i]->getComponentAtPoint(pt);
+			if (childComp) return childComp;
+		}
+		return this;
 	}
 };

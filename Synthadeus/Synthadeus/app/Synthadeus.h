@@ -63,6 +63,7 @@ public:
 	// request the application to close
 	void quit();
 
-	Text* createWatermark();
+	// find a component
+	Component* findComponentAtLocation(Point pt);
 };
 
