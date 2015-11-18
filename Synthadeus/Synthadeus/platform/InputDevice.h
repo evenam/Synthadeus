@@ -26,12 +26,13 @@ public:
 	{
 	public:
 		ButtonBase left, right;
+		int scrollDelta;
 		inline Point instancePosition() { return position - currentInstance; }
 		Point position;
 
 		void instance(Point p);
 		void restore();
-		inline Mouse() : currentInstance(0.f, 0.f) { instanceSize = 0; }
+		inline Mouse() : currentInstance(0.f, 0.f) { instanceSize = 0; scrollDelta = 0; }
 	private:
 		enum { NUM_INSTANCES = 16 };
 		Point instances[NUM_INSTANCES];

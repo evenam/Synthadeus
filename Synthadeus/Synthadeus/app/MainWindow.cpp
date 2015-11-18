@@ -4,19 +4,24 @@
 int MainWindow::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	InputDevice* iState = application->getInputDevice();
+	int wDelta = 0;
 	switch (msg)
 	{
+	case WM_MOUSEWHEEL:
+		// casting is necessary to maintain sign bit
+		wDelta = (int)((short)HIWORD(lParam) / WHEEL_DELTA);
+		iState->vMouse.scrollDelta = wDelta;
+		return 0;
 	case WM_MOUSEMOVE:
 		// handle mouse movement
 		iState->vMouse.position[0] = LOWORD(wParam);
 		iState->vMouse.position[1] = HIWORD(wParam);
-		break;
+		return 0;
 	case WM_QUIT:
 	case WM_CLOSE:
 		// handle quit message
 		PostQuitMessage(0);
 		return 0;
-		break;
 	case WM_SIZE:
 		// calculate the resized client 
 		updateWindowDimensions();
@@ -25,6 +30,7 @@ int MainWindow::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		DebugPrintf("System Requested a Repaint, rendering.\n");
 		// we need to re-render the window contents
 		render();
+		return 0;
 	}
 
 	return -1;
