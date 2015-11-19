@@ -10,6 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 const char* Window::wndClassName = "NULL";
+const static float minFrameMS = 1000.f / 60.f;
 
 //Constructor that creates window!
 Window::Window(int nCmdShow, int inWidth, int inHeight) :
@@ -41,6 +42,9 @@ Window::Window(int nCmdShow, int inWidth, int inHeight) :
 	// register the class
 	if (!RegisterClassEx(&wcex))
 		AssertWindowsError();
+
+	// set up the window title
+	sprintf_s(windowTitle, "%s\0", "Synthadeus");
 
 	// wait for createWindow
 }
@@ -80,11 +84,25 @@ void Window::runMessageLoop()
 {
 	DebugPrintf("Message Loop Started.\n");
 
+	// performance counter data
+	_LARGE_INTEGER pc;
+	_LARGE_INTEGER freq;
+	double interval, tOld, tNew, frameMS;
+
+	// query interval and initial performance counter
+	QueryPerformanceCounter(&pc);
+	QueryPerformanceFrequency(&freq);
+	interval = 1000.f / (double)(freq.QuadPart);
+	tNew = (double)pc.QuadPart;
+
 	// Pass events to the windows proceedure and update as fast as we can
 	MSG msg;
 	bool quitFlag = false;
 	while (!quitFlag)
 	{
+		// start frame time
+		tOld = tNew;
+
 		// update cycle
 		update();
 
@@ -100,6 +118,19 @@ void Window::runMessageLoop()
 				quitFlag = true;
 			}
 		}
+
+		// get frame time
+		QueryPerformanceCounter(&pc);
+		tNew = (double)pc.QuadPart;
+		frameMS = (tNew - tOld) * interval;
+
+		// set window title
+		sprintf_s(windowTitle, "%s FPS: %6.3f\0", "Synthadeus", 1000.f / frameMS);
+		SetWindowText(hWnd, windowTitle);
+
+		// hold till 10FPS
+		if (frameMS < minFrameMS)
+			Sleep((int)(minFrameMS - frameMS));
 	}
 	DebugPrintf("Message Loop Ended.\n");
 }
@@ -162,7 +193,7 @@ void Window::createWindow()
 		AssertWindowsError();
 
 	// create the window
-	hWnd = CreateWindowEx(NULL, wndClassName, "Synthadaeus", windowStyle, CW_USEDEFAULT, CW_USEDEFAULT, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top, NULL, NULL, HINST_THISCOMPONENT, this);
+	hWnd = CreateWindowEx(NULL, wndClassName, windowTitle, windowStyle, CW_USEDEFAULT, CW_USEDEFAULT, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top, NULL, NULL, HINST_THISCOMPONENT, this);
 	if (!hWnd)
 		AssertWindowsError();
 

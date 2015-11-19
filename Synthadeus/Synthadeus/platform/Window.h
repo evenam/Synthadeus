@@ -44,6 +44,10 @@ private:
 	HWND hWnd;	
 	unsigned long windowStyle;
 	int cmdShow;
+
+	// window title string buffer
+	const static int windowTitleLength = 40;
+	char windowTitle[windowTitleLength];
 	
 protected:
 	// window width and height
