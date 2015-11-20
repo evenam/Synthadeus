@@ -144,7 +144,7 @@ Renderable* Synthadeus::getRenderList()
 	Component* hover = base->getComponentAtPoint(inputDevice->vMouse.instancePosition());
 	inputDevice->vMouse.restore();
 	Renderable* watermark = new Text((hover == NULL) ? SYNTHADEUS_VERSION : hover->getClassName(), -1.f * appWindow->getViewportInstance(), Point((float)appWindow->getWidth(), 40.f), FONT_ARIAL40, COLOR_LTGREY);
-	Renderable* renderList = base->getRenderTree();
+	Renderable* renderList = sortRenderList(base->getRenderTree());
 	renderList->next = watermark;
 	return renderList;
 }
@@ -163,4 +163,11 @@ void Synthadeus::quit()
 Component* Synthadeus::findComponentAtLocation(Point pt)
 {
 	return base->getComponentAtPoint(pt);
+}
+
+Renderable * Synthadeus::sortRenderList(Renderable * list)
+{
+	// TODO: sort the bezier curves to the end
+
+	return list;
 }

@@ -1,5 +1,6 @@
 #include "Connector.h"
 #include "Node.h"
+#include "Synthadeus.h"
 
 bool Connector::isEarlierInGraph(Connector* testConnector)
 {
@@ -114,16 +115,29 @@ void InputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMou
 	{
 		disconnect();
 		interacting = true;
-	}
+		}
 	if (vMouse->left.checkReleased() && interacting)
 	{
 		interacting = false;
-		
+		Component* other = app->findComponentAtLocation(vMouse->position);
+		if (other && (_strcmpi(other->getClassName(), OutputConnector::nameString()) == 0))
+		{
+			connect((OutputConnector*)other);
+			otherCoords[0] = connectedComponent->getAbsoluteOrigin()[0] + connectedComponent->size[0] * 0.5f - getAbsoluteOrigin()[0] + size[0] * 0.5f;
+			otherCoords[1] = connectedComponent->getAbsoluteOrigin()[1] + connectedComponent->size[1] * 0.5f - getAbsoluteOrigin()[1] + size[1] * 0.5f;
+
+		}
 	}
 }
 
 void InputConnector::update()
 {
+	if (connected)
+	{
+		otherCoords[0] = connectedComponent->getAbsoluteOrigin()[0] + connectedComponent->origin[0] + connectedComponent->size[0] * 0.5f - getAbsoluteOrigin()[0];
+		otherCoords[1] = connectedComponent->getAbsoluteOrigin()[1] + connectedComponent->origin[1] + connectedComponent->size[1] * 0.5f - getAbsoluteOrigin()[1];
+
+	}
 }
 
 int OutputConnector::findConnectorInList(InputConnector* connector)

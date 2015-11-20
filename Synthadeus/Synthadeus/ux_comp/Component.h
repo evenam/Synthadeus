@@ -22,10 +22,11 @@ class Component : public Object
 {
 private:
 	// bounding rectangle
-	Point origin, size, absoluteOrigin;
+	Point origin, size;
 
 	// sub-components
 	Component* children[COMPONENT_MAX_CHILDREN];
+	Component* parent;
 	int numChildren;
 
 	inline Component* handleCurrentlyInteracting(Synthadeus* app, InputDevice::Mouse* vMouse)
@@ -57,10 +58,6 @@ protected:
 		// size
 		size[0] = rectSize[0];
 		size[1] = rectSize[1];
-
-		// absolute origin
-		absoluteOrigin[0] = rectSize[0];
-		absoluteOrigin[1] = rectSize[1];
 	}
 
 	// are we interacting with input?
@@ -132,8 +129,7 @@ public:
 		
 		// insert the child and return the index
 		children[numChildren] = child;
-		child->setAbsoluteOrigin(absoluteOrigin + child->origin);
-		DebugPrintf("AbsoluteOrigin(%s): (%f, %f)\n", child->getClassName(), absoluteOrigin[0], absoluteOrigin[1]);
+		child->parent = this;
 		return numChildren++;
 	}
 
@@ -153,6 +149,7 @@ public:
 
 				// item removed, no need to continue as adding a child will not have duplicates
 				numChildren--;
+				child->parent = NULL;
 				return;
 			}
 		}
@@ -162,6 +159,7 @@ public:
 	{
 		// remove the child at the index, called responsible for managing memory
 		// much quicker because we do not need to search for the component
+		children[index]->parent = NULL;
 		for (int j = index; j < numChildren - 1; j++)
 		{
 			children[j] = children[j + 1];
@@ -221,14 +219,11 @@ public:
 		return this;
 	}
 
-	inline void setAbsoluteOrigin(Point aOrigin)
-	{
-		absoluteOrigin[0] = aOrigin[0];
-		absoluteOrigin[1] = aOrigin[1];
-	}
-
 	inline Point getAbsoluteOrigin()
 	{
-		return absoluteOrigin;
+		if (parent)
+			return parent->getAbsoluteOrigin() + origin;
+		else
+			return Point(0.f, 0.f);
 	}
 };
