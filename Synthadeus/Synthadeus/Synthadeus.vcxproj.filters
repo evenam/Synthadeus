@@ -125,6 +125,9 @@
     <ClCompile Include="platform\InputDevice.cpp">
       <Filter>Source Files\platform</Filter>
     </ClCompile>
+    <ClCompile Include="ux_comp\Connector.cpp">
+      <Filter>Source Files\ux_comp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CFMaths.h">
@@ -207,6 +210,9 @@
     </ClInclude>
     <ClInclude Include="platform\InputDevice.h">
       <Filter>Header Files\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="ux_comp\Connector.h">
+      <Filter>Header Files\ux_comp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
