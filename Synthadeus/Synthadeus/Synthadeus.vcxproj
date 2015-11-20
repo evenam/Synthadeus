@@ -72,14 +72,14 @@
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/common;$(ProjectDir)/app;$(ProjectDir)/ux_comp/base;$(ProjectDir)/ux_comp;$(ProjectDir)/audio;$(ProjectDir)/render/geoms;$(ProjectDir)/platform;$(ProjectDir)/render;$(ProjectDir)/render/geoms;$(ProjectDir)/audio;$(ProjectDir)/platform;$(ProjectDir)/ux_comp</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/common;$(ProjectDir)/app;$(ProjectDir)/ux_comp/base;$(ProjectDir)/ux_comp;$(ProjectDir)/audio;$(ProjectDir)/render/geoms;$(ProjectDir)/platform;$(ProjectDir)/render;$(ProjectDir)/audio;$(ProjectDir)/platform</IncludePath>
+    <IncludePath>$(ProjectDir)/audio/external;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/common;$(ProjectDir)/app;$(ProjectDir)/ux_comp/base;$(ProjectDir)/ux_comp;$(ProjectDir)/audio;$(ProjectDir)/render/geoms;$(ProjectDir)/platform;$(ProjectDir)/render</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\Users\Justin\Desktop\PortAudioTest\PortAudioTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -133,7 +133,13 @@
   <ItemGroup>
     <ClCompile Include="app\MainWindow.cpp" />
     <ClCompile Include="app\Synthadeus.cpp" />
+    <ClCompile Include="AudioConstant.cpp" />
+    <ClCompile Include="AudioNode.cpp" />
     <ClCompile Include="AudioPlayback.cpp" />
+    <ClCompile Include="AudioPlaybackPosition.cpp" />
+    <ClCompile Include="BezierEnvelope.cpp" />
+    <ClCompile Include="Oscillator.cpp" />
+    <ClCompile Include="SignalSummation.cpp" />
     <ClCompile Include="ux_comp\base\SliderBase.cpp" />
     <ClCompile Include="ux_comp\Button.cpp" />
     <ClCompile Include="common\CFMaths.cpp" />
@@ -158,8 +164,27 @@
   <ItemGroup>
     <ClInclude Include="app\MainWindow.h" />
     <ClInclude Include="app\Synthadeus.h" />
+    <ClInclude Include="AudioConstant.h" />
+    <ClInclude Include="AudioNode.h" />
     <ClInclude Include="AudioPlayback.h" />
+    <ClInclude Include="AudioPlaybackPosition.h" />
+    <ClInclude Include="audio\external\pa_asio.h" />
+    <ClInclude Include="audio\external\pa_jack.h" />
+    <ClInclude Include="audio\external\pa_linux_alsa.h" />
+    <ClInclude Include="audio\external\pa_mac_core.h" />
+    <ClInclude Include="audio\external\pa_win_ds.h" />
+    <ClInclude Include="audio\external\pa_win_wasapi.h" />
+    <ClInclude Include="audio\external\pa_win_waveformat.h" />
+    <ClInclude Include="audio\external\pa_win_wdmks.h" />
+    <ClInclude Include="audio\external\pa_win_wmme.h" />
+    <ClInclude Include="audio\external\portaudio.h" />
+    <ClInclude Include="audio\external\portmidi.h" />
+    <ClInclude Include="audio\external\porttime.h" />
+    <ClInclude Include="audio\SineLookup.h" />
+    <ClInclude Include="BezierEnvelope.h" />
     <ClInclude Include="common\Bezier.h" />
+    <ClInclude Include="Oscillator.h" />
+    <ClInclude Include="SignalSummation.h" />
     <ClInclude Include="ux_comp\base\SliderBase.h" />
     <ClInclude Include="ux_comp\Button.h" />
     <ClInclude Include="common\CFMaths.h" />
