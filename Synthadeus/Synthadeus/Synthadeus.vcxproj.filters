@@ -152,6 +152,9 @@
     <ClCompile Include="audio\AudioPlayback.cpp">
       <Filter>Source Files\audio</Filter>
     </ClCompile>
+    <ClCompile Include="ux_comp\CommandMenu.cpp">
+      <Filter>Source Files\ux_comp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CFMaths.h">
@@ -297,6 +300,9 @@
     </ClInclude>
     <ClInclude Include="audio\external\portmidi.h">
       <Filter>Header Files\audio\external</Filter>
+    </ClInclude>
+    <ClInclude Include="ux_comp\CommandMenu.h">
+      <Filter>Header Files\ux_comp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -162,7 +162,7 @@ void Synthadeus::quit()
 
 Component* Synthadeus::findComponentAtLocation(Point pt)
 {
-	return base->getComponentAtPoint(pt);
+	return base->getComponentAtPoint(pt -appWindow->getViewportInstance());
 }
 
 Renderable * Synthadeus::sortRenderList(Renderable * list)

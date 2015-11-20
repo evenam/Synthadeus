@@ -2,10 +2,7 @@
 #include "Node.h"
 #include "Synthadeus.h"
 
-bool Connector::isEarlierInGraph(Connector* testConnector)
-{
-	return false;
-}
+Connector::HighlightType Connector::currentHighlight = Connector::NONE;
 
 Connector::Connector(Point connectorOrigin, Point connectorSize, Node* connectorParent, unsigned int connectorColor)
 {
@@ -56,9 +53,12 @@ Renderable* Connector::getRenderList()
 	float radiusX, radiusY;
 	radiusX = size[0] * 0.5f;
 	radiusY = size[1] * 0.5f;
+	bool shouldHighlight = false;
+	if (Connector::currentHighlight == INPUT && isInputConnector()) shouldHighlight = true;
+	if (Connector::currentHighlight == OUTPUT && isOutputConnector()) shouldHighlight = true;
 
 	// top kek
-	Renderable* circle = new RoundedRectangle(origin, size, color, (interacting? color : ((isConnected() > 0) ? COLOR_WHITE : COLOR_NONE)), radiusX, radiusY);
+	Renderable* circle = new RoundedRectangle(origin, size, (shouldHighlight ? COLOR_WHITE : color), (interacting? color : ((isConnected() > 0) ? COLOR_WHITE : COLOR_NONE)), radiusX, radiusY);
 
 	if (isInputConnector() && isConnected())
 	{
@@ -115,10 +115,12 @@ void InputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMou
 	{
 		disconnect();
 		interacting = true;
+		Connector::currentHighlight = Connector::OUTPUT;
 		}
 	if (vMouse->left.checkReleased() && interacting)
 	{
 		interacting = false;
+		Connector::currentHighlight = Connector::NONE;
 		Component* other = app->findComponentAtLocation(vMouse->position);
 		if (other && (_strcmpi(other->getClassName(), OutputConnector::nameString()) == 0))
 		{
@@ -200,10 +202,12 @@ void OutputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMo
 	if (vMouse->left.checkPressed() && !interacting)
 	{
 		interacting = true;
+		Connector::currentHighlight = Connector::INPUT;
 	}
 	if (vMouse->left.checkReleased() && interacting)
 	{
 		interacting = false;
+		Connector::currentHighlight = Connector::NONE;
 		Component* other = app->findComponentAtLocation(vMouse->position);
 		if (other && (_strcmpi(other->getClassName(), InputConnector::nameString()) == 0))
 		{

@@ -156,6 +156,7 @@
     <ClCompile Include="render\geoms\Line.cpp" />
     <ClCompile Include="render\geoms\RoundedRectangle.cpp" />
     <ClCompile Include="ux_comp\base\ButtonBase.cpp" />
+    <ClCompile Include="ux_comp\CommandMenu.cpp" />
     <ClCompile Include="ux_comp\Connector.cpp" />
     <ClCompile Include="ux_comp\GridBase.cpp" />
     <ClCompile Include="ux_comp\Node.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="render\geoms\Line.h" />
     <ClInclude Include="render\geoms\RoundedRectangle.h" />
     <ClInclude Include="ux_comp\base\ButtonBase.h" />
+    <ClInclude Include="ux_comp\CommandMenu.h" />
     <ClInclude Include="ux_comp\Component.h" />
     <ClInclude Include="ux_comp\Connector.h" />
     <ClInclude Include="ux_comp\GridBase.h" />
