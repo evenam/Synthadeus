@@ -61,7 +61,7 @@
       <UniqueIdentifier>{e9a1e154-9e21-4684-a1a7-9238367350d9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\audio\external">
-      <UniqueIdentifier>{dea0dea8-3773-44d9-8577-75cf6f466f70}</UniqueIdentifier>
+      <UniqueIdentifier>{e8a35980-1195-4d5c-b6dc-f3378a8cb48e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -131,25 +131,25 @@
     <ClCompile Include="ux_comp\Connector.cpp">
       <Filter>Source Files\ux_comp</Filter>
     </ClCompile>
-    <ClCompile Include="AudioPlayback.cpp">
+    <ClCompile Include="audio\AudioPlaybackPosition.cpp">
       <Filter>Source Files\audio</Filter>
     </ClCompile>
-    <ClCompile Include="AudioNode.cpp">
+    <ClCompile Include="audio\BezierEnvelope.cpp">
       <Filter>Source Files\audio</Filter>
     </ClCompile>
-    <ClCompile Include="AudioPlaybackPosition.cpp">
+    <ClCompile Include="audio\Oscillator.cpp">
       <Filter>Source Files\audio</Filter>
     </ClCompile>
-    <ClCompile Include="AudioConstant.cpp">
+    <ClCompile Include="audio\SignalSummation.cpp">
       <Filter>Source Files\audio</Filter>
     </ClCompile>
-    <ClCompile Include="Oscillator.cpp">
+    <ClCompile Include="audio\AudioConstant.cpp">
       <Filter>Source Files\audio</Filter>
     </ClCompile>
-    <ClCompile Include="SignalSummation.cpp">
+    <ClCompile Include="audio\AudioNode.cpp">
       <Filter>Source Files\audio</Filter>
     </ClCompile>
-    <ClCompile Include="BezierEnvelope.cpp">
+    <ClCompile Include="audio\AudioPlayback.cpp">
       <Filter>Source Files\audio</Filter>
     </ClCompile>
   </ItemGroup>
@@ -238,29 +238,32 @@
     <ClInclude Include="ux_comp\Connector.h">
       <Filter>Header Files\ux_comp</Filter>
     </ClInclude>
-    <ClInclude Include="AudioPlayback.h">
+    <ClInclude Include="audio\AudioConstant.h">
       <Filter>Header Files\audio</Filter>
     </ClInclude>
-    <ClInclude Include="AudioNode.h">
+    <ClInclude Include="audio\AudioNode.h">
       <Filter>Header Files\audio</Filter>
     </ClInclude>
-    <ClInclude Include="AudioPlaybackPosition.h">
+    <ClInclude Include="audio\AudioPlayback.h">
       <Filter>Header Files\audio</Filter>
     </ClInclude>
-    <ClInclude Include="AudioConstant.h">
+    <ClInclude Include="audio\AudioPlaybackPosition.h">
       <Filter>Header Files\audio</Filter>
     </ClInclude>
-    <ClInclude Include="Oscillator.h">
+    <ClInclude Include="audio\BezierEnvelope.h">
       <Filter>Header Files\audio</Filter>
     </ClInclude>
-    <ClInclude Include="SignalSummation.h">
+    <ClInclude Include="audio\Oscillator.h">
       <Filter>Header Files\audio</Filter>
     </ClInclude>
-    <ClInclude Include="BezierEnvelope.h">
+    <ClInclude Include="audio\SignalSummation.h">
       <Filter>Header Files\audio</Filter>
     </ClInclude>
     <ClInclude Include="audio\SineLookup.h">
       <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\external\porttime.h">
+      <Filter>Header Files\audio\external</Filter>
     </ClInclude>
     <ClInclude Include="audio\external\pa_asio.h">
       <Filter>Header Files\audio\external</Filter>
@@ -293,9 +296,6 @@
       <Filter>Header Files\audio\external</Filter>
     </ClInclude>
     <ClInclude Include="audio\external\portmidi.h">
-      <Filter>Header Files\audio\external</Filter>
-    </ClInclude>
-    <ClInclude Include="audio\external\porttime.h">
       <Filter>Header Files\audio\external</Filter>
     </ClInclude>
   </ItemGroup>
