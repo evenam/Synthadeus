@@ -41,7 +41,7 @@ public:
 
 	inline virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse) {};
 	inline virtual void update() {};
-	inline virtual Renderable* getRenderList() { return NULL; };
+	virtual Renderable* getRenderList();
 };
 
 class InputConnector : public Connector
@@ -50,6 +50,7 @@ private:
 	OutputConnector* connectedComponent;
 	bool connected;
 public:
+	RTTI_MACRO(InputConnector);
 	InputConnector(Point connectorOrigin, Point connectorSize, unsigned int connectorColor, Node* connectorParent = NULL);
 	Node* getConnectionParent();
 	virtual inline int isConnected() { return (connected ? 1 : 0); }
@@ -61,7 +62,6 @@ public:
 
 	virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse);
 	virtual void update();
-	virtual Renderable* getRenderList();
 };
 
 class OutputConnector : public Connector
@@ -71,6 +71,7 @@ class OutputConnector : public Connector
 	int numConnectedComponents;
 
 public:
+	RTTI_MACRO(OutputConnector);
 	OutputConnector(Point connectorOrigin, Point connectorSize, unsigned int connectorColor, Node* connectorParent = NULL);
 	Node* getConnectionParent(int index);
 	virtual inline int isConnected() { return numConnectedComponents; }
@@ -85,5 +86,4 @@ public:
 
 	virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse);
 	virtual void update();
-	virtual Renderable* getRenderList();
 };

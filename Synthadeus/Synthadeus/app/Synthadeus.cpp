@@ -63,8 +63,8 @@ Synthadeus::Synthadeus()
 	base = new GridBase(Point(-640.f, -640.f), Point(appWindow->getWidth() + 1280.f, appWindow->getHeight() + 1280.f), COLOR_LTGREY, COLOR_BLACK);
 	
 	testNode = new Node(Point(700.f, 700.f), Point(200.f, 200.f), COLOR_CORNFLOWERBLUE, COLOR_ABLACK);
-	projectPageButton = new Button(Point(10.f, 10.f), Point(50.f, 50.f), COLOR_ABLACK, COLOR_RED, "SIN", FONT_ARIAL11);
-	testNode->addChild(projectPageButton);
+	//projectPageButton = new Button(Point(10.f, 10.f), Point(50.f, 50.f), COLOR_ABLACK, COLOR_RED, "SIN", FONT_ARIAL11);
+	testNode->addChild(new InputConnector(Point(10.f, 10.f), Point(50.f, 50.f), COLOR_ORANGE, testNode));
 	projectPageButton = new Button(Point(75.f, 10.f), Point(50.f, 50.f), COLOR_ABLACK, COLOR_RED, "SAW", FONT_ARIAL11);
 	testNode->addChild(projectPageButton);
 	projectPageButton = new Button(Point(140.f, 10.f), Point(50.f, 50.f), COLOR_ABLACK, COLOR_RED, "SQR", FONT_ARIAL11);

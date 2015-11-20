@@ -212,7 +212,7 @@
       <Filter>Header Files\platform</Filter>
     </ClInclude>
     <ClInclude Include="ux_comp\Connector.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ux_comp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
