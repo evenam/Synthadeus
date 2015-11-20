@@ -26,8 +26,8 @@ protected:
 	unsigned int color;
 	Node* parent;
 	Point otherCoords;
-
-	bool isEarlierInGraph(Connector* testConnector);
+	enum HighlightType { INPUT, OUTPUT, NONE };
+	static HighlightType currentHighlight;
 
 public:
 	Connector(Point connectorOrigin, Point connectorSize, Node* connectorParent, unsigned int connectorColor);
