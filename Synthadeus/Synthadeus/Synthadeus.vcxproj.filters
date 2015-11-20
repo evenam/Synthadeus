@@ -126,7 +126,7 @@
       <Filter>Source Files\platform</Filter>
     </ClCompile>
     <ClCompile Include="ux_comp\Connector.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ux_comp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
