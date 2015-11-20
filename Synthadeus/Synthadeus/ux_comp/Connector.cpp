@@ -46,6 +46,14 @@ Node* Connector::getParent()
 	return parent;
 }
 
+Renderable* Connector::getRenderList()
+{
+	float radiusX, radiusY;
+	radiusX = size[0] * 0.5f;
+	radiusY = size[1] * 0.5f;
+	return new RoundedRectangle(origin, size, color, (interacting? color : COLOR_NONE), radiusX, radiusY);
+}
+
 Node* InputConnector::getConnectionParent()
 {
 	if (connectedComponent && connected) return connectedComponent->getParent();
@@ -71,17 +79,19 @@ void InputConnector::connect(OutputConnector* other)
 
 void InputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 {
-
+	if (vMouse->left.checkPressed() && !interacting)
+	{
+		interacting = true;
+	}
+	if (vMouse->left.checkReleased() && interacting)
+	{
+		interacting = false;
+	}
 }
 
 void InputConnector::update()
 {
 
-}
-
-Renderable* InputConnector::getRenderList()
-{
-	return NULL;
 }
 
 int OutputConnector::findConnectorInList(InputConnector* connector)
@@ -110,22 +120,32 @@ Node* OutputConnector::getConnectionParent(int index)
 
 void OutputConnector::disconnect(int index)
 {
-
+	if (index < 0) return;
+	if (index >= numConnectedComponents) return;
+	for (int i = index; i < numConnectedComponents; i++)
+		connectedComponents[i] = connectedComponents[i + 1];
+	numConnectedComponents--;
 }
 
 void OutputConnector::disconnect(InputConnector* other)
 {
-
+	int index = findConnectorInList(other);
+	disconnect(index);
 }
 
 int OutputConnector::connect(InputConnector* other)
 {
-	return 0;
+	if (numConnectedComponents >= MAX_CONNECTED_COMPONENTS) return -1;
+	if (other == NULL) return -1;
+	connectedComponents[numConnectedComponents] = other;
+	return numConnectedComponents++;
 }
 
 InputConnector* OutputConnector::getConnected(int otherIndex)
 {
-	return NULL;
+	if (otherIndex >= numConnectedComponents) return NULL;
+	if (otherIndex < 0) return NULL;
+	return connectedComponents[otherIndex];
 }
 
 void OutputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
@@ -136,9 +156,4 @@ void OutputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMo
 void OutputConnector::update()
 {
 
-}
-
-Renderable* OutputConnector::getRenderList()
-{
-	return NULL;
 }
