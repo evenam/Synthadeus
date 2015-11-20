@@ -22,7 +22,7 @@ class Component : public Object
 {
 private:
 	// bounding rectangle
-	Point origin, size;
+	Point origin, size, absoluteOrigin;
 
 	// sub-components
 	Component* children[COMPONENT_MAX_CHILDREN];
@@ -57,6 +57,10 @@ protected:
 		// size
 		size[0] = rectSize[0];
 		size[1] = rectSize[1];
+
+		// absolute origin
+		absoluteOrigin[0] = rectSize[0];
+		absoluteOrigin[1] = rectSize[1];
 	}
 
 	// are we interacting with input?
@@ -128,6 +132,8 @@ public:
 		
 		// insert the child and return the index
 		children[numChildren] = child;
+		child->setAbsoluteOrigin(absoluteOrigin + child->origin);
+		DebugPrintf("AbsoluteOrigin(%s): (%f, %f)\n", child->getClassName(), absoluteOrigin[0], absoluteOrigin[1]);
 		return numChildren++;
 	}
 
@@ -213,5 +219,16 @@ public:
 			if (childComp) return childComp;
 		}
 		return this;
+	}
+
+	inline void setAbsoluteOrigin(Point aOrigin)
+	{
+		absoluteOrigin[0] = aOrigin[0];
+		absoluteOrigin[1] = aOrigin[1];
+	}
+
+	inline Point getAbsoluteOrigin()
+	{
+		return absoluteOrigin;
 	}
 };

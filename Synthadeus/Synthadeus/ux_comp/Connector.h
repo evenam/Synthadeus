@@ -25,7 +25,7 @@ protected:
 	Point size;
 	unsigned int color;
 	Node* parent;
-
+	Point otherCoords;
 
 	bool isEarlierInGraph(Connector* testConnector);
 
@@ -47,6 +47,7 @@ public:
 class InputConnector : public Connector
 {
 private:
+	friend class OutputConnector;
 	OutputConnector* connectedComponent;
 	bool connected;
 public:
@@ -66,6 +67,7 @@ public:
 
 class OutputConnector : public Connector
 {
+	friend class InputConnector;
 	const static int MAX_CONNECTED_COMPONENTS = 16;
 	InputConnector* connectedComponents[MAX_CONNECTED_COMPONENTS];
 	int numConnectedComponents;

@@ -76,8 +76,8 @@ private:
 			if (pointList[i].x > maxX) maxX = pointList[i].x;
 			if (pointList[i].y > maxY) maxY = pointList[i].y;
 		}
-		assert(minX < maxX);
-		assert(minY < maxY);
+		assert(minX <= maxX);
+		assert(minY <= maxY);
 	}
 
 public:

@@ -37,6 +37,7 @@ public:
 		va_list vl;
 		int num = N;
 		va_start(vl, first);
+		thisCurve.setPoint(0, first);
 		for (int i = 1; i < N; i++)
 			thisCurve.setPoint(i,*(Point*)&va_arg(vl, Vector2D));
 		va_end(vl);

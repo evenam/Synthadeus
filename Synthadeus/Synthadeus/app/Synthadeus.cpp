@@ -72,6 +72,7 @@ Synthadeus::Synthadeus()
 	testNode->addChild(new Slider(Point(20.f, 70.f), Point(20.f, 80.f), COLOR_ABLACK, COLOR_RED, Slider::VERTICAL));
 	base->addChild(testNode);
 	testNode = new Node(Point(950.f, 700.f), Point(200.f, 200.f), COLOR_ORANGE, COLOR_ABLACK);
+	testNode->addChild(new OutputConnector(Point(10.f, 10.f), Point(50.f, 50.f), COLOR_ORANGE, testNode));
 	base->addChild(testNode);
 	testNode = new Node(Point(1200.f, 700.f), Point(200.f, 200.f), COLOR_GREEN, COLOR_ABLACK);
 	base->addChild(testNode);
