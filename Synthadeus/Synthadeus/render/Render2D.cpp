@@ -32,6 +32,7 @@ void Render2D::createDeviceDependentResources()
 		AssertWindowsHRESULT(createBrush(COLOR_PINK,			COLOR_CODE_PINK,			0.75f));
 		AssertWindowsHRESULT(createBrush(COLOR_BROWN,			COLOR_CODE_BROWN,			0.75f));
 		AssertWindowsHRESULT(createBrush(COLOR_ABLACK,			COLOR_CODE_ABLACK,			0.75f));
+		AssertWindowsHRESULT(createBrush(COLOR_NONE,			COLOR_CODE_NONE,			0.00f));
 
 		// create fonts, definitions in pallet.h
 		AssertWindowsHRESULT(createFont(FONT_ARIAL20, L"Arial", 20.f, DWRITE_FONT_WEIGHT_NORMAL, DWRITE_TEXT_ALIGNMENT_CENTER, DWRITE_PARAGRAPH_ALIGNMENT_CENTER));
