@@ -125,9 +125,6 @@
     <ClCompile Include="platform\InputDevice.cpp">
       <Filter>Source Files\platform</Filter>
     </ClCompile>
-    <ClCompile Include="AudioPlayback.cpp">
-      <Filter>Source Files\audio</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CFMaths.h">
@@ -210,9 +207,6 @@
     </ClInclude>
     <ClInclude Include="platform\InputDevice.h">
       <Filter>Header Files\platform</Filter>
-    </ClInclude>
-    <ClInclude Include="AudioPlayback.h">
-      <Filter>Header Files\audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
