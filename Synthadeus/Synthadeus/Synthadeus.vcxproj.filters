@@ -60,6 +60,9 @@
     <Filter Include="Source Files\ux_comp\base">
       <UniqueIdentifier>{e9a1e154-9e21-4684-a1a7-9238367350d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\audio\external">
+      <UniqueIdentifier>{dea0dea8-3773-44d9-8577-75cf6f466f70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\Object.cpp">
@@ -129,6 +132,24 @@
       <Filter>Source Files\ux_comp</Filter>
     </ClCompile>
     <ClCompile Include="AudioPlayback.cpp">
+      <Filter>Source Files\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioNode.cpp">
+      <Filter>Source Files\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioPlaybackPosition.cpp">
+      <Filter>Source Files\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioConstant.cpp">
+      <Filter>Source Files\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Oscillator.cpp">
+      <Filter>Source Files\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="SignalSummation.cpp">
+      <Filter>Source Files\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="BezierEnvelope.cpp">
       <Filter>Source Files\audio</Filter>
     </ClCompile>
   </ItemGroup>
@@ -219,6 +240,63 @@
     </ClInclude>
     <ClInclude Include="AudioPlayback.h">
       <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioNode.h">
+      <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioPlaybackPosition.h">
+      <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioConstant.h">
+      <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Oscillator.h">
+      <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="SignalSummation.h">
+      <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="BezierEnvelope.h">
+      <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\SineLookup.h">
+      <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\external\pa_asio.h">
+      <Filter>Header Files\audio\external</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\external\pa_jack.h">
+      <Filter>Header Files\audio\external</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\external\pa_linux_alsa.h">
+      <Filter>Header Files\audio\external</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\external\pa_mac_core.h">
+      <Filter>Header Files\audio\external</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\external\pa_win_ds.h">
+      <Filter>Header Files\audio\external</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\external\pa_win_wasapi.h">
+      <Filter>Header Files\audio\external</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\external\pa_win_waveformat.h">
+      <Filter>Header Files\audio\external</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\external\pa_win_wdmks.h">
+      <Filter>Header Files\audio\external</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\external\pa_win_wmme.h">
+      <Filter>Header Files\audio\external</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\external\portaudio.h">
+      <Filter>Header Files\audio\external</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\external\portmidi.h">
+      <Filter>Header Files\audio\external</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\external\porttime.h">
+      <Filter>Header Files\audio\external</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
