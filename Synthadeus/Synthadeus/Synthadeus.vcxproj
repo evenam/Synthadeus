@@ -79,6 +79,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\Justin\Desktop\PortAudioTest\PortAudioTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -132,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="app\MainWindow.cpp" />
     <ClCompile Include="app\Synthadeus.cpp" />
+    <ClCompile Include="AudioPlayback.cpp" />
     <ClCompile Include="ux_comp\base\SliderBase.cpp" />
     <ClCompile Include="ux_comp\Button.cpp" />
     <ClCompile Include="common\CFMaths.cpp" />
@@ -156,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="app\MainWindow.h" />
     <ClInclude Include="app\Synthadeus.h" />
+    <ClInclude Include="AudioPlayback.h" />
     <ClInclude Include="common\Bezier.h" />
     <ClInclude Include="ux_comp\base\SliderBase.h" />
     <ClInclude Include="ux_comp\Button.h" />
