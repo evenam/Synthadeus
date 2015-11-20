@@ -117,12 +117,12 @@ void Synthadeus::update()
 	// update the viewport
 	updateViewport();
 
-	base->updateTree();
-
 	inputDevice->vMouse.instance(appWindow->getViewportInstance());
 	//if (inputDevice->vMouse.left.check())
 		base->handleMouseInput(this, &inputDevice->vMouse);
 	inputDevice->vMouse.restore();
+
+	base->updateTree();
 
 	if (inputDevice->vController.quit.checkReleased())
 		quit();

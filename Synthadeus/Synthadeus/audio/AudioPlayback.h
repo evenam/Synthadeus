@@ -1,7 +1,7 @@
 #pragma once
 
-#include "ps_include\portaudio.h"
-#include "ps_include\pa_asio.h"
+#include "portaudio.h"
+#include "pa_asio.h"
 
 #include "AudioNode.h"
 

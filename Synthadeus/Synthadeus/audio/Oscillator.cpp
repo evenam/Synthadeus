@@ -1,5 +1,5 @@
 #include "Oscillator.h"
-
+#include <cmath>
 Oscillator::Oscillator(WAVEFORM wave, float freq, float vol, float pan, AudioNode* freqMod, AudioNode* volMod, AudioNode* panMod)
 	: waveform(wave), frequency(freq), volume(vol), panning(pan), frequencyMod(freqMod), volumeMod(volMod), panningMod(panMod)
 {
