@@ -128,6 +128,9 @@
     <ClCompile Include="ux_comp\Connector.cpp">
       <Filter>Source Files\ux_comp</Filter>
     </ClCompile>
+    <ClCompile Include="AudioPlayback.cpp">
+      <Filter>Source Files\audio</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CFMaths.h">
@@ -213,6 +216,9 @@
     </ClInclude>
     <ClInclude Include="ux_comp\Connector.h">
       <Filter>Header Files\ux_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioPlayback.h">
+      <Filter>Header Files\audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
