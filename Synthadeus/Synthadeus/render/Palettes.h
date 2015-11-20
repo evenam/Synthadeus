@@ -11,7 +11,7 @@
 #pragma once
 
 // number of colors
-#define RENDER_COLOR_PALETTE_SIZE 16
+#define RENDER_COLOR_PALETTE_SIZE 17
 
 // color code values (RGB format, 0-255)
 // greyscale
@@ -36,6 +36,9 @@
 #define COLOR_CODE_BROWN 0x3E2723
 #define COLOR_CODE_ABLACK 0x010101
 
+// a fully alpha'd color
+#define COLOR_CODE_NONE 0x000000
+
 
 // color indices
 // greyscale
@@ -56,6 +59,8 @@
 #define COLOR_BROWN 14
 
 #define COLOR_ABLACK 15
+
+#define COLOR_NONE 16
 
 // number of fonts
 #define RENDER_FONT_PALETTE_SIZE 3
