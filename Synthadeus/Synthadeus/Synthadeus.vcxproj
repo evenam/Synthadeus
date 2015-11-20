@@ -133,13 +133,13 @@
   <ItemGroup>
     <ClCompile Include="app\MainWindow.cpp" />
     <ClCompile Include="app\Synthadeus.cpp" />
-    <ClCompile Include="AudioConstant.cpp" />
-    <ClCompile Include="AudioNode.cpp" />
-    <ClCompile Include="AudioPlayback.cpp" />
-    <ClCompile Include="AudioPlaybackPosition.cpp" />
-    <ClCompile Include="BezierEnvelope.cpp" />
-    <ClCompile Include="Oscillator.cpp" />
-    <ClCompile Include="SignalSummation.cpp" />
+    <ClCompile Include="audio\AudioConstant.cpp" />
+    <ClCompile Include="audio\AudioNode.cpp" />
+    <ClCompile Include="audio\AudioPlayback.cpp" />
+    <ClCompile Include="audio\AudioPlaybackPosition.cpp" />
+    <ClCompile Include="audio\BezierEnvelope.cpp" />
+    <ClCompile Include="audio\Oscillator.cpp" />
+    <ClCompile Include="audio\SignalSummation.cpp" />
     <ClCompile Include="ux_comp\base\SliderBase.cpp" />
     <ClCompile Include="ux_comp\Button.cpp" />
     <ClCompile Include="common\CFMaths.cpp" />
@@ -164,10 +164,11 @@
   <ItemGroup>
     <ClInclude Include="app\MainWindow.h" />
     <ClInclude Include="app\Synthadeus.h" />
-    <ClInclude Include="AudioConstant.h" />
-    <ClInclude Include="AudioNode.h" />
-    <ClInclude Include="AudioPlayback.h" />
-    <ClInclude Include="AudioPlaybackPosition.h" />
+    <ClInclude Include="audio\AudioConstant.h" />
+    <ClInclude Include="audio\AudioNode.h" />
+    <ClInclude Include="audio\AudioPlayback.h" />
+    <ClInclude Include="audio\AudioPlaybackPosition.h" />
+    <ClInclude Include="audio\BezierEnvelope.h" />
     <ClInclude Include="audio\external\pa_asio.h" />
     <ClInclude Include="audio\external\pa_jack.h" />
     <ClInclude Include="audio\external\pa_linux_alsa.h" />
@@ -180,11 +181,10 @@
     <ClInclude Include="audio\external\portaudio.h" />
     <ClInclude Include="audio\external\portmidi.h" />
     <ClInclude Include="audio\external\porttime.h" />
+    <ClInclude Include="audio\Oscillator.h" />
+    <ClInclude Include="audio\SignalSummation.h" />
     <ClInclude Include="audio\SineLookup.h" />
-    <ClInclude Include="BezierEnvelope.h" />
     <ClInclude Include="common\Bezier.h" />
-    <ClInclude Include="Oscillator.h" />
-    <ClInclude Include="SignalSummation.h" />
     <ClInclude Include="ux_comp\base\SliderBase.h" />
     <ClInclude Include="ux_comp\Button.h" />
     <ClInclude Include="common\CFMaths.h" />
