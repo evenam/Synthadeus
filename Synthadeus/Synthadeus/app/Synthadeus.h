@@ -66,5 +66,8 @@ public:
 
 	// find a component
 	Component* findComponentAtLocation(Point pt);
+
+	// resort render list
+	Renderable* sortRenderList(Renderable* list);
 };
 
