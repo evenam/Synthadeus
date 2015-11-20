@@ -17,6 +17,7 @@
 #include "GridBase.h"
 #include "Node.h"
 #include "Slider.h"
+#include "Connector.h"
 
 #define SYNTHADEUS_VERSION "Synthadeus 0.5" // arbitrary number kek
 
