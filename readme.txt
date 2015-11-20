@@ -46,6 +46,7 @@ Building the Project
  5) Double check your the project properties, under VC++ Directories, that you have the following include directories listed:
   - $(ProjectDir)/app
   - $(ProjectDir)/audio
+  - $(ProjectDir)/audio/external
   - $(ProjectDir)/render
   - $(ProjectDir)/render/geoms
   - $(ProjectDir)/platform

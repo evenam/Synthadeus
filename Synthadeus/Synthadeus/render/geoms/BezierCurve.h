@@ -19,7 +19,7 @@
 #include "Bezier.h"
 
 // some predefines (as these should be fairly consistent throughout the UI)
-#define BEZIER_COLOR COLOR_BLUE
+#define BEZIER_COLOR COLOR_WHITE
 #define BEZIER_WIDTH 2.5f
 
 // definition of an N-point bezier curve

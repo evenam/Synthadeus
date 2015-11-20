@@ -58,7 +58,7 @@ Renderable* Connector::getRenderList()
 	radiusY = size[1] * 0.5f;
 
 	// top kek
-	Renderable* circle = new RoundedRectangle(origin, size, color, (interacting? color : COLOR_NONE), radiusX, radiusY);
+	Renderable* circle = new RoundedRectangle(origin, size, color, (interacting? color : ((isConnected() > 0) ? COLOR_WHITE : COLOR_NONE)), radiusX, radiusY);
 
 	if (isInputConnector() && isConnected())
 	{
@@ -123,9 +123,7 @@ void InputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMou
 		if (other && (_strcmpi(other->getClassName(), OutputConnector::nameString()) == 0))
 		{
 			connect((OutputConnector*)other);
-			otherCoords[0] = connectedComponent->getAbsoluteOrigin()[0] + connectedComponent->size[0] * 0.5f - getAbsoluteOrigin()[0] + size[0] * 0.5f;
-			otherCoords[1] = connectedComponent->getAbsoluteOrigin()[1] + connectedComponent->size[1] * 0.5f - getAbsoluteOrigin()[1] + size[1] * 0.5f;
-
+			assert(connected == 1);
 		}
 	}
 }
@@ -136,7 +134,6 @@ void InputConnector::update()
 	{
 		otherCoords[0] = connectedComponent->getAbsoluteOrigin()[0] + connectedComponent->origin[0] + connectedComponent->size[0] * 0.5f - getAbsoluteOrigin()[0];
 		otherCoords[1] = connectedComponent->getAbsoluteOrigin()[1] + connectedComponent->origin[1] + connectedComponent->size[1] * 0.5f - getAbsoluteOrigin()[1];
-
 	}
 }
 
@@ -183,6 +180,7 @@ int OutputConnector::connect(InputConnector* other)
 {
 	if (numConnectedComponents >= MAX_CONNECTED_COMPONENTS) return -1;
 	if (other == NULL) return -1;
+	if (findConnectorInList(other) >= 0) return -1;
 	connectedComponents[numConnectedComponents] = other;
 	return numConnectedComponents++;
 }
@@ -196,11 +194,8 @@ InputConnector* OutputConnector::getConnected(int otherIndex)
 
 void OutputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 {
-	if (numConnectedComponents == 0)
-	{
-		otherCoords[0] = vMouse->instancePosition()[0];
-		otherCoords[1] = vMouse->instancePosition()[1];
-	}
+	otherCoords[0] = vMouse->instancePosition()[0];
+	otherCoords[1] = vMouse->instancePosition()[1];
 
 	if (vMouse->left.checkPressed() && !interacting)
 	{
@@ -209,11 +204,15 @@ void OutputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMo
 	if (vMouse->left.checkReleased() && interacting)
 	{
 		interacting = false;
-
+		Component* other = app->findComponentAtLocation(vMouse->position);
+		if (other && (_strcmpi(other->getClassName(), InputConnector::nameString()) == 0))
+		{
+			((InputConnector*)other)->connect(this);
+			assert(((InputConnector*)other)->isConnected() == 1);
+		}
 	}
 }
 
 void OutputConnector::update()
 {
-
 }
