@@ -47,6 +47,7 @@ Building the Project
   - $(ProjectDir)/app
   - $(ProjectDir)/audio
   - $(ProjectDir)/audio/external
+  - $(ProjectDir)/audio/graph
   - $(ProjectDir)/render
   - $(ProjectDir)/render/geoms
   - $(ProjectDir)/platform

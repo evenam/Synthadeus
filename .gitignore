@@ -16,8 +16,10 @@ documents/
 
 # Build results
 [Dd]ebug/
+[Dd]ebug ASIO/
 [Dd]ebugPublic/
 [Rr]elease/
+[Rr]elease ASIO/
 [Rr]eleases/
 x64/
 x86/
