@@ -13,7 +13,7 @@
 // global constants
 #define PI  3.1415927f
 #define TAO 6.2831854f
-#define E   2.7182818f
+#define EU  2.7182818f
 #define PHI 1.6180340f
 
 namespace CFMaths
