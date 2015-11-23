@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+//   Audio Playback Mechanism                                                 //
+//   Justin Ross                                                              //
+//   11-20-15                                                                 //
+//                                                                            //
+//   Connects the Audio Graph to Port Audio, linearly resampling as needed    //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
 #pragma once
 
 #include "portaudio.h"

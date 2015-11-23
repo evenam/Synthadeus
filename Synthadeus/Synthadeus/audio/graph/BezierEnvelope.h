@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+//   Bezier Envelope                                                          //
+//   Everett Moser                                                            //
+//   11-23-15                                                                 //
+//                                                                            //
+//   An audio graph node for creating an envelope with a single bezier curve  //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
 #pragma once
 
 #include "AudioNode.h"

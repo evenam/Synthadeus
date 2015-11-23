@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+//   Oscillator Node                                                          //
+//   Everett Moser                                                            //
+//   11-23-15                                                                 //
+//                                                                            //
+//   An audio graph node for creating the fundemental audio oscillator        //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
 #pragma once
 
 #include "AudioNode.h"
