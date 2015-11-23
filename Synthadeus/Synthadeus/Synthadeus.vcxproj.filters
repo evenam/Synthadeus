@@ -12,9 +12,6 @@
     <Filter Include="Source Files\render">
       <UniqueIdentifier>{8d90e6b8-1f07-43d8-a78d-8f76303db10b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\common">
-      <UniqueIdentifier>{5c36e4c5-6d31-47f9-b11a-48f91840e315}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\audio">
       <UniqueIdentifier>{a99e5fc5-e68e-4416-9ac1-bcd4b434f8ee}</UniqueIdentifier>
     </Filter>
@@ -62,6 +59,15 @@
     </Filter>
     <Filter Include="Header Files\audio\external">
       <UniqueIdentifier>{e8a35980-1195-4d5c-b6dc-f3378a8cb48e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\audio\graph">
+      <UniqueIdentifier>{0e2e7e76-bace-4486-ba27-d4eedb340a62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\audio\graph">
+      <UniqueIdentifier>{603ff363-013c-494a-9d5a-a1d8850a78f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common">
+      <UniqueIdentifier>{5c36e4c5-6d31-47f9-b11a-48f91840e315}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -131,29 +137,26 @@
     <ClCompile Include="ux_comp\Connector.cpp">
       <Filter>Source Files\ux_comp</Filter>
     </ClCompile>
-    <ClCompile Include="audio\AudioPlaybackPosition.cpp">
-      <Filter>Source Files\audio</Filter>
+    <ClCompile Include="ux_comp\CommandMenu.cpp">
+      <Filter>Source Files\ux_comp</Filter>
     </ClCompile>
-    <ClCompile Include="audio\BezierEnvelope.cpp">
-      <Filter>Source Files\audio</Filter>
+    <ClCompile Include="audio\graph\AudioConstant.cpp">
+      <Filter>Source Files\audio\graph</Filter>
     </ClCompile>
-    <ClCompile Include="audio\Oscillator.cpp">
-      <Filter>Source Files\audio</Filter>
-    </ClCompile>
-    <ClCompile Include="audio\SignalSummation.cpp">
-      <Filter>Source Files\audio</Filter>
-    </ClCompile>
-    <ClCompile Include="audio\AudioConstant.cpp">
-      <Filter>Source Files\audio</Filter>
-    </ClCompile>
-    <ClCompile Include="audio\AudioNode.cpp">
-      <Filter>Source Files\audio</Filter>
+    <ClCompile Include="audio\graph\AudioNode.cpp">
+      <Filter>Source Files\audio\graph</Filter>
     </ClCompile>
     <ClCompile Include="audio\AudioPlayback.cpp">
       <Filter>Source Files\audio</Filter>
     </ClCompile>
-    <ClCompile Include="ux_comp\CommandMenu.cpp">
-      <Filter>Source Files\ux_comp</Filter>
+    <ClCompile Include="audio\graph\BezierEnvelope.cpp">
+      <Filter>Source Files\audio\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="audio\graph\SignalSummation.cpp">
+      <Filter>Source Files\audio\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="audio\graph\Oscillator.cpp">
+      <Filter>Source Files\audio\graph</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -241,28 +244,7 @@
     <ClInclude Include="ux_comp\Connector.h">
       <Filter>Header Files\ux_comp</Filter>
     </ClInclude>
-    <ClInclude Include="audio\AudioConstant.h">
-      <Filter>Header Files\audio</Filter>
-    </ClInclude>
-    <ClInclude Include="audio\AudioNode.h">
-      <Filter>Header Files\audio</Filter>
-    </ClInclude>
     <ClInclude Include="audio\AudioPlayback.h">
-      <Filter>Header Files\audio</Filter>
-    </ClInclude>
-    <ClInclude Include="audio\AudioPlaybackPosition.h">
-      <Filter>Header Files\audio</Filter>
-    </ClInclude>
-    <ClInclude Include="audio\BezierEnvelope.h">
-      <Filter>Header Files\audio</Filter>
-    </ClInclude>
-    <ClInclude Include="audio\Oscillator.h">
-      <Filter>Header Files\audio</Filter>
-    </ClInclude>
-    <ClInclude Include="audio\SignalSummation.h">
-      <Filter>Header Files\audio</Filter>
-    </ClInclude>
-    <ClInclude Include="audio\SineLookup.h">
       <Filter>Header Files\audio</Filter>
     </ClInclude>
     <ClInclude Include="audio\external\porttime.h">
@@ -303,6 +285,24 @@
     </ClInclude>
     <ClInclude Include="ux_comp\CommandMenu.h">
       <Filter>Header Files\ux_comp</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\graph\AudioConstant.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\graph\AudioNode.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\graph\BezierEnvelope.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\graph\AudioPlaybackPosition.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\graph\Oscillator.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\graph\SignalSummation.h">
+      <Filter>Header Files\audio\graph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

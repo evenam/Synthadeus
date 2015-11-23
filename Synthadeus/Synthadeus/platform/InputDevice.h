@@ -42,6 +42,9 @@ public:
 
 	struct Piano
 	{
+		const static int OCTAVES = 10;
+		enum { A, AS, B, C, CS, D, DS, E, F, FS, G, GS, KEYS};
+		ButtonBase keys[OCTAVES][KEYS];
 	} vPiano;
 
 	struct Controller
@@ -54,6 +57,9 @@ public:
 
 		// escape key
 		ButtonBase quit;
+
+		// export key
+		ButtonBase waveExport;
 	} vController;
 
 	// set up the initial device

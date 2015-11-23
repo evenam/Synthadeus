@@ -19,6 +19,7 @@ InputDevice::InputDevice()
 	// debounce the enter key
 	vController.center.debounce();
 	vController.quit.debounce();
+	vController.waveExport.debounce();
 }
 
 
@@ -39,6 +40,9 @@ void InputDevice::update()
 
 	// escape is the quit key
 	vController.quit.update((GetAsyncKeyState(VK_ESCAPE) ? true : false));
+
+	// waveExport is the F5 key
+	vController.quit.update((GetAsyncKeyState(VK_F5) ? true : false));
 }
 
 void InputDevice::Mouse::instance(Point p)

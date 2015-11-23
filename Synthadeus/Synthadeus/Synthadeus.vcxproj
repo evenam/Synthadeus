@@ -1,21 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug ASIO|Win32">
+      <Configuration>Debug ASIO</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release ASIO|Win32">
+      <Configuration>Release ASIO</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|x64">
-      <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x64">
-      <Configuration>Release</Configuration>
-      <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -37,13 +37,13 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug ASIO|Win32'">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release ASIO|Win32'">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
@@ -61,18 +61,12 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/common;$(ProjectDir)/app;$(ProjectDir)/ux_comp/base;$(ProjectDir)/ux_comp;$(ProjectDir)/audio;$(ProjectDir)/render/geoms;$(ProjectDir)/platform;$(ProjectDir)/render;$(ProjectDir)/render/geoms;$(ProjectDir)/audio;$(ProjectDir)/platform;$(ProjectDir)/ux_comp</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)/audio/external;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/common;$(ProjectDir)/app;$(ProjectDir)/ux_comp/base;$(ProjectDir)/ux_comp;$(ProjectDir)/audio;$(ProjectDir)/render/geoms;$(ProjectDir)/platform;$(ProjectDir)/render</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/common;$(ProjectDir)/app;$(ProjectDir)/ux_comp/base;$(ProjectDir)/ux_comp;$(ProjectDir)/audio;$(ProjectDir)/render/geoms;$(ProjectDir)/platform;$(ProjectDir)/render;$(ProjectDir)/render/geoms;$(ProjectDir)/audio;$(ProjectDir)/platform;$(ProjectDir)/ux_comp</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -87,17 +81,20 @@
     <PostBuildEvent>
       <Command>DEL /F /Q DEBUG_LOG_(*).log</Command>
     </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  </ItemDefinitionGroup>  
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug ASIO|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Synthadeus\Synthadeus\Synthadeus\app;D:\Synthadeus\Synthadeus\Synthadeus\render;D:\Synthadeus\Synthadeus\Synthadeus\platform;D:\Synthadeus\Synthadeus\Synthadeus\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>DEL /F /Q DEBUG_LOG_(*).log</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -116,7 +113,7 @@
       <Command>DEL /F /Q DEBUG_LOG_(*).log</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release ASIO|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
@@ -129,17 +126,19 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PostBuildEvent>
+      <Command>DEL /F /Q DEBUG_LOG_(*).log</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="app\MainWindow.cpp" />
     <ClCompile Include="app\Synthadeus.cpp" />
-    <ClCompile Include="audio\AudioConstant.cpp" />
-    <ClCompile Include="audio\AudioNode.cpp" />
+    <ClCompile Include="audio\graph\AudioConstant.cpp" />
+    <ClCompile Include="audio\graph\AudioNode.cpp" />
     <ClCompile Include="audio\AudioPlayback.cpp" />
-    <ClCompile Include="audio\AudioPlaybackPosition.cpp" />
-    <ClCompile Include="audio\BezierEnvelope.cpp" />
-    <ClCompile Include="audio\Oscillator.cpp" />
-    <ClCompile Include="audio\SignalSummation.cpp" />
+    <ClCompile Include="audio\graph\BezierEnvelope.cpp" />
+    <ClCompile Include="audio\graph\Oscillator.cpp" />
+    <ClCompile Include="audio\graph\SignalSummation.cpp" />
     <ClCompile Include="ux_comp\base\SliderBase.cpp" />
     <ClCompile Include="ux_comp\Button.cpp" />
     <ClCompile Include="common\CFMaths.cpp" />
@@ -165,11 +164,11 @@
   <ItemGroup>
     <ClInclude Include="app\MainWindow.h" />
     <ClInclude Include="app\Synthadeus.h" />
-    <ClInclude Include="audio\AudioConstant.h" />
-    <ClInclude Include="audio\AudioNode.h" />
+    <ClInclude Include="audio\graph\AudioConstant.h" />
+    <ClInclude Include="audio\graph\AudioNode.h" />
     <ClInclude Include="audio\AudioPlayback.h" />
-    <ClInclude Include="audio\AudioPlaybackPosition.h" />
-    <ClInclude Include="audio\BezierEnvelope.h" />
+    <ClInclude Include="audio\graph\AudioPlaybackPosition.h" />
+    <ClInclude Include="audio\graph\BezierEnvelope.h" />
     <ClInclude Include="audio\external\pa_asio.h" />
     <ClInclude Include="audio\external\pa_jack.h" />
     <ClInclude Include="audio\external\pa_linux_alsa.h" />
@@ -182,9 +181,8 @@
     <ClInclude Include="audio\external\portaudio.h" />
     <ClInclude Include="audio\external\portmidi.h" />
     <ClInclude Include="audio\external\porttime.h" />
-    <ClInclude Include="audio\Oscillator.h" />
-    <ClInclude Include="audio\SignalSummation.h" />
-    <ClInclude Include="audio\SineLookup.h" />
+    <ClInclude Include="audio\graph\Oscillator.h" />
+    <ClInclude Include="audio\graph\SignalSummation.h" />
     <ClInclude Include="common\Bezier.h" />
     <ClInclude Include="ux_comp\base\SliderBase.h" />
     <ClInclude Include="ux_comp\Button.h" />
