@@ -69,6 +69,36 @@
     <Filter Include="Source Files\common">
       <UniqueIdentifier>{5c36e4c5-6d31-47f9-b11a-48f91840e315}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Binaries">
+      <UniqueIdentifier>{309ac8d0-5b59-4efd-bb5a-280eea479976}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Binaries\portaudio">
+      <UniqueIdentifier>{44a6d1b5-b6ca-4654-b8ed-4740e065973c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Binaries\portmidi">
+      <UniqueIdentifier>{532372f3-e963-4c13-89a1-9b64575825dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Binaries\portaudio_ASIO">
+      <UniqueIdentifier>{91cb626c-8f42-4a4b-a35b-5b06cb8586d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Binaries\portaudio_ASIO\release">
+      <UniqueIdentifier>{d1da98cc-434c-4e6b-a3c8-8605c11d8f19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Binaries\portaudio_ASIO\debug">
+      <UniqueIdentifier>{98af495c-d8a8-43a3-aed7-8951766c7421}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Binaries\portmidi\release">
+      <UniqueIdentifier>{d5a33a92-4f0e-40dd-b290-9c34c8a1d988}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Binaries\portmidi\debug">
+      <UniqueIdentifier>{49d8070d-1e6f-4533-bd7a-d4c755205805}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Binaries\portaudio\release">
+      <UniqueIdentifier>{6e3e419b-4312-41fc-bb37-7d19676f31f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Binaries\portaudio\debug">
+      <UniqueIdentifier>{b01e396c-588f-449f-943c-b2017888ded2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="common\Object.cpp">
@@ -314,5 +344,45 @@
     <ResourceCompile Include="platform\Resource.rc">
       <Filter>Resources</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="portmidi\release\portmidi.dll">
+      <Filter>Binaries\portmidi\release</Filter>
+    </None>
+    <None Include="portmidi\debug\portmidi.dll">
+      <Filter>Binaries\portmidi\debug</Filter>
+    </None>
+    <None Include="portaudio_ASIO\release\portaudio_x86.dll">
+      <Filter>Binaries\portaudio_ASIO\release</Filter>
+    </None>
+    <None Include="portaudio_ASIO\debug\portaudio_x86.dll">
+      <Filter>Binaries\portaudio_ASIO\debug</Filter>
+    </None>
+    <None Include="portaudio\release\portaudio_x86.dll">
+      <Filter>Binaries\portaudio\release</Filter>
+    </None>
+    <None Include="portaudio\debug\portaudio_x86.dll">
+      <Filter>Binaries\portaudio\debug</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="portmidi\release\portmidi.lib">
+      <Filter>Binaries\portmidi\release</Filter>
+    </Library>
+    <Library Include="portmidi\debug\portmidi.lib">
+      <Filter>Binaries\portmidi\debug</Filter>
+    </Library>
+    <Library Include="portaudio_ASIO\release\portaudio_x86.lib">
+      <Filter>Binaries\portaudio_ASIO\release</Filter>
+    </Library>
+    <Library Include="portaudio_ASIO\debug\portaudio_x86.lib">
+      <Filter>Binaries\portaudio_ASIO\debug</Filter>
+    </Library>
+    <Library Include="portaudio\release\portaudio_x86.lib">
+      <Filter>Binaries\portaudio\release</Filter>
+    </Library>
+    <Library Include="portaudio\debug\portaudio_x86.lib">
+      <Filter>Binaries\portaudio\debug</Filter>
+    </Library>
   </ItemGroup>
 </Project>
