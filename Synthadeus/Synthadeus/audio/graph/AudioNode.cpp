@@ -12,7 +12,7 @@ int AudioNode::GCD(int A, int B)
 	}
 
 	// idiot test (just suppose the numbers are relatively prime)
-	if (min * max == 0) return 1.f;
+	if (min * max == 0) return 1;
 
 	int Q = max / min;
 	int R = max % min;
