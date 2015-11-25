@@ -29,8 +29,10 @@ protected:
 	enum HighlightType { INPUT, OUTPUT, NONE };
 	static HighlightType currentHighlight;
 
+	ActionCallback callback;
+
 public:
-	Connector(Point connectorOrigin, Point connectorSize, Node* connectorParent, unsigned int connectorColor);
+	Connector(Point connectorOrigin, Point connectorSize, Node* connectorParent, unsigned int connectorColor, ActionCallback actionCallbackFunction = DEFAULT_ACTION_CALLBACK);
 	void setSize(Point connectorOrigin, Point connectorSize);
 	void setColor(unsigned int connectorColor);
 	void setParent(Node* connectorParent);

@@ -1,7 +1,7 @@
 #include "Button.h"
 
 Button::Button(Point origin, Point size, unsigned int bkgColor, unsigned int fgColor,
-	char* text, unsigned int font, actionCallback actionCallbackFunction) : Component()
+	char* text, unsigned int font, ActionCallback actionCallbackFunction) : Component()
 {
 	// initialize all properties
 	btnOrigin[0] = origin[0];
@@ -13,6 +13,7 @@ Button::Button(Point origin, Point size, unsigned int bkgColor, unsigned int fgC
 	btnText = text;
 	btnFont = font;
 	callback = actionCallbackFunction;
+	hover = false;
 
 	setBoundingRectangle(origin, size);
 }
@@ -47,7 +48,8 @@ Renderable* Button::getRenderList()
 		realBG = btnFgColor;
 	}
 	Rectangle2* bounds = new Rectangle2(btnOrigin, btnSize, realFG, realBG);
-	bounds->next = new Text(btnText, btnOrigin, btnSize, btnFont, COLOR_WHITE);
+	bounds->next = new Text(btnText, btnOrigin, btnSize, btnFont, !hover? COLOR_LTGREY : COLOR_WHITE);
+	hover = false;
 	return bounds;
 }
 
@@ -58,6 +60,7 @@ void Button::update()
 
 void Button::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 {
+	hover = true;
 	if (vMouse->left.checkPressed())
 		interacting = true;
 	else if (vMouse->left.checkReleased())

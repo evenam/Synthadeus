@@ -34,7 +34,7 @@ void GridBase::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 			menu = NULL;
 		}
 	}
-	if (vMouse->right.checkPressed() && (menu == NULL))
+	if (vMouse->right.checkReleased() && (menu == NULL))
 	{
 		vMouse->instance(origin);
 		menu = new CommandMenu(vMouse->instancePosition());

@@ -4,7 +4,7 @@
 
 Connector::HighlightType Connector::currentHighlight = Connector::NONE;
 
-Connector::Connector(Point connectorOrigin, Point connectorSize, Node* connectorParent, unsigned int connectorColor)
+Connector::Connector(Point connectorOrigin, Point connectorSize, Node* connectorParent, unsigned int connectorColor, ActionCallback actionCallbackFunction)
 {
 	origin[0] = connectorOrigin[0];
 	origin[1] = connectorOrigin[1];
@@ -13,6 +13,8 @@ Connector::Connector(Point connectorOrigin, Point connectorSize, Node* connector
 	parent = connectorParent;
 	color = connectorColor;
 	setBoundingRectangle(origin, size);
+
+	callback = actionCallbackFunction;
 }
 
 void Connector::setSize(Point connectorOrigin, Point connectorSize)
@@ -125,7 +127,10 @@ void InputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMou
 		if (other && (_strcmpi(other->getClassName(), OutputConnector::nameString()) == 0))
 		{
 			connect((OutputConnector*)other);
-			assert(connected == 1);
+			if (connected == 1)
+			{
+				callback(app, this);
+			}
 		}
 	}
 }

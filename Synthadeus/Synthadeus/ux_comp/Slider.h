@@ -32,9 +32,11 @@ private:
 	// vertical or horizontal slider?
 	Orientation orientation;
 
+	ActionCallback callback;
+
 public:
 	RTTI_MACRO(Slider);
-	Slider(Point origin, Point size, unsigned int bkgColor, unsigned int fgColor, Orientation orien);
+	Slider(Point origin, Point size, unsigned int bkgColor, unsigned int fgColor, Orientation orien, float minVal, float maxVal, ActionCallback actionCallbackFunction = DEFAULT_ACTION_CALLBACK);
 
 	// modify properties
 	void setSize(Point origin, Point size);

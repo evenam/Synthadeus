@@ -69,7 +69,7 @@ Synthadeus::Synthadeus()
 	testNode->addChild(projectPageButton);
 	projectPageButton = new Button(Point(140.f, 10.f), Point(50.f, 50.f), COLOR_ABLACK, COLOR_RED, "SQR", FONT_ARIAL11);
 	testNode->addChild(projectPageButton);
-	testNode->addChild(new Slider(Point(20.f, 70.f), Point(20.f, 80.f), COLOR_ABLACK, COLOR_RED, Slider::VERTICAL));
+	testNode->addChild(new Slider(Point(20.f, 70.f), Point(20.f, 80.f), COLOR_ABLACK, COLOR_RED, Slider::VERTICAL, 0.05f, 10000.f));
 	base->addChild(testNode);
 	testNode = new Node(Point(950.f, 700.f), Point(200.f, 200.f), COLOR_ORANGE, COLOR_ABLACK);
 	testNode->addChild(new OutputConnector(Point(10.f, 10.f), Point(50.f, 50.f), COLOR_ORANGE, testNode));
@@ -145,12 +145,7 @@ Renderable* Synthadeus::getRenderList()
 	inputDevice->vMouse.restore();
 	Renderable* watermark = new Text((hover == NULL) ? SYNTHADEUS_VERSION : hover->getClassName(), -1.f * appWindow->getViewportInstance(), Point((float)appWindow->getWidth(), 40.f), FONT_ARIAL40, COLOR_LTGREY);
 	Renderable* renderList = sortRenderList(base->getRenderTree());
-	Renderable* current = renderList;
-	while (current->next)
-	{
-		current = current->next;
-	}
-	current->next = watermark;
+	renderList->next = watermark;
 
 	return renderList;
 }

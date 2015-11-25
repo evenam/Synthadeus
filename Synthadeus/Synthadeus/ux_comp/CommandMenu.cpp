@@ -3,13 +3,13 @@
 
 CommandMenu::CommandMenu(Point cmOrigin) :
 	btnMakeOscillator(Button(Point(0.f, 0.f),
-		Point(120.f, 40.f), COLOR_CORNFLOWERBLUE, COLOR_WHITE, "Oscillator", FONT_ARIAL20, CommandMenu::createOscillator)),
+		Point(120.f, 40.f), COLOR_DKGREY, COLOR_LTGREY, "Oscillator", FONT_ARIAL20, CommandMenu::createOscillator)),
 	btnMakeEnvelope(Button(Point(0.f, 40.f),
-		Point(120.f, 40.f), COLOR_CORNFLOWERBLUE, COLOR_WHITE, "Envelope", FONT_ARIAL20, CommandMenu::createEnvelope)),
+		Point(120.f, 40.f), COLOR_DKGREY, COLOR_LTGREY, "Envelope", FONT_ARIAL20, CommandMenu::createEnvelope)),
 	btnMakeConstant(Button(Point(0.f, 80.f),
-		Point(120.f, 40.f), COLOR_CORNFLOWERBLUE, COLOR_WHITE, "Constant", FONT_ARIAL20, CommandMenu::createConstant)),
+		Point(120.f, 40.f), COLOR_DKGREY, COLOR_LTGREY, "Constant", FONT_ARIAL20, CommandMenu::createConstant)),
 	btnMakeSummation(Button(Point(0.f, 120.f),
-		Point(120.f, 40.f), COLOR_CORNFLOWERBLUE, COLOR_WHITE, "Summation", FONT_ARIAL20, CommandMenu::createSummation)),
+		Point(120.f, 40.f), COLOR_DKGREY, COLOR_LTGREY, "Summation", FONT_ARIAL20, CommandMenu::createSummation)),
 	size(Point(120.f, 160.f))
 {
 	origin[0] = cmOrigin[0];
