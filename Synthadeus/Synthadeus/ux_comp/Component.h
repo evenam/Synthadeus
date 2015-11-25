@@ -235,3 +235,6 @@ public:
 			return Point(0.f, 0.f);
 	}
 };
+
+typedef void(*ActionCallback)(Synthadeus* app, Component* myself);
+inline void DEFAULT_ACTION_CALLBACK(Synthadeus* app, Component* myself) {};

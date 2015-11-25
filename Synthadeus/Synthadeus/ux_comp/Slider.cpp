@@ -1,6 +1,6 @@
 #include "Slider.h"
 
-Slider::Slider(Point origin, Point size, unsigned int bkgColor, unsigned int fgColor, Orientation orien) : sliderLogicUnit(-1.f, 1.f, 0.f)
+Slider::Slider(Point origin, Point size, unsigned int bkgColor, unsigned int fgColor, Orientation orien, float minVal, float maxVal, ActionCallback actionCallbackFunction) : sliderLogicUnit(-1.f, 1.f, 0.f)
 {
 	orientation = orien;
 	sliderOrigin[0] = origin[0];
@@ -10,6 +10,8 @@ Slider::Slider(Point origin, Point size, unsigned int bkgColor, unsigned int fgC
 	sliderBkgColor = bkgColor;
 	sliderFgColor = fgColor;
 	setBoundingRectangle(sliderOrigin, sliderSize);
+
+	callback = actionCallbackFunction;
 }
 
 // modify properties
@@ -84,6 +86,7 @@ void Slider::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 	else if (interacting && vMouse->left.checkReleased())
 	{
 		interacting = false;
+		callback(app, this);
 	}
 
 	if (interacting && vMouse->left.check())
