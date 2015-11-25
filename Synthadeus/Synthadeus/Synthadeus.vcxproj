@@ -64,19 +64,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/common;$(ProjectDir)/app;$(ProjectDir)/ux_comp/base;$(ProjectDir)/ux_comp;$(ProjectDir)/audio/external;$(ProjectDir)/audio/graph;$(ProjectDir)/audio;$(ProjectDir)/render/geoms;$(ProjectDir)/platform;$(ProjectDir)/render</IncludePath>
-    <LibraryPath>$(ProjectDir)/portaudio/release;$(ProjectDir)/portmidi/release;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)portaudio/rls;$(ProjectDir)portmidi/rls;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/common;$(ProjectDir)/app;$(ProjectDir)/ux_comp/base;$(ProjectDir)/ux_comp;$(ProjectDir)/audio/external;$(ProjectDir)/audio/graph;$(ProjectDir)/audio;$(ProjectDir)/render/geoms;$(ProjectDir)/platform;$(ProjectDir)/render</IncludePath>
-    <LibraryPath>$(ProjectDir)/portaudio/debug;$(ProjectDir)/portmidi/debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)portaudio/dbg;$(ProjectDir)portmidi/dbg;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug ASIO|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/common;$(ProjectDir)/app;$(ProjectDir)/ux_comp/base;$(ProjectDir)/ux_comp;$(ProjectDir)/audio/external;$(ProjectDir)/audio/graph;$(ProjectDir)/audio;$(ProjectDir)/render/geoms;$(ProjectDir)/platform;$(ProjectDir)/render</IncludePath>
-    <LibraryPath>$(ProjectDir)/portaudio_ASIO/debug;$(ProjectDir)/portmidi/debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)portaudio_ASIO/dbg;$(ProjectDir)portmidi/dbg;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release ASIO|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)/common;$(ProjectDir)/app;$(ProjectDir)/ux_comp/base;$(ProjectDir)/ux_comp;$(ProjectDir)/audio/external;$(ProjectDir)/audio/graph;$(ProjectDir)/audio;$(ProjectDir)/render/geoms;$(ProjectDir)/platform;$(ProjectDir)/render</IncludePath>
-    <LibraryPath>$(ProjectDir)/portmidi/release;$(ProjectDir)/portaudio_ASIO/release;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)portmidi/rls;$(ProjectDir)portaudio_ASIO/rls;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -92,8 +92,8 @@
       <Command>DEL /F /Q DEBUG_LOG_(*).log</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>COPY /Y /B "$(ProjectDir)portmidi\debug\portmidi.dll" "$(OutDir)"</Command>
-      <Command>COPY /Y /B "$(ProjectDir)portaudio\debug\portaudio_x86.dll" "$(OutDir)"</Command>
+      <Command>COPY /Y /B "$(ProjectDir)portmidi\dbg\portmidi.dll" "$(OutDir)"</Command>
+      <Command>COPY /Y /B "$(ProjectDir)portaudio\dbg\portaudio_x86.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug ASIO|Win32'">
@@ -110,8 +110,8 @@
       <Command>DEL /F /Q DEBUG_LOG_(*).log</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>COPY /Y /B "$(ProjectDir)portmidi\debug\portmidi.dll" "$(OutDir)"</Command>
-      <Command>COPY /Y /B "$(ProjectDir)portaudio_ASIO\debug\portaudio_x86.dll" "$(OutDir)"</Command>
+      <Command>COPY /Y /B "$(ProjectDir)portmidi\dbg\portmidi.dll" "$(OutDir)"</Command>
+      <Command>COPY /Y /B "$(ProjectDir)portaudio_ASIO\dbg\portaudio_x86.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -131,8 +131,8 @@
       <Command>DEL /F /Q DEBUG_LOG_(*).log</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>COPY /Y /B "$(ProjectDir)portmidi\release\portmidi.dll" "$(OutDir)"</Command>
-      <Command>COPY /Y /B "$(ProjectDir)portaudio\release\portaudio_x86.dll" "$(OutDir)"</Command>
+      <Command>COPY /Y /B "$(ProjectDir)portmidi\rls\portmidi.dll" "$(OutDir)"</Command>
+      <Command>COPY /Y /B "$(ProjectDir)portaudio\rls\portaudio_x86.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release ASIO|Win32'">
@@ -152,8 +152,8 @@
       <Command>DEL /F /Q DEBUG_LOG_(*).log</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>COPY /Y /B "$(ProjectDir)portmidi\release\portmidi.dll" "$(OutDir)"</Command>
-      <Command>COPY /Y /B "$(ProjectDir)portaudio_ASIO\release\portaudio_x86.dll" "$(OutDir)"</Command>
+      <Command>COPY /Y /B "$(ProjectDir)portmidi\rls\portmidi.dll" "$(OutDir)"</Command>
+      <Command>COPY /Y /B "$(ProjectDir)portaudio_ASIO\rls\portaudio_x86.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -244,20 +244,20 @@
     <ResourceCompile Include="platform\Resource.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="portaudio\debug\portaudio_x86.dll" />
-    <None Include="portaudio\release\portaudio_x86.dll" />
-    <None Include="portaudio_ASIO\debug\portaudio_x86.dll" />
-    <None Include="portaudio_ASIO\release\portaudio_x86.dll" />
-    <None Include="portmidi\debug\portmidi.dll" />
-    <None Include="portmidi\release\portmidi.dll" />
+    <None Include="portaudio\dbg\portaudio_x86.dll" />
+    <None Include="portaudio\rls\portaudio_x86.dll" />
+    <None Include="portaudio_ASIO\dbg\portaudio_x86.dll" />
+    <None Include="portaudio_ASIO\rls\portaudio_x86.dll" />
+    <None Include="portmidi\dbg\portmidi.dll" />
+    <None Include="portmidi\rls\portmidi.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Library Include="portaudio\debug\portaudio_x86.lib" />
-    <Library Include="portaudio\release\portaudio_x86.lib" />
-    <Library Include="portaudio_ASIO\debug\portaudio_x86.lib" />
-    <Library Include="portaudio_ASIO\release\portaudio_x86.lib" />
-    <Library Include="portmidi\debug\portmidi.lib" />
-    <Library Include="portmidi\release\portmidi.lib" />
+    <Library Include="portaudio\dbg\portaudio_x86.lib" />
+    <Library Include="portaudio\rls\portaudio_x86.lib" />
+    <Library Include="portaudio_ASIO\dbg\portaudio_x86.lib" />
+    <Library Include="portaudio_ASIO\rls\portaudio_x86.lib" />
+    <Library Include="portmidi\dbg\portmidi.lib" />
+    <Library Include="portmidi\rls\portmidi.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
