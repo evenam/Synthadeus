@@ -14,6 +14,8 @@
 #include "Component.h"
 #include "Renderables.h"
 
+typedef void(*actionCallback)(Synthadeus* app, Component* myself);
+
 class Button : public Component
 {
 private:
@@ -27,11 +29,13 @@ private:
 	unsigned int btnFgColor;
 	char* btnText;
 	unsigned int btnFont;
+	actionCallback callback;
+	inline static void buttonDefaultActionCallback(Synthadeus* app, Component* myself) {};
 
 public:
 	RTTI_MACRO(Button);
 	Button(Point origin, Point size, unsigned int bkgColor, unsigned int fgColor, 
-		char* text, unsigned int font);
+		char* text, unsigned int font, actionCallback actionCallbackFunction = buttonDefaultActionCallback);
 
 	// modify properties
 	void setSize(Point origin, Point size);

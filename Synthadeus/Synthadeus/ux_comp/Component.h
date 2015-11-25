@@ -63,6 +63,11 @@ protected:
 	// are we interacting with input?
 	bool interacting;
 
+	inline Component* getParent()
+	{
+		return parent;
+	}
+
 public:
 	inline Component() { numChildren = 0; interacting = false; }
 	inline virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse) {};
@@ -194,7 +199,10 @@ public:
 			}
 		}
 
-		thisList->child = thisChildList;
+		realCurrent = thisList;
+		while (realCurrent->child)
+			realCurrent = realCurrent->child;
+		realCurrent->child = thisChildList;
 		return thisList;
 	}
 

@@ -47,6 +47,6 @@ void ButtonBase::update(bool isCurrentlyPressed)
 	}
 
 	// reset debouncing if the button has been released
-	if (!isCurrentlyPressed && isDebounced)
+	if (!isCurrentlyPressed && !isReleased && isDebounced)
 		isDebounced = false;
 }
