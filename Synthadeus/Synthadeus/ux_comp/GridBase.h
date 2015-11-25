@@ -12,6 +12,7 @@
 
 #include "Component.h"
 
+class CommandMenu;
 class GridBase : public Component
 {
 private:
@@ -19,6 +20,7 @@ private:
 	Point size;
 	unsigned int fgColor;
 	unsigned int bgColor;
+	CommandMenu* menu;
 
 public:
 	RTTI_MACRO(GridBase);

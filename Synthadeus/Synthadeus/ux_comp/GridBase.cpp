@@ -1,5 +1,6 @@
 #include "GridBase.h"
 #include "Renderables.h"
+#include "CommandMenu.h"
 
 GridBase::GridBase(Point gridOrigin, Point gridSize, unsigned int gridForeground, unsigned int gridBackground) : Component()
 {
@@ -19,11 +20,28 @@ void GridBase::setSize(Point gridOrigin, Point gridSize)
 	size[0] = gridSize[0];
 	size[1] = gridSize[1];
 	setBoundingRectangle(origin, size);
+	menu = NULL;
 }
 
 void GridBase::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 {
-	// nothing
+	if (menu)
+	{
+		if (menu->needsToClose() || (vMouse->right.checkReleased() || vMouse->left.checkReleased()))
+		{
+			removeChild(menu);
+			delete menu;
+			menu = NULL;
+		}
+	}
+	if (vMouse->right.checkPressed() && (menu == NULL))
+	{
+		vMouse->instance(origin);
+		menu = new CommandMenu(vMouse->instancePosition());
+		vMouse->restore();
+		addChild(menu);
+		vMouse->right.debounce();
+	}
 }
 
 void GridBase::update()

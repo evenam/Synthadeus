@@ -27,7 +27,6 @@ int MainWindow::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		updateWindowDimensions();
 
 	case WM_PAINT:
-		DebugPrintf("System Requested a Repaint, rendering.\n");
 		// we need to re-render the window contents
 		render();
 		return 0;
