@@ -9,12 +9,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 #pragma once
 
-#include "Error.h"
+//#include "Error.h"
 
-#define SHIFT0(a) ((a) >> 8)
-#define SHIFT1(a) ((a) >> 8)
-#define SHIFT2(a) ((a) >> 16)
-#define SHIFT3(a) ((a) >> 24)
+#include <cassert>
+#include <Windows.h>
+#include <stdio.h>
+
+#define SHIFT0(a) ((a) >> 24)
+#define SHIFT1(a) ((a) >> 16)
+#define SHIFT2(a) ((a) >> 8)
+#define SHIFT3(a) (a)
 
 
 class WaveExporter
@@ -43,10 +47,10 @@ private:
 	const static int FORMAT_CODE_OFFSET = 4 + FORMAT_SIZE_OFFSET;
 	const static int CHANNELS_OFFSET	= 2 + FORMAT_CODE_OFFSET;
 	const static int SAMPLE_RATE_OFFSET = 2 + CHANNELS_OFFSET;
-	const static int BIT_DEPTH_OFFSET = 4 + SAMPLE_RATE_OFFSET;
-	const static int ALIGNMENT_OFFSET	= 2 + BIT_DEPTH_OFFSET;
-	const static int AVERAGE_BBP_OFFSET = 2 + ALIGNMENT_OFFSET;
-	const static int WAVE_ID_OFFSET		= 4 + AVERAGE_BBP_OFFSET;
+	const static int AVERAGE_BBP_OFFSET = 4 + SAMPLE_RATE_OFFSET;
+	const static int ALIGNMENT_OFFSET	= 4 + AVERAGE_BBP_OFFSET;
+	const static int BIT_DEPTH_OFFSET	= 2 + ALIGNMENT_OFFSET;
+	const static int WAVE_ID_OFFSET		= 2 + BIT_DEPTH_OFFSET;
 	const static int WAVE_SIZE_OFFSET	= 4 + WAVE_ID_OFFSET;
 	static_assert(WAVE_SIZE_OFFSET + 4 == waveSize, "Error, wave size incorrect. ");
 
@@ -63,7 +67,7 @@ private:
 	int avgBps;
 	short align;
 	short bits;
-	char* rawHeaderData;
+	char rawHeaderData[waveSize];
 
 	// sample conversion
 	bool prepared;

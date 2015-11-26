@@ -3,7 +3,7 @@
 const char WaveExporter::RIFF[4] = {'R', 'I', 'F', 'F'};
 const char WaveExporter::WAVE[4] = {'W', 'A', 'V', 'E'};
 const char WaveExporter::FMT[4]  = {'f', 'm', 't', ' '};
-const char WaveExporter::DATA[4] = { 'd', 'a', 't', 'a' };
+const char WaveExporter::DATA[4] = {'d', 'a', 't', 'a'};
 #define AUDIO_SAMPLES 44100
 
 WaveExporter::WaveExporter(int numAudioSamples, float * audioSamplesL, float * audioSamplesR)
@@ -30,14 +30,14 @@ WaveExporter::WaveExporter(int numAudioSamples, float * audioSamples)
 void WaveExporter::prepareExport()
 {
 	// calculate some values for the headers
-	bits = 16;
+	bits = 32;
 	fmtCode = 1; // WAVE_PCM
 	align = calcAlign();
 	avgBps = calcAvgBps();
 	prepared = true;
 
 	// create header data
-	char* rawHeaderData = new char(waveSize);
+	//char* rawHeaderData = new char(waveSize);
 
 	// riff chunk
 	rawHeaderData[RIFF_OFFSET + 0] = RIFF[0];
@@ -47,10 +47,10 @@ void WaveExporter::prepareExport()
 
 	// riff size chunk
 	int riffSize = calcRiffSize();
-	rawHeaderData[RIFF_SIZE_OFFSET + 0] = SHIFT0(MASK32_0 & riffSize);
-	rawHeaderData[RIFF_SIZE_OFFSET + 1] = SHIFT1(MASK32_1 & riffSize);
-	rawHeaderData[RIFF_SIZE_OFFSET + 2] = SHIFT2(MASK32_2 & riffSize);
-	rawHeaderData[RIFF_SIZE_OFFSET + 3] = SHIFT3(MASK32_3 & riffSize);
+	rawHeaderData[RIFF_SIZE_OFFSET + 3] = SHIFT0(MASK32_0 & riffSize);
+	rawHeaderData[RIFF_SIZE_OFFSET + 2] = SHIFT1(MASK32_1 & riffSize);
+	rawHeaderData[RIFF_SIZE_OFFSET + 1] = SHIFT2(MASK32_2 & riffSize);
+	rawHeaderData[RIFF_SIZE_OFFSET + 0] = SHIFT3(MASK32_3 & riffSize);
 
 	// wave type chunk
 	rawHeaderData[WAVE_TYPE_OFFSET + 0] = WAVE[0];
@@ -66,39 +66,39 @@ void WaveExporter::prepareExport()
 
 	// format size chunk (16 for PCM)
 	int fmtSize = 16;
-	rawHeaderData[FORMAT_SIZE_OFFSET + 0] = SHIFT0(fmtSize & MASK32_0);
-	rawHeaderData[FORMAT_SIZE_OFFSET + 1] = SHIFT1(fmtSize & MASK32_1);
-	rawHeaderData[FORMAT_SIZE_OFFSET + 2] = SHIFT2(fmtSize & MASK32_2);
-	rawHeaderData[FORMAT_SIZE_OFFSET + 3] = SHIFT3(fmtSize & MASK32_3);
+	rawHeaderData[FORMAT_SIZE_OFFSET + 3] = SHIFT0(fmtSize & MASK32_0);
+	rawHeaderData[FORMAT_SIZE_OFFSET + 2] = SHIFT1(fmtSize & MASK32_1);
+	rawHeaderData[FORMAT_SIZE_OFFSET + 1] = SHIFT2(fmtSize & MASK32_2);
+	rawHeaderData[FORMAT_SIZE_OFFSET + 0] = SHIFT3(fmtSize & MASK32_3);
 
 	// format code chunk
 	short fmtCode = 1;
-	rawHeaderData[FORMAT_CODE_OFFSET + 0] = SHIFT0(fmtCode & MASK16_0);
-	rawHeaderData[FORMAT_CODE_OFFSET + 1] = SHIFT1(fmtCode & MASK16_1);
+	rawHeaderData[FORMAT_CODE_OFFSET + 1] = SHIFT2(fmtCode & MASK16_0);
+	rawHeaderData[FORMAT_CODE_OFFSET + 0] = SHIFT3(fmtCode & MASK16_1);
 
 	// channels chunk
-	rawHeaderData[CHANNELS_OFFSET + 0] = SHIFT0(channels & MASK16_0);
-	rawHeaderData[CHANNELS_OFFSET + 1] = SHIFT1(channels & MASK16_1);
+	rawHeaderData[CHANNELS_OFFSET + 1] = SHIFT2(channels & MASK16_0);
+	rawHeaderData[CHANNELS_OFFSET + 0] = SHIFT3(channels & MASK16_1);
 
 	// sample rate chunk
-	rawHeaderData[SAMPLE_RATE_OFFSET + 0] = SHIFT0(sampleRate & MASK32_0);
-	rawHeaderData[SAMPLE_RATE_OFFSET + 1] = SHIFT1(sampleRate & MASK32_1);
-	rawHeaderData[SAMPLE_RATE_OFFSET + 2] = SHIFT2(sampleRate & MASK32_2);
-	rawHeaderData[SAMPLE_RATE_OFFSET + 3] = SHIFT3(sampleRate & MASK32_3);
+	rawHeaderData[SAMPLE_RATE_OFFSET + 3] = SHIFT0(sampleRate & MASK32_0);
+	rawHeaderData[SAMPLE_RATE_OFFSET + 2] = SHIFT1(sampleRate & MASK32_1);
+	rawHeaderData[SAMPLE_RATE_OFFSET + 1] = SHIFT2(sampleRate & MASK32_2);
+	rawHeaderData[SAMPLE_RATE_OFFSET + 0] = SHIFT3(sampleRate & MASK32_3);
+
+	// average bits per sample chunk
+	rawHeaderData[AVERAGE_BBP_OFFSET + 3] = SHIFT0(avgBps & MASK32_0);
+	rawHeaderData[AVERAGE_BBP_OFFSET + 2] = SHIFT1(avgBps & MASK32_1);
+	rawHeaderData[AVERAGE_BBP_OFFSET + 1] = SHIFT2(avgBps & MASK32_2);
+	rawHeaderData[AVERAGE_BBP_OFFSET + 0] = SHIFT3(avgBps & MASK32_3);
 
 	// bit depth chunk
-	rawHeaderData[BIT_DEPTH_OFFSET + 0] = SHIFT0(bits & MASK16_0);
-	rawHeaderData[BIT_DEPTH_OFFSET + 1] = SHIFT1(bits & MASK16_1);
+	rawHeaderData[BIT_DEPTH_OFFSET + 1] = SHIFT2(bits & MASK16_0);
+	rawHeaderData[BIT_DEPTH_OFFSET + 0] = SHIFT3(bits & MASK16_1);
 
 	// align chunk
-	rawHeaderData[ALIGNMENT_OFFSET + 0] = SHIFT0(align & MASK16_0);
-	rawHeaderData[ALIGNMENT_OFFSET + 1] = SHIFT1(align & MASK16_1);
-
-	// average bits per second chunk
-	rawHeaderData[AVERAGE_BBP_OFFSET + 0] = SHIFT0(avgBps & MASK32_0);
-	rawHeaderData[AVERAGE_BBP_OFFSET + 1] = SHIFT1(avgBps & MASK32_1);
-	rawHeaderData[AVERAGE_BBP_OFFSET + 2] = SHIFT2(avgBps & MASK32_2);
-	rawHeaderData[AVERAGE_BBP_OFFSET + 3] = SHIFT3(avgBps & MASK32_3);
+	rawHeaderData[ALIGNMENT_OFFSET + 1] = SHIFT2(align & MASK16_0);
+	rawHeaderData[ALIGNMENT_OFFSET + 0] = SHIFT3(align & MASK16_1);
 
 	// data chunk
 	rawHeaderData[WAVE_ID_OFFSET + 0] = DATA[0];
@@ -108,10 +108,10 @@ void WaveExporter::prepareExport()
 
 	// data size chunk
 	int dataSize = calcByteTotal();
-	rawHeaderData[WAVE_SIZE_OFFSET + 0] = SHIFT0(MASK32_0 & dataSize);
-	rawHeaderData[WAVE_SIZE_OFFSET + 1] = SHIFT1(MASK32_1 & dataSize);
-	rawHeaderData[WAVE_SIZE_OFFSET + 2] = SHIFT2(MASK32_2 & dataSize);
-	rawHeaderData[WAVE_SIZE_OFFSET + 3] = SHIFT3(MASK32_3 & dataSize);
+	rawHeaderData[WAVE_SIZE_OFFSET + 3] = SHIFT0(MASK32_0 & dataSize);
+	rawHeaderData[WAVE_SIZE_OFFSET + 2] = SHIFT1(MASK32_1 & dataSize);
+	rawHeaderData[WAVE_SIZE_OFFSET + 1] = SHIFT2(MASK32_2 & dataSize);
+	rawHeaderData[WAVE_SIZE_OFFSET + 0] = SHIFT3(MASK32_3 & dataSize);
 
 	// flesh out the audio samples data
 	if (channels == 1)
@@ -125,12 +125,15 @@ void WaveExporter::prepareExport()
 	else
 	{
 		rawAudioData = new short[nSamples * 2];
-		for (int i = 0; i < nSamples * 2; i += 2)
+		for (int i = 0; i < nSamples; i ++)
 		{
-			((short*)rawAudioData)[i] = (short)(32768.f * channel1[i]);
-			((short*)rawAudioData)[i + 1] = (short)(32768.f * channel2[i]);
+			((short*)rawAudioData)[2 * i] = (short)(32768.f * channel1[i]);
+			((short*)rawAudioData)[2 * i + 1] = (short)(32768.f * channel2[i]);
 		}
 	}
+
+	//for (int i = 0; i < 11; i++)
+		printf("%S ", rawHeaderData);
 
 	// we good
 	prepared = true;
@@ -174,7 +177,7 @@ void WaveExporter::unprepareExport()
 	if (prepared)
 	{
 		delete[] rawAudioData;
-		delete[] rawHeaderData;
+		//delete[] rawHeaderData;
 		prepared = false;
 	}
 }
