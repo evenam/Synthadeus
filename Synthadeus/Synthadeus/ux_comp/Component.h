@@ -136,6 +136,8 @@ public:
 			current->sweepDeletion();
 			if (children[i]->needsDeletion())
 			{
+				DebugPrintf("Deleting child %s\n", children[i]->getClassName());
+				children[i]->onDestroy();
 				removeChild(current);
 				delete current;
 			}
@@ -197,6 +199,8 @@ public:
 		}
 		numChildren--;
 	}
+
+	inline int getNumChildren() { return numChildren; };
 
 	// return whether we are currently interacting with the input system
 	inline bool isInteracting()

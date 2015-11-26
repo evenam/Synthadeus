@@ -45,6 +45,7 @@ public:
 		const static int OCTAVES = 10;
 		enum { A, AS, B, C, CS, D, DS, E, F, FS, G, GS, KEYS};
 		ButtonBase keys[OCTAVES][KEYS];
+		int numKeysPressed;
 	} vPiano;
 
 	struct Controller

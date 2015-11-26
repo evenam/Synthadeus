@@ -177,7 +177,7 @@ Renderable * Synthadeus::sortRenderList(Renderable * list)
 
 void Synthadeus::createOscillatorNode()
 {
-	Point place = inputDevice->vMouse.position - base->getOrigin();
+	Point place = inputDevice->vMouse.position - base->getOrigin() - appWindow->getViewportInstance();
 	Node* node = new Node(place, Point(200.f, 200.f), COLOR_MAGENTA, COLOR_ABLACK);
 	node->addChild(new OutputConnector(Point(180.f, 10.f), Point(10.f, 10.f), COLOR_RED, node));
 	node->addChild(new OutputConnector(Point(180.f, 85.f), Point(10.f, 10.f), COLOR_RED, node));

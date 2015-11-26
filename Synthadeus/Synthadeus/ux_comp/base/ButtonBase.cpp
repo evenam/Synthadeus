@@ -1,7 +1,7 @@
 #include "ButtonBase.h"
 
 ButtonBase::ButtonBase()
-	: isPressed(false), isHeld(false), isReleased(true), isDebounced(true)
+	: isPressed(false), isHeld(false), isReleased(true), isDebounced(true), toggle(false)
 {}
 
 void ButtonBase::update(bool isCurrentlyPressed)
@@ -49,4 +49,10 @@ void ButtonBase::update(bool isCurrentlyPressed)
 	// reset debouncing if the button has been released
 	if (!isCurrentlyPressed && !isReleased && isDebounced)
 		isDebounced = false;
+}
+
+// special case where we want the button state, but we can only send press and release events
+void ButtonBase::update()
+{
+	update(toggle);
 }
