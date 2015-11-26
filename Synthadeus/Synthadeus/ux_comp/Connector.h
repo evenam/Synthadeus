@@ -65,6 +65,7 @@ public:
 
 	virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse);
 	virtual void update();
+	virtual void onDestroy();
 };
 
 class OutputConnector : public Connector
@@ -90,4 +91,5 @@ public:
 
 	virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse);
 	virtual void update();
+	virtual void onDestroy();
 };

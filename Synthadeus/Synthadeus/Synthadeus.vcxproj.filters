@@ -191,6 +191,9 @@
     <ClCompile Include="platform\WaveExporter.cpp">
       <Filter>Source Files\platform</Filter>
     </ClCompile>
+    <ClCompile Include="app\OscillatorNode.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CFMaths.h">
@@ -340,6 +343,9 @@
     <ClInclude Include="platform\WaveExporter.h">
       <Filter>Header Files\platform</Filter>
     </ClInclude>
+    <ClInclude Include="app\OscillatorNode.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="SynthadeusIcon.ico">
@@ -390,5 +396,8 @@
     <Library Include="portmidi\rls\portmidi.lib">
       <Filter>Binaries\portmidi\release</Filter>
     </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\readme.txt" />
   </ItemGroup>
 </Project>

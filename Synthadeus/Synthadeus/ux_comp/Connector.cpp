@@ -96,6 +96,11 @@ void InputConnector::disconnect()
 	connectedComponent = NULL;
 }
 
+void InputConnector::onDestroy()
+{
+	disconnect();
+}
+
 void InputConnector::connect(OutputConnector* other)
 {
 	if (other == NULL) return;
@@ -181,6 +186,15 @@ void OutputConnector::disconnect(InputConnector* other)
 {
 	int index = findConnectorInList(other);
 	disconnect(index);
+}
+
+void OutputConnector::onDestroy()
+{
+	for (int i = numConnectedComponents - 1; i >= 0; i--)
+	{
+		disconnect(i);
+		connectedComponents[i] = NULL;
+	}
 }
 
 int OutputConnector::connect(InputConnector* other)
