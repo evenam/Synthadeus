@@ -55,6 +55,13 @@ void Node::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 		if (Component::rectanglePointCollisionCheck(vMouse->instancePosition(), origin, size))
 		{
 			removeMe = true;
+			int nChildren = getNumChildren();
+			for (int i = 0; i < nChildren; i++)
+			{
+				// early call to break connections
+				child(i)->onDestroy();
+				child(i)->signalRemoval();
+			}
 		}
 	}
 }

@@ -91,6 +91,8 @@ void InputConnector::disconnect()
 void InputConnector::onDestroy()
 {
 	disconnect();
+	connectedComponent = NULL;
+	connected = 0;
 }
 
 void InputConnector::connect(OutputConnector* other)
@@ -130,11 +132,14 @@ void InputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMou
 			}
 		}
 	}
+
+	if (vMouse->right.checkReleased())
+		onDestroy(); // shortcut to remove the connection
 }
 
 void InputConnector::update()
 {
-	if (connected)
+	if (connected && connectedComponent)
 	{
 		otherCoords[0] = connectedComponent->getAbsoluteOrigin()[0] + connectedComponent->size[0] * 0.5f - getAbsoluteOrigin()[0] + origin[0];
 		otherCoords[1] = connectedComponent->getAbsoluteOrigin()[1] + connectedComponent->size[1] * 0.5f - getAbsoluteOrigin()[1] + origin[1];
@@ -184,9 +189,10 @@ void OutputConnector::onDestroy()
 {
 	for (int i = numConnectedComponents - 1; i >= 0; i--)
 	{
-		disconnect(i);
+		connectedComponents[i]->disconnect();
 		connectedComponents[i] = NULL;
 	}
+	numConnectedComponents = 0;
 }
 
 int OutputConnector::connect(InputConnector* other)
@@ -195,6 +201,7 @@ int OutputConnector::connect(InputConnector* other)
 	if (other == NULL) return -1;
 	if (findConnectorInList(other) >= 0) return -1;
 	connectedComponents[numConnectedComponents] = other;
+	DebugPrintf("Connecting %s (input) to %s (output)\n", getParent()->getClassName(), other->getParent()->getClassName());
 	return numConnectedComponents++;
 }
 
@@ -226,6 +233,9 @@ void OutputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMo
 			assert(((InputConnector*)other)->isConnected() == 1);
 		}
 	}
+
+	if (vMouse->right.checkReleased())
+		onDestroy(); // shortcut to kill all connections
 }
 
 void OutputConnector::update()

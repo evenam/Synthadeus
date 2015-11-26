@@ -2,9 +2,9 @@
 //                                                                            //
 //   Button Base                                                              //
 //   Everett Moser                                                            //
-//   11-14-5                                                                  //
+//   11-14-15                                                                 //
 //                                                                            //
-//   Simple logic for a button based on held state                            //
+//   Simple logic for a button based on held state or serial events           //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -27,7 +27,17 @@ public:
 	// update the state variables with the pressed status
 	void update(bool isCurrentlyPressed);
 
+	// update the state variables with the event variables
+	void update();
+
+	// button events
+	inline void press() { toggle = true; };
+	inline void release() { toggle = false; };
+
 private:
 	// state variables
 	bool isPressed, isHeld, isReleased, isDebounced;
+
+	// serial event state variable
+	bool toggle;
 };
