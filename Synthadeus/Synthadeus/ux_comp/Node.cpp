@@ -49,6 +49,14 @@ void Node::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 		setBoundingRectangle(origin, size);
 		diff = vMouse->instancePosition();
 	}
+
+	if (vMouse->right.checkReleased())
+	{
+		if (Component::rectanglePointCollisionCheck(vMouse->instancePosition(), origin, size))
+		{
+			removeMe = true;
+		}
+	}
 }
 
 void Node::update()

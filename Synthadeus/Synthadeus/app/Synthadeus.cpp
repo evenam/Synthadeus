@@ -124,6 +124,8 @@ void Synthadeus::update()
 
 	base->updateTree();
 
+	base->sweepDeletion();
+
 	if (inputDevice->vController.quit.checkReleased())
 		quit();
 
@@ -171,4 +173,10 @@ Renderable * Synthadeus::sortRenderList(Renderable * list)
 	// TODO: sort the bezier curves to the end
 
 	return list;
+}
+
+void Synthadeus::createOscillatorNode()
+{
+	Point place = inputDevice->vMouse.position - base->getOrigin();
+	base->addChild(new Node(place, Point(200.f, 200.f), COLOR_ABLACK, COLOR_MAGENTA));
 }

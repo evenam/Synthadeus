@@ -27,10 +27,9 @@ void GridBase::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 {
 	if (menu)
 	{
-		if (menu->needsToClose() || (vMouse->right.checkReleased() || vMouse->left.checkReleased()))
+		if (vMouse->right.checkReleased() || vMouse->left.checkReleased())
 		{
-			removeChild(menu);
-			delete menu;
+			menu->signalRemoval();
 			menu = NULL;
 		}
 	}

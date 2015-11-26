@@ -69,5 +69,8 @@ public:
 
 	// resort render list
 	Renderable* sortRenderList(Renderable* list);
+
+	// graph creation
+	void createOscillatorNode();
 };
 

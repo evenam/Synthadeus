@@ -63,15 +63,19 @@ protected:
 	// are we interacting with input?
 	bool interacting;
 
+	// marked for removal?
+	bool removeMe;
+
 	inline Component* getParent()
 	{
 		return parent;
 	}
 
 public:
-	inline Component() { numChildren = 0; interacting = false; }
+	inline Component() { numChildren = 0; interacting = false; removeMe = false; }
 	inline virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse) {};
 	inline virtual void update() {};
+	inline virtual void onDestroy() {};
 	inline virtual Renderable* getRenderList() { return NULL; };
 
 	// depth first event handling
@@ -114,6 +118,28 @@ public:
 
 		// all axes are good, collision occured
 		return true;
+	}
+
+	// manually mark an object for deletion
+	inline void signalRemoval()
+	{
+		removeMe = true;
+	}
+
+	// sweep portion of mark and sweep pseudo garbage collection
+	inline void sweepDeletion()
+	{
+		Component* current = NULL;
+		for (int i = 0; i < numChildren; i++)
+		{
+			current = children[i];
+			current->sweepDeletion();
+			if (children[i]->needsDeletion())
+			{
+				removeChild(current);
+				delete current;
+			}
+		}
 	}
 
 	// get the index-th child
@@ -234,6 +260,11 @@ public:
 		else
 			return Point(0.f, 0.f);
 	}
+
+	inline bool needsDeletion() { return removeMe; };
+
+	inline Point getOrigin() { return origin; }
+	inline Point getSize() { return size; }
 };
 
 typedef void(*ActionCallback)(Synthadeus* app, Component* myself);

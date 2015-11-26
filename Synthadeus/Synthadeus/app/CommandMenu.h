@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+//   A Command Menu UX Component                                              //
+//   Everett Moser                                                            //
+//   11-25-15                                                                 //
+//                                                                            //
+//   The right click context menu for right-clicking on a gridbase            //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
 #pragma once
 
 #include "Component.h"
@@ -21,7 +31,5 @@ public:
 	virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse);
 	virtual void update();
 	virtual Renderable* getRenderList();
-
-	inline bool needsToClose() { return needsClosing; };
 };
 

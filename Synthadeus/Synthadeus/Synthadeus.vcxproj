@@ -158,6 +158,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="app\MainWindow.cpp" />
+    <ClCompile Include="app\OscillatorNode.cpp" />
     <ClCompile Include="app\Synthadeus.cpp" />
     <ClCompile Include="audio\graph\AudioConstant.cpp" />
     <ClCompile Include="audio\graph\AudioNode.cpp" />
@@ -190,6 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\MainWindow.h" />
+    <ClInclude Include="app\OscillatorNode.h" />
     <ClInclude Include="app\Synthadeus.h" />
     <ClInclude Include="audio\graph\AudioConstant.h" />
     <ClInclude Include="audio\graph\AudioNode.h" />
@@ -260,6 +262,9 @@
     <Library Include="portaudio_ASIO\rls\portaudio_x86.lib" />
     <Library Include="portmidi\dbg\portmidi.lib" />
     <Library Include="portmidi\rls\portmidi.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\readme.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
