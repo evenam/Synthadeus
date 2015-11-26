@@ -167,9 +167,6 @@
     <ClCompile Include="ux_comp\Connector.cpp">
       <Filter>Source Files\ux_comp</Filter>
     </ClCompile>
-    <ClCompile Include="ux_comp\CommandMenu.cpp">
-      <Filter>Source Files\ux_comp</Filter>
-    </ClCompile>
     <ClCompile Include="audio\graph\AudioConstant.cpp">
       <Filter>Source Files\audio\graph</Filter>
     </ClCompile>
@@ -187,6 +184,12 @@
     </ClCompile>
     <ClCompile Include="audio\graph\Oscillator.cpp">
       <Filter>Source Files\audio\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="app\CommandMenu.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="platform\WaveExporter.cpp">
+      <Filter>Source Files\platform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -313,9 +316,6 @@
     <ClInclude Include="audio\external\portmidi.h">
       <Filter>Header Files\audio\external</Filter>
     </ClInclude>
-    <ClInclude Include="ux_comp\CommandMenu.h">
-      <Filter>Header Files\ux_comp</Filter>
-    </ClInclude>
     <ClInclude Include="audio\graph\AudioConstant.h">
       <Filter>Header Files\audio\graph</Filter>
     </ClInclude>
@@ -333,6 +333,12 @@
     </ClInclude>
     <ClInclude Include="audio\graph\SignalSummation.h">
       <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="app\CommandMenu.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\WaveExporter.h">
+      <Filter>Header Files\platform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

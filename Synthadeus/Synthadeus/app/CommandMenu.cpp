@@ -16,10 +16,10 @@ CommandMenu::CommandMenu(Point cmOrigin) :
 	origin[1] = cmOrigin[1];
 	setBoundingRectangle(origin, size);
 
-	addChild(&btnMakeOscillator);
-	addChild(&btnMakeEnvelope);
-	addChild(&btnMakeConstant);
-	addChild(&btnMakeSummation);
+	assert(addChild(&btnMakeOscillator) > -1);
+	assert(addChild(&btnMakeEnvelope) > -1);
+	assert(addChild(&btnMakeConstant) > -1);
+	assert(addChild(&btnMakeSummation) > -1);
 	needsClosing = false;
 }
 
@@ -27,6 +27,7 @@ void CommandMenu::createOscillator(Synthadeus* app, Component* other)
 {
 	//app->createOscillator();
 	DebugPrintf("Creating an Oscillator\n");
+	assert(_strcmpi(other->getClassName(), CommandMenu::nameString()) == 0);
 	CommandMenu* myself = (CommandMenu*)other;
 	myself->needsClosing = true;
 	myself->setBoundingRectangle(Point(0.f, 0.f), Point(0.f, 0.f));
@@ -36,6 +37,7 @@ void CommandMenu::createEnvelope(Synthadeus* app, Component* other)
 {
 	//app->createOscillator();
 	DebugPrintf("Creating an Envelope\n");
+	assert(_strcmpi(other->getClassName(), CommandMenu::nameString()) == 0);
 	CommandMenu* myself = (CommandMenu*)other;
 	myself->needsClosing = true;
 	myself->setBoundingRectangle(Point(0.f, 0.f), Point(0.f, 0.f));
@@ -45,6 +47,7 @@ void CommandMenu::createConstant(Synthadeus* app, Component* other)
 {
 	//app->createOscillator();
 	DebugPrintf("Creating an Constant\n");
+	assert(_strcmpi(other->getClassName(), CommandMenu::nameString()) == 0);
 	CommandMenu* myself = (CommandMenu*)other;
 	myself->needsClosing = true;
 	myself->setBoundingRectangle(Point(0.f, 0.f), Point(0.f, 0.f));
@@ -54,6 +57,7 @@ void CommandMenu::createSummation(Synthadeus* app, Component* other)
 {
 	//app->createOscillator();
 	DebugPrintf("Creating an Summation\n");
+	assert(_strcmpi(other->getClassName(), CommandMenu::nameString()) == 0);
 	CommandMenu* myself = (CommandMenu*)other;
 	myself->needsClosing = true;
 	myself->setBoundingRectangle(Point(0.f, 0.f), Point(0.f, 0.f));
@@ -75,6 +79,9 @@ Renderable* CommandMenu::getRenderList()
 	Renderable* con = btnMakeConstant.getRenderTree();
 	Renderable* sum = btnMakeSummation.getRenderTree();
 
+	assert(osc->next);
+	assert(env->next);
+	assert(con->next);
 	osc->next->next = env;
 	env->next->next = con;
 	con->next->next = sum;
