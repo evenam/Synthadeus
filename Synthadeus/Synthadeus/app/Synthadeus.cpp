@@ -72,7 +72,7 @@ Synthadeus::Synthadeus()
 	testNode->addChild(new Slider(Point(20.f, 70.f), Point(20.f, 80.f), COLOR_ABLACK, COLOR_RED, Slider::VERTICAL, 0.05f, 10000.f));
 	base->addChild(testNode);
 	testNode = new Node(Point(950.f, 700.f), Point(200.f, 200.f), COLOR_ORANGE, COLOR_ABLACK);
-	testNode->addChild(new OutputConnector(Point(10.f, 10.f), Point(50.f, 50.f), COLOR_ORANGE, testNode));
+	testNode->addChild(new OutputConnector(Point(10.f, 140.f), Point(50.f, 50.f), COLOR_ORANGE, testNode));
 	base->addChild(testNode);
 	testNode = new Node(Point(1200.f, 700.f), Point(200.f, 200.f), COLOR_GREEN, COLOR_ABLACK);
 	base->addChild(testNode);
@@ -178,5 +178,12 @@ Renderable * Synthadeus::sortRenderList(Renderable * list)
 void Synthadeus::createOscillatorNode()
 {
 	Point place = inputDevice->vMouse.position - base->getOrigin();
-	base->addChild(new Node(place, Point(200.f, 200.f), COLOR_ABLACK, COLOR_MAGENTA));
+	Node* node = new Node(place, Point(200.f, 200.f), COLOR_MAGENTA, COLOR_ABLACK);
+	node->addChild(new OutputConnector(Point(180.f, 10.f), Point(10.f, 10.f), COLOR_RED, node));
+	node->addChild(new OutputConnector(Point(180.f, 85.f), Point(10.f, 10.f), COLOR_RED, node));
+	node->addChild(new OutputConnector(Point(180.f, 170.f), Point(10.f, 10.f), COLOR_RED, node));
+	node->addChild(new InputConnector(Point(10.f, 10.f), Point(10.f, 10.f), COLOR_RED, node));
+	node->addChild(new InputConnector(Point(10.f, 85.f), Point(10.f, 10.f), COLOR_RED, node));
+	node->addChild(new InputConnector(Point(10.f, 170.f), Point(10.f, 10.f), COLOR_RED, node));
+	base->addChild(node);
 }

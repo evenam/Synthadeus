@@ -62,17 +62,9 @@ Renderable* Connector::getRenderList()
 	// top kek
 	Renderable* circle = new RoundedRectangle(origin, size, (shouldHighlight ? COLOR_WHITE : color), (interacting? color : ((isConnected() > 0) ? COLOR_WHITE : COLOR_NONE)), radiusX, radiusY);
 
-	if (isInputConnector() && isConnected())
+	if (isInputConnector() && isConnected() || interacting)
 	{
-		Point myCenter(origin[0] + size[0] * 0.5, origin[0] + size[1] * 0.5);
-		Point bezierMidPoint1((otherCoords[0] + myCenter[0]) * 0.5f, myCenter[1]);
-		Point bezierMidPoint2((otherCoords[0] + myCenter[0]) * 0.5f, otherCoords[1]);
-		Renderable* curve = new BezierCurve<4>(myCenter, bezierMidPoint1, bezierMidPoint2, otherCoords);
-		circle->next = curve;
-	}
-	else if (interacting)
-	{
-		Point myCenter(origin[0] + size[0] * 0.5, origin[0] + size[1] * 0.5);
+		Point myCenter(origin[0] + size[0] * 0.5, origin[1] + size[1] * 0.5);
 		Point bezierMidPoint1((otherCoords[0] + myCenter[0]) * 0.5f, myCenter[1]);
 		Point bezierMidPoint2((otherCoords[0] + myCenter[0]) * 0.5f, otherCoords[1]);
 		Renderable* curve = new BezierCurve<4>(myCenter, bezierMidPoint1, bezierMidPoint2, otherCoords);
@@ -144,8 +136,8 @@ void InputConnector::update()
 {
 	if (connected)
 	{
-		otherCoords[0] = connectedComponent->getAbsoluteOrigin()[0] + connectedComponent->origin[0] + connectedComponent->size[0] * 0.5f - getAbsoluteOrigin()[0];
-		otherCoords[1] = connectedComponent->getAbsoluteOrigin()[1] + connectedComponent->origin[1] + connectedComponent->size[1] * 0.5f - getAbsoluteOrigin()[1];
+		otherCoords[0] = connectedComponent->getAbsoluteOrigin()[0] + connectedComponent->size[0] * 0.5f - getAbsoluteOrigin()[0] + origin[0];
+		otherCoords[1] = connectedComponent->getAbsoluteOrigin()[1] + connectedComponent->size[1] * 0.5f - getAbsoluteOrigin()[1] + origin[1];
 	}
 }
 

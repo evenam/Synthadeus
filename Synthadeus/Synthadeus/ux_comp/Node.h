@@ -37,5 +37,7 @@ public:
 	virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse);
 	virtual void update();
 	virtual Renderable* getRenderList();
+
+	virtual bool canConnect() { return true; }
 };
 
