@@ -358,6 +358,9 @@
     <ClInclude Include="app\AudioOutputNode.h">
       <Filter>Header Files\app</Filter>
     </ClInclude>
+    <ClInclude Include="audio\AudioDefines.h">
+      <Filter>Header Files\audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="SynthadeusIcon.ico">

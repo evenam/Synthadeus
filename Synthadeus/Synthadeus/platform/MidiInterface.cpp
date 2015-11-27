@@ -4,12 +4,18 @@
 #define MIDI_OFF_NOTE   0x80
 #define MIDI_ON_NOTE    0x90
 
-MidiInterface::MidiInterface(InputDevice::Piano * virtualPiano)
+MidiInterface::MidiInterface()
 {
-	vPiano = virtualPiano;
 	initialized = false;
 	midiIn = NULL;
 	msgFilter = 0;
+	for (int i = 0; i < InputDevice::Piano::OCTAVES; i++)
+	{
+		for (int j = 0; j < InputDevice::Piano::KEYS; j++)
+		{
+			notes[i][j] = false;
+		}
+	}
 }
 
 bool MidiInterface::initialize()
@@ -85,8 +91,21 @@ void MidiInterface::ptMidiCallback(PtTimestamp timestamp, void* data)
 		PmMessage msg = event.message;
 		int command = Pm_MessageStatus(msg), note = Pm_MessageData1(msg);
 		if (command == MIDI_ON_NOTE)
+		{
 			DebugPrintf("  [MIDI] toggle on %d \n", note);
+			((MidiInterface*)data)->notes[getOctaveValue(note)][getNoteValue(note)] = true;
+		}
 		else if (command == MIDI_OFF_NOTE)
+		{
 			DebugPrintf("  [MIDI] toggle off %d \n", note);
+			((MidiInterface*)data)->notes[getOctaveValue(note)][getNoteValue(note)] = false;
+		}
 	}
+}
+
+bool MidiInterface::check(int octave, int note)
+{
+	assert(note >= 0 && note <= InputDevice::Piano::KEYS);
+	assert(octave >= 0 && octave <= InputDevice::Piano::OCTAVES);
+	return notes[octave][note];
 }

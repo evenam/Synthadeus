@@ -21,16 +21,21 @@ class MidiInterface
 {
 private:
 	bool initialized;
-	InputDevice::Piano* vPiano;
 	PmStream* midiIn;
 	int msgFilter;
+	bool notes[InputDevice::Piano::OCTAVES][InputDevice::Piano::KEYS];
 
 public:
-	MidiInterface(InputDevice::Piano* virtualPiano);
+	MidiInterface();
 
 	bool initialize();
 	bool deinitialize();
 	inline bool isInitialized() { return initialized; };
 	static void ptMidiCallback(PtTimestamp timestamp, void* data);
+
+	bool check(int octave, int note);
+	inline static int getNoteValue(int key) { return key % 12; };
+	inline static int getOctaveValue(int key) { return key / 12; };
+	inline static int getKeyValue(int octave, int note) { return 12 * octave + note; };
 };
 

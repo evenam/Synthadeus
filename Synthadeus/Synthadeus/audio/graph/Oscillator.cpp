@@ -18,7 +18,7 @@ int Oscillator::calculatePhase()
 	int freqMod = POTENTIAL_NULL(frequencyMod, getBufferSize(), 1.f);
 	int volMod = POTENTIAL_NULL(volumeMod, getBufferSize(), 1.f);
 	int panMod = POTENTIAL_NULL(panningMod, getBufferSize(), 1.f);
-	int sampleMod = AUDIO_SAMPLES / frequency;
+	int sampleMod = AUDIO_SAMPLE_RATE / frequency;
 
 	// the LCM is a major optimization in terms of space requirements
 	// it reduces the space by a factor of 10-10000x depending on the input nodes
@@ -107,8 +107,8 @@ void Oscillator::calcBuffer()
 		}
 
 		// update theta
-		thetaL += 2 * 3.14159f * calcFrequencyL(i) / AUDIO_SAMPLES;
-		thetaR += 2 * 3.14159f * calcFrequencyR(i) / AUDIO_SAMPLES;
+		thetaL += 2 * 3.14159f * calcFrequencyL(i) / AUDIO_SAMPLE_RATE;
+		thetaR += 2 * 3.14159f * calcFrequencyR(i) / AUDIO_SAMPLE_RATE;
 
 		while (thetaL > 2 * 3.14159f) thetaL -= 2 * 3.14159f;
 		while (thetaR > 2 * 3.14159f) thetaR -= 2 * 3.14159f;

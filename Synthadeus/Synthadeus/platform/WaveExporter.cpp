@@ -1,16 +1,16 @@
 #include "WaveExporter.h"
+#include "AudioDefines.h"
 
 const char WaveExporter::RIFF[4] = {'R', 'I', 'F', 'F'};
 const char WaveExporter::WAVE[4] = {'W', 'A', 'V', 'E'};
 const char WaveExporter::FMT[4]  = {'f', 'm', 't', ' '};
 const char WaveExporter::DATA[4] = {'d', 'a', 't', 'a'};
-#define AUDIO_SAMPLES 44100
 
 WaveExporter::WaveExporter(int numAudioSamples, float * audioSamplesL, float * audioSamplesR)
 {
 	channels = 2;
 	nSamples = numAudioSamples;
-	sampleRate = AUDIO_SAMPLES;
+	sampleRate = AUDIO_SAMPLE_RATE;
 	prepared = false;
 	successful = false;
 	channel1 = audioSamplesL;
@@ -19,9 +19,10 @@ WaveExporter::WaveExporter(int numAudioSamples, float * audioSamplesL, float * a
 
 WaveExporter::WaveExporter(int numAudioSamples, float * audioSamples)
 {
+	assert(!"Unsupported in Synthadeus.");
 	channels = 1;
 	nSamples = numAudioSamples;
-	sampleRate = AUDIO_SAMPLES;
+	sampleRate = AUDIO_SAMPLE_RATE;
 	prepared = false;
 	successful = false;
 	channel1 = audioSamples;
@@ -131,9 +132,6 @@ void WaveExporter::prepareExport()
 			((short*)rawAudioData)[2 * i + 1] = (short)(32768.f * channel2[i]);
 		}
 	}
-
-	//for (int i = 0; i < 11; i++)
-		printf("%S ", rawHeaderData);
 
 	// we good
 	prepared = true;

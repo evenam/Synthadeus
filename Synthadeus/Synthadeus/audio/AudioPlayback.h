@@ -16,6 +16,7 @@
 #include "Error.h"
 #include "InputDevice.h"
 #include "CFMaths.h"
+#include "AudioDefines.h"
 
 #pragma comment(lib, "portaudio_x86.lib")
 
@@ -30,7 +31,7 @@ private:
 	bool initialized = false;
 
 	// tuned for A4 to be 440 Hz
-	inline float getFrequencyForNote(int note) { return 440.f * fpowf(1.0594631f, (note - 69)); };
+	inline float getFrequencyForNote(int note) { return AUDIO_TUNE_FREQUENCY * fpowf(1.0594631f, (note - AUDIO_TUNE_NOTE)); };
 
 	float thetas[InputDevice::Piano::OCTAVES][InputDevice::Piano::KEYS];
 
