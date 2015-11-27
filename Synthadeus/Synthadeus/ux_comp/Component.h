@@ -15,7 +15,7 @@
 #include "Renderable.h"
 #include "InputDevice.h"
 
-#define COMPONENT_MAX_CHILDREN 16
+#define COMPONENT_MAX_CHILDREN 128
 
 class Synthadeus;
 class Component : public Object
@@ -152,6 +152,8 @@ public:
 
 	inline int addChild(Component* child)
 	{
+		assert(numChildren < COMPONENT_MAX_CHILDREN);
+
 		// return the child index if it is already a child of this component
 		for (int i = 0; i < numChildren; i++)
 		{

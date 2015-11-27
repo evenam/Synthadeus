@@ -194,6 +194,9 @@
     <ClCompile Include="app\OscillatorNode.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
+    <ClCompile Include="platform\MidiInterface.cpp">
+      <Filter>Source Files\platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CFMaths.h">
@@ -345,6 +348,9 @@
     </ClInclude>
     <ClInclude Include="app\OscillatorNode.h">
       <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="platform\MidiInterface.h">
+      <Filter>Header Files\platform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
