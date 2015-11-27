@@ -60,6 +60,11 @@ Synthadeus::Synthadeus()
 	inputDevice = new InputDevice();
 	DebugPrintf("Input Device Allocated.\n");
 
+	// create midi interface
+	midiInterface = new MidiInterface(&inputDevice->vPiano);
+	assert(midiInterface->initialize())
+		DebugPrintf("midi successfully initialized\n");
+
 	base = new GridBase(Point(-640.f, -640.f), Point(appWindow->getWidth() + 1280.f, appWindow->getHeight() + 1280.f), COLOR_LTGREY, COLOR_BLACK);
 	
 	testNode = new Node(Point(700.f, 700.f), Point(200.f, 200.f), COLOR_CORNFLOWERBLUE, COLOR_ABLACK);
@@ -83,6 +88,9 @@ Synthadeus::~Synthadeus()
 {
 	DebugPrintf("Shutting down Synthadeus.\n");
 
+	DebugPrintf("Deinitializing Midi Interface\n");
+	midiInterface->deinitialize();
+
 	// destroy the window and end the renderer
 	appWindow->endRenderer();
 	DebugPrintf("Ended Renderer.\n");
@@ -91,6 +99,7 @@ Synthadeus::~Synthadeus()
 	DebugPrintf("Destroyed the window.\n");
 
 	// free the input device
+	delete midiInterface;
 	delete inputDevice;
 	delete projectPageButton;
 	delete base;

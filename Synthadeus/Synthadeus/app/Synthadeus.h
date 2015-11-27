@@ -18,6 +18,7 @@
 #include "Node.h"
 #include "Slider.h"
 #include "Connector.h"
+#include "MidiInterface.h"
 
 #define SYNTHADEUS_VERSION "Synthadeus 0.5" // arbitrary number kek
 
@@ -29,6 +30,9 @@ private:
 
 	// input device
 	InputDevice* inputDevice;
+
+	// midi interface
+	MidiInterface* midiInterface;
 
 	// viewport momentum and cool stuff
 	const float viewportFriction;
