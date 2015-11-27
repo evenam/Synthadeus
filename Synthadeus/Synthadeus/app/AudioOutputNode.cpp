@@ -6,40 +6,12 @@ AudioOutputNode::AudioOutputNode(Point audioOutputNodeOrigin)
 	input = new InputConnector(Point(20.f, 20.f), Point(20.f, 20.f), COLOR_PINK, this);
 	addChild(input);
 
-	testOscillator = new Oscillator(Oscillator::SAW, 200.f, 1.f, 0.f);
+	testOscillator = new Oscillator(Oscillator::SINE, 440.f, 1.f, 0.f);
 }
 
-float AudioOutputNode::getLerpL(float sample)
+AudioNode* AudioOutputNode::getAudioNode()
 {
-	float bufferLength = testOscillator->getBufferSize();
-	float modSample = sample;
-	while (modSample > bufferLength)
-		modSample -= bufferLength;
-	return testOscillator->lerpValueL(modSample);
-}
-
-float AudioOutputNode::getLerpR(float sample)
-{
-	float bufferLength = testOscillator->getBufferSize();
-	float modSample = sample;
-	while (modSample > bufferLength)
-		modSample -= bufferLength;
-	return testOscillator->lerpValueR(modSample);
-}
-
-float* AudioOutputNode::getBufferL()
-{
-	return testOscillator->getBufferL();
-}
-
-float* AudioOutputNode::getBufferR()
-{
-	return testOscillator->getBufferR();
-}
-
-int AudioOutputNode::getNumSamples()
-{
-	return testOscillator->getBufferSize();
+	return testOscillator;
 }
 
 Renderable * AudioOutputNode::getRenderList()

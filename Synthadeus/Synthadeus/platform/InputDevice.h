@@ -43,9 +43,10 @@ public:
 
 	struct Piano
 	{
+		CRITICAL_SECTION pianoCriticalSection;
 		friend class InputDevice;
 		const static int OCTAVES = 10;
-		enum { A, AS, B, C, CS, D, DS, E, F, FS, G, GS, KEYS};
+		enum { C, CS, D, DS, E, F, FS, G, GS, A, AS, B, KEYS};
 		ButtonBase keys[OCTAVES][KEYS];
 		inline int getNumKeysPressed() { return numKeysPressed; };
 		inline int getKey(int index) { assert(index >= 0 && index <= numKeysPressed); return keyStack[index]; }

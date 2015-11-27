@@ -36,7 +36,10 @@ private:
 
 	// tuned for A4 to be 440 Hz
 	inline float getFrequencyForNote(int note) { return AUDIO_TUNE_FREQUENCY * fpowf(1.0594631f, (note - AUDIO_TUNE_NOTE)); };
-	float thetas[InputDevice::Piano::TOTAL_KEYS];
+	float positions[InputDevice::Piano::TOTAL_KEYS];
+
+	// holds both left and right audio
+	float summedSignal[AUDIO_FRAME_SIZE * 2];
 
 public:
 	AudioPlayback(AudioOutputNode* outputNode, InputDevice::Piano* virtualPiano);
@@ -44,5 +47,6 @@ public:
 	bool deinitialize();
 	inline bool isInitialized() { return initialized; };
 	static int AudioCallback(const void* inputBuffer, void* outputBuffer, unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags, void* userdata);
-	void updateTheta(int key);
+	void updatePositions();
+	void calculateSummedSignal();
 };

@@ -25,6 +25,8 @@ InputDevice::InputDevice()
 	vController.waveExport.debounce();
 
 	// reset the piano 
+	InitializeCriticalSection(&vPiano.pianoCriticalSection);
+	EnterCriticalSection(&vPiano.pianoCriticalSection);
 	vPiano.numKeysPressed = 0;
 	for (int i = 0; i < Piano::OCTAVES; i++)
 	{
@@ -33,6 +35,7 @@ InputDevice::InputDevice()
 			vPiano.keys[i][j].debounce();
 		}
 	}
+	LeaveCriticalSection(&vPiano.pianoCriticalSection);
 }
 
 
@@ -68,9 +71,6 @@ void InputDevice::update(MidiInterface* midi)
 			vPiano.keys[i][j].update(midi->check(i, j));
 		}
 	}
-	vPiano.keys[4][Piano::A].update(midi->check(4, Piano::A));
-	vPiano.keys[4][Piano::AS].update(midi->check(4, Piano::AS));
-	vPiano.keys[4][Piano::B].update(midi->check(4, Piano::B));
 
 	// the virtual piano keyboard keys octave 5... Q-->E and ,-->/ is white keys, L-->; and 2-->3 is black keys (trust me) these ones have two keys and a midi
 	vPiano.keys[5][Piano::C].update(midi->check(5, Piano::C) || (GetAsyncKeyState('Q') ? true : false) || (GetAsyncKeyState(VK_OEM_COMMA) ? true : false));
@@ -112,6 +112,9 @@ void InputDevice::update(MidiInterface* midi)
 
 	// midi update for upper half
 	vPiano.keys[6][Piano::GS].update(midi->check(6, Piano::GS));
+	vPiano.keys[6][Piano::A].update(midi->check(6, Piano::A));
+	vPiano.keys[6][Piano::AS].update(midi->check(6, Piano::AS));
+	vPiano.keys[6][Piano::B].update(midi->check(6, Piano::B));
 	for (int i = 7; i < Piano::OCTAVES; i++)
 	{
 		for (int j = 0; j < Piano::KEYS; j++)
