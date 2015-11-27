@@ -1,3 +1,13 @@
+////////////////////////////////////////////////////////////////////////////////
+//                                                                            //
+//   The Oscillator Node                                                      //
+//   Everett Moser                                                            //
+//   11-26-15                                                                 //
+//                                                                            //
+//   A placeable node which creates an oscillator in the audio graph          //
+//                                                                            //
+////////////////////////////////////////////////////////////////////////////////
+
 #pragma once
 
 #include "Component.h"

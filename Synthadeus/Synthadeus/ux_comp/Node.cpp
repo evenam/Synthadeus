@@ -1,6 +1,6 @@
 #include "Node.h"
 
-Node::Node(Point nodeOrigin, Point nodeSize, unsigned int nodeFgColor, unsigned int nodeBgColor) : Component()
+Node::Node(Point nodeOrigin, Point nodeSize, unsigned int nodeFgColor, unsigned int nodeBgColor, bool isRemoveable) : Component()
 {
 	origin[0] = nodeOrigin[0];
 	origin[1] = nodeOrigin[1];
@@ -12,6 +12,7 @@ Node::Node(Point nodeOrigin, Point nodeSize, unsigned int nodeFgColor, unsigned 
 	interacting = false;
 	relativeMouseX = 0.f;
 	relativeMouseY = 0.f;
+	removeable = isRemoveable;
 }
 
 void Node::setSize(Point nodeOrigin, Point nodeSize)
@@ -50,7 +51,7 @@ void Node::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 		diff = vMouse->instancePosition();
 	}
 
-	if (vMouse->right.checkReleased())
+	if (vMouse->right.checkReleased() && removeable)
 	{
 		if (Component::rectanglePointCollisionCheck(vMouse->instancePosition(), origin, size))
 		{

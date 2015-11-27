@@ -27,10 +27,12 @@ private:
 	float relativeMouseX;
 	float relativeMouseY;
 
+	bool removeable;
+
 public:
 	RTTI_MACRO(Node);
 
-	Node(Point nodeOrigin, Point nodeSize, unsigned int nodeFgColor, unsigned int nodeBgColor);
+	Node(Point nodeOrigin, Point nodeSize, unsigned int nodeFgColor, unsigned int nodeBgColor, bool isRemoveable = true);
 	void setSize(Point nodeOrigin, Point nodeSize);
 	void setColorScheme(unsigned int nodeFgColor, unsigned int nodeBgColor);
 

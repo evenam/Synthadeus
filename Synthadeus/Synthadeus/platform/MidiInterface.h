@@ -31,6 +31,6 @@ public:
 	bool initialize();
 	bool deinitialize();
 	inline bool isInitialized() { return initialized; };
-	static void ptMidiCallback(PtTimestamp timestamp, void* userdata);
+	static void ptMidiCallback(PtTimestamp timestamp, void* data);
 };
 

@@ -1,6 +1,9 @@
 #include "MidiInterface.h"
 #include "Error.h"
 
+#define MIDI_OFF_NOTE   0x80
+#define MIDI_ON_NOTE    0x90
+
 MidiInterface::MidiInterface(InputDevice::Piano * virtualPiano)
 {
 	vPiano = virtualPiano;
@@ -55,32 +58,35 @@ bool MidiInterface::initialize()
 
 bool MidiInterface::deinitialize()
 {
-	initialized = true;
+	initialized = false;
 	if (midiIn)
 		Pm_Close(midiIn);
 	Pt_Stop();
 	Pm_Terminate();
-
-	initialized = false;
 	return true;
 }
 
-void MidiInterface::ptMidiCallback(PtTimestamp timestamp, void* userdata)
+void MidiInterface::ptMidiCallback(PtTimestamp timestamp, void* data)
 {
-	if (!((MidiInterface*)userdata)->isInitialized()) return;
+	if (!((MidiInterface*)data)->isInitialized()) return;
 	PmEvent event;
 	ZeroMemory(&event, sizeof(PmEvent));
 	int count;
-	PmStream* midiInStream = (((MidiInterface*)userdata)->midiIn);
+	PmStream* midiInStream = (((MidiInterface*)data)->midiIn);
 	count = Pm_Read(midiInStream, &event, 1);
 	if (count < 0)
 	{
 		PmError err = (PmError)count;
-		DebugPrintf("[MIDI] ERROR: %s\n", Pm_GetErrorText(err));
-		assert(!"MIDI error.");
+		DebugPrintf("  [MIDI] ERROR: %s\n", Pm_GetErrorText(err));
+		assert(!"  [MIDI] An error has occurred. See the logs.");
 	}
 	else if (count > 0)
 	{
-		DebugPrintf("Received midi message\n");
+		PmMessage msg = event.message;
+		int command = Pm_MessageStatus(msg), note = Pm_MessageData1(msg);
+		if (command == MIDI_ON_NOTE)
+			DebugPrintf("  [MIDI] toggle on %d \n", note);
+		else if (command == MIDI_OFF_NOTE)
+			DebugPrintf("  [MIDI] toggle off %d \n", note);
 	}
 }
