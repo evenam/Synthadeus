@@ -62,6 +62,7 @@ void InputDevice::update(MidiInterface* midi)
 
 	// idiot test
 	assert(midi != NULL);
+	EnterCriticalSection(&vPiano.pianoCriticalSection);
 
 	// midi update for lower half ( up to C4 )
 	for (int i = 0; i < 4; i++)
@@ -133,6 +134,7 @@ void InputDevice::update(MidiInterface* midi)
 				vPiano.keyStack[vPiano.numKeysPressed++] = MidiInterface::getKeyValue(i, j);
 		}
 	}
+	LeaveCriticalSection(&vPiano.pianoCriticalSection);
 
 	// visual look at the virtual keyboard
 	if (vPiano.getNumKeysPressed() > 0)
