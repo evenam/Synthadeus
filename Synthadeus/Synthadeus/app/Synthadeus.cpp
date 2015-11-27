@@ -101,7 +101,6 @@ Synthadeus::~Synthadeus()
 	// free the input device
 	delete midiInterface;
 	delete inputDevice;
-	delete projectPageButton;
 	delete base;
 	DebugPrintf("Freed Base Components.\n");
 
