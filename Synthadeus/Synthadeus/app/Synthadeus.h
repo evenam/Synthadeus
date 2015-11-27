@@ -19,6 +19,7 @@
 #include "Slider.h"
 #include "Connector.h"
 #include "MidiInterface.h"
+#include "AudioOutputNode.h"
 
 #define SYNTHADEUS_VERSION "Synthadeus 0.5" // arbitrary number kek
 
@@ -33,6 +34,9 @@ private:
 
 	// midi interface
 	MidiInterface* midiInterface;
+
+	// the output node to play audio back from
+	AudioOutputNode* audioOutputEndpoint;
 
 	// viewport momentum and cool stuff
 	const float viewportFriction;
@@ -76,5 +80,6 @@ public:
 
 	// graph creation
 	void createOscillatorNode();
+	void createEnvelopeNode();
 };
 

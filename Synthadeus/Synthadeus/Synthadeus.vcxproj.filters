@@ -197,6 +197,9 @@
     <ClCompile Include="platform\MidiInterface.cpp">
       <Filter>Source Files\platform</Filter>
     </ClCompile>
+    <ClCompile Include="app\AudioOutputNode.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CFMaths.h">
@@ -351,6 +354,9 @@
     </ClInclude>
     <ClInclude Include="platform\MidiInterface.h">
       <Filter>Header Files\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="app\AudioOutputNode.h">
+      <Filter>Header Files\app</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

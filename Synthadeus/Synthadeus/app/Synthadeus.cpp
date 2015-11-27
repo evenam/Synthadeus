@@ -66,31 +66,15 @@ Synthadeus::Synthadeus()
 		DebugPrintf("midi successfully initialized\n");
 
 	base = new GridBase(Point(-640.f, -640.f), Point(appWindow->getWidth() + 1280.f, appWindow->getHeight() + 1280.f), COLOR_LTGREY, COLOR_BLACK);
-	
-	testNode = new Node(Point(700.f, 700.f), Point(200.f, 200.f), COLOR_CORNFLOWERBLUE, COLOR_ABLACK);
-	//projectPageButton = new Button(Point(10.f, 10.f), Point(50.f, 50.f), COLOR_ABLACK, COLOR_RED, "SIN", FONT_ARIAL11);
-	testNode->addChild(new InputConnector(Point(10.f, 10.f), Point(50.f, 50.f), COLOR_ORANGE, testNode));
-	projectPageButton = new Button(Point(75.f, 10.f), Point(50.f, 50.f), COLOR_ABLACK, COLOR_RED, "SAW", FONT_ARIAL11);
-	testNode->addChild(projectPageButton);
-	projectPageButton = new Button(Point(140.f, 10.f), Point(50.f, 50.f), COLOR_ABLACK, COLOR_RED, "SQR", FONT_ARIAL11);
-	testNode->addChild(projectPageButton);
-	testNode->addChild(new Slider(Point(20.f, 70.f), Point(20.f, 80.f), COLOR_ABLACK, COLOR_RED, Slider::VERTICAL, 0.05f, 10000.f));
-	base->addChild(testNode);
-	testNode = new Node(Point(950.f, 700.f), Point(200.f, 200.f), COLOR_ORANGE, COLOR_ABLACK);
-	testNode->addChild(new OutputConnector(Point(10.f, 140.f), Point(50.f, 50.f), COLOR_ORANGE, testNode));
-	base->addChild(testNode);
-	testNode = new Node(Point(1200.f, 700.f), Point(200.f, 200.f), COLOR_GREEN, COLOR_ABLACK);
-	base->addChild(testNode);
+	audioOutputEndpoint = new AudioOutputNode(Point(800.f, 800.f));
+	base->addChild(audioOutputEndpoint);
+
 	DebugPrintf("Base Components Initialized.\n");
 }
 
 Synthadeus::~Synthadeus()
 {
 	DebugPrintf("Shutting down Synthadeus.\n");
-
-	DebugPrintf("Freeing components\n");
-	base->signalRemoval();
-	base->sweepDeletion();
 
 	DebugPrintf("Deinitializing Midi Interface\n");
 	midiInterface->deinitialize();
@@ -101,6 +85,10 @@ Synthadeus::~Synthadeus()
 	appWindow->destroyWindow();
 	delete appWindow;
 	DebugPrintf("Destroyed the window.\n");
+
+	DebugPrintf("Freeing components\n");
+	base->signalRemoval();
+	base->sweepDeletion();
 
 	// free the input device
 	delete midiInterface;
@@ -196,6 +184,17 @@ void Synthadeus::createOscillatorNode()
 	node->addChild(new OutputConnector(Point(180.f, 170.f), Point(10.f, 10.f), COLOR_RED, node));
 	node->addChild(new InputConnector(Point(10.f, 10.f), Point(10.f, 10.f), COLOR_RED, node));
 	node->addChild(new InputConnector(Point(10.f, 85.f), Point(10.f, 10.f), COLOR_RED, node));
+	node->addChild(new InputConnector(Point(10.f, 170.f), Point(10.f, 10.f), COLOR_RED, node));
+	base->addChild(node);
+}
+
+void Synthadeus::createEnvelopeNode()
+{
+	Point place = inputDevice->vMouse.position - base->getOrigin() - appWindow->getViewportInstance();
+	Node* node = new Node(place, Point(200.f, 200.f), COLOR_MAGENTA, COLOR_ABLACK, false);
+	node->addChild(new OutputConnector(Point(180.f, 10.f), Point(10.f, 10.f), COLOR_RED, node));
+	node->addChild(new OutputConnector(Point(180.f, 170.f), Point(10.f, 10.f), COLOR_RED, node));
+	node->addChild(new InputConnector(Point(10.f, 10.f), Point(10.f, 10.f), COLOR_RED, node));
 	node->addChild(new InputConnector(Point(10.f, 170.f), Point(10.f, 10.f), COLOR_RED, node));
 	base->addChild(node);
 }

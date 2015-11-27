@@ -10,12 +10,12 @@
 
 #pragma once
 
+#include "CFMaths.h"
 #include "AudioPlaybackPosition.h"
 #define BUFFER_SIZE 100
 #define AUDIO_SAMPLES 410
 #define POTENTIAL_NULL(a, b, c) (c)
 #include "Error.h"
-#include <cmath>
 
 class AudioNode : public AudioPlaybackPosition
 {

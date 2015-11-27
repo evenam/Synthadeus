@@ -42,6 +42,7 @@ void CommandMenu::createEnvelope(Synthadeus* app, Component* other)
 	CommandMenu* myself = (CommandMenu*)other;
 	myself->signalRemoval();
 	myself->setBoundingRectangle(Point(0.f, 0.f), Point(0.f, 0.f));
+	app->createEnvelopeNode();
 }
 
 void CommandMenu::createConstant(Synthadeus* app, Component* other)

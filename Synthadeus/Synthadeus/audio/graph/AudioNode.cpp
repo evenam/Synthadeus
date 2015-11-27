@@ -33,8 +33,7 @@ int AudioNode::GCD(int A, int B)
 float AudioNode::lerpValueL(float t)
 {
 	// calculate the decimal on t
-	float fModSize = 1.f;
-	float deltaT = modff(t, &fModSize);
+	float deltaT = t - (long)t;
 
 	// calculate upper and lower samples
 	int lowerSample = (int)t % bufferSize;
@@ -48,8 +47,7 @@ float AudioNode::lerpValueL(float t)
 float AudioNode::lerpValueR(float t)
 {
 	// calculate the decimal on t
-	float fModSize = 1.f;
-	float deltaT = modff(t, &fModSize);
+	float deltaT = t - (long)t;
 
 	// calculate upper and lower samples
 	int lowerSample = (int)t % bufferSize;

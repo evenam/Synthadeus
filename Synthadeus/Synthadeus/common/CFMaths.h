@@ -10,6 +10,8 @@
 
 #pragma once
 
+#ifndef NO_CFMATHS
+
 // global constants
 #define PI  3.1415927f
 #define TAO 6.2831854f
@@ -54,6 +56,9 @@ namespace CFMaths
 	// via loop :(
 	float __regular_factorial(float x);
 
+	// power function like the standard library
+	float __powf(float b, int e);
+
 	// table size is 4 digit precision radians aka 5 quadrants
 	enum { PI_OVER_2 = 1571, TABLE_SIZE = (1571 * 5) };
 	extern float __lookupTable[TABLE_SIZE];
@@ -76,3 +81,7 @@ namespace CFMaths
 #define CONST_FACTORIAL(a) CFMaths::__factorial_templ<(a)>::val();
 
 #define lsinf(x) (CFMaths::__lookup_sin(x))
+
+#define fpowf(x, y) (CFMaths::__powf(x, y))
+
+#endif

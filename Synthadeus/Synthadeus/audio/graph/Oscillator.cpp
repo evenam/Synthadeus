@@ -1,5 +1,5 @@
 #include "Oscillator.h"
-#include <cmath>
+
 Oscillator::Oscillator(WAVEFORM wave, float freq, float vol, float pan, AudioNode* freqMod, AudioNode* volMod, AudioNode* panMod)
 	: waveform(wave), frequency(freq), volume(vol), panning(pan), frequencyMod(freqMod), volumeMod(volMod), panningMod(panMod)
 {
@@ -92,8 +92,8 @@ void Oscillator::calcBuffer()
 		// calculate the function and adjust by volume and panning
 		if (waveform == SINE)
 		{
-			bufferL[i] = sinf(thetaL) * pannedVolumeL;
-			bufferR[i] = sinf(thetaR) * pannedVolumeR;
+			bufferL[i] = fsinf(thetaL) * pannedVolumeL;
+			bufferR[i] = fsinf(thetaR) * pannedVolumeR;
 		}
 		else if (waveform == SAW)
 		{

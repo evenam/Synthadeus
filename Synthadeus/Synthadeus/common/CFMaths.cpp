@@ -104,6 +104,23 @@ float CFMaths::__regular_factorial(float x)
 	return fact;
 }
 
+float CFMaths::__powf(float b, int e)
+{
+	unsigned int x;
+	if (e >= 0)
+		x = static_cast<unsigned int>(e);
+	else
+		x = static_cast<unsigned int>(-e);
+
+	for (float z = 1.f; ; b *= b)
+	{
+		if ((x & 1) != 0)
+			z *= b;
+		if ((x >>= 1) == 0)
+			return (e < 0 ? 1.f / z : z);
+	}
+}
+
 float CFMaths::__lookup_sin(float radians)
 {
 	// convert the radians to a 4 digit number
