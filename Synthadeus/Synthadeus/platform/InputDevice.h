@@ -15,6 +15,7 @@
 #include "Vector2D.h"
 #include "ButtonBase.h"
 
+class MidiInterface;
 class InputDevice : public Object
 {
 public:
@@ -42,10 +43,16 @@ public:
 
 	struct Piano
 	{
+		friend class InputDevice;
 		const static int OCTAVES = 10;
 		enum { A, AS, B, C, CS, D, DS, E, F, FS, G, GS, KEYS};
 		ButtonBase keys[OCTAVES][KEYS];
+		inline int getNumKeysPressed() { return numKeysPressed; };
+		inline int getKey(int index) { assert(index >= 0 && index <= numKeysPressed); return keyStack[index]; }
+		const static int TOTAL_KEYS = 12 * OCTAVES + KEYS;
+	private:
 		int numKeysPressed;
+		int keyStack[TOTAL_KEYS];
 	} vPiano;
 
 	struct Controller
@@ -67,6 +74,6 @@ public:
 	InputDevice();
 
 	// update the device
-	void update();
+	void update(MidiInterface* midi);
 };
 

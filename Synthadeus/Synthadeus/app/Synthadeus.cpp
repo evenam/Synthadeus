@@ -60,7 +60,7 @@ Synthadeus::Synthadeus()
 	DebugPrintf("Input Device Allocated.\n");
 
 	// create midi interface
-	midiInterface = new MidiInterface(&inputDevice->vPiano);
+	midiInterface = new MidiInterface();
 	assert(midiInterface->initialize());
 	DebugPrintf("midi successfully initialized\n");
 
@@ -120,7 +120,7 @@ void Synthadeus::update()
 {
 	// APPLICATION CODE NEEDED!
 	// update the input device
-	inputDevice->update();
+	inputDevice->update(midiInterface);
 
 	// update the viewport
 	updateViewport();

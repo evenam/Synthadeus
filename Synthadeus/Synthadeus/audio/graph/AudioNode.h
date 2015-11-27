@@ -12,16 +12,15 @@
 
 #include "CFMaths.h"
 #include "AudioPlaybackPosition.h"
-#define AUDIO_SAMPLES 44100
-#define BUFFER_SIZE (AUDIO_SAMPLES * 10)
+#include "AudioDefines.h"
 #define POTENTIAL_NULL(a, b, c) (c)
 #include "Error.h"
 
 class AudioNode : public AudioPlaybackPosition
 {
 protected:
-	float bufferL[BUFFER_SIZE];
-	float bufferR[BUFFER_SIZE];
+	float bufferL[AUDIO_BUFFER_SIZE];
+	float bufferR[AUDIO_BUFFER_SIZE];
 	int bufferSize;
 
 	// this LCM calculation is done with this specific order of operations to avoid integer overflow (very common)
