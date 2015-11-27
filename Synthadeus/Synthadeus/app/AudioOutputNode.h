@@ -24,11 +24,7 @@ public:
 	AudioOutputNode(Point audioOutputNodeOrigin);
 
 	// extends to lerp from audio nodes
-	float getLerpL(float sample);
-	float getLerpR(float sample);
-	float* getBufferL();
-	float* getBufferR();
-	int getNumSamples();
+	AudioNode* getAudioNode();
 
 	virtual Renderable* getRenderList();
 };

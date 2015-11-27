@@ -1,5 +1,6 @@
 #include "AudioPlayback.h"
 #include "AudioOutputNode.h"
+#include "MidiInterface.h"
 
 AudioPlayback::AudioPlayback(AudioOutputNode* outputNode, InputDevice::Piano* virtualPiano)
 {
@@ -67,17 +68,55 @@ bool AudioPlayback::deinitialize()
 int AudioPlayback::AudioCallback(const void* inputBuffer, void* outputBuffer, unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo, PaStreamCallbackFlags statusFlags, void* userdata)
 {
 	//if (!initialized) return;
+	assert(framesPerBuffer == AUDIO_FRAME_SIZE);
 	float *out = (float*)outputBuffer;
 	unsigned int i;
 	(void)inputBuffer; /* Prevent unused variable warning. */
 	
 	AudioPlayback* myself = (AudioPlayback*)userdata;
+	myself->updatePositions();
+	myself->calculateSummedSignal();
 	for (i = 0; i < framesPerBuffer; i++)
 	{
-		*out++ = myself->node->getBufferL()[i];
-		*out++ = myself->node->getBufferL()[i];
+		*out++ = myself->summedSignal[2 * i];
+		*out++ = myself->summedSignal[2 * i + 1];
 	}
-	DebugPrintf("AudioCallback\n");
 
 	return 0;
+}
+
+void AudioPlayback::updatePositions()
+{
+	for (int i = 0; i < InputDevice::Piano::TOTAL_KEYS; i++)
+	{
+		if (vPiano->keys[MidiInterface::getOctaveValue(i)][MidiInterface::getNoteValue(i)].check())
+		{
+			float speed = getFrequencyForNote(i) / 440.f;
+			positions[i] += speed;
+			//if (positions[i] > node->getNumSamples())
+			//	positions[i] -= (float)node->getNumSamples();
+		}
+		else
+			positions[i] = 0.f;
+	}
+}
+
+
+void AudioPlayback::calculateSummedSignal()
+{
+	for (int j = 0; j < AUDIO_FRAME_SIZE; j++)
+	{
+		summedSignal[2 * j] = 0.f;
+		summedSignal[2 * j + 1] = 0.f;
+		//for (int i = 0; i < vPiano->getNumKeysPressed(); i++)
+		if (vPiano->getNumKeysPressed() > 0)
+		{
+			summedSignal[2 * j] = node->getAudioNode()->getBufferAtPositionL();
+			summedSignal[2 * j + 1] = node->getAudioNode()->getBufferAtPositionR();
+		}
+		else
+		{
+			node->getAudioNode()->moveToStart();
+		}
+	}
 }

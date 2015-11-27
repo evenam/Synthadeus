@@ -10,8 +10,8 @@
 
 #pragma once
 
-// tuned to A4
-#define AUDIO_TUNE_NOTE 57
+// tuned to C5
+#define AUDIO_TUNE_NOTE 60
 
 // the tune note is this frequency
 #define AUDIO_TUNE_FREQUENCY 440.f
