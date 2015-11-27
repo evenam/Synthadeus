@@ -1,13 +1,18 @@
 #include "AudioPlayback.h"
+#include "AudioOutputNode.h"
 
-
-/*
-AudioPlayback::AudioPlayback()
+AudioPlayback::AudioPlayback(AudioOutputNode* outputNode, InputDevice::Piano* virtualPiano)
 {
+	vPiano = virtualPiano;
+	node = outputNode;
 }
 
-
-AudioPlayback::~AudioPlayback()
+bool AudioPlayback::initialize()
 {
+	return true;
 }
-*/
+
+bool AudioPlayback::deinitialize()
+{
+	return true;
+}

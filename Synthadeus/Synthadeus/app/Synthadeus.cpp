@@ -55,18 +55,22 @@ Synthadeus::Synthadeus()
 	appWindow->startRenderer();
 	DebugPrintf("Renderer Started.\n");
 
-
 	// create the input device
 	inputDevice = new InputDevice();
 	DebugPrintf("Input Device Allocated.\n");
 
 	// create midi interface
 	midiInterface = new MidiInterface(&inputDevice->vPiano);
-	assert(midiInterface->initialize())
-		DebugPrintf("midi successfully initialized\n");
+	assert(midiInterface->initialize());
+	DebugPrintf("midi successfully initialized\n");
 
 	base = new GridBase(Point(-640.f, -640.f), Point(appWindow->getWidth() + 1280.f, appWindow->getHeight() + 1280.f), COLOR_LTGREY, COLOR_BLACK);
-	audioOutputEndpoint = new AudioOutputNode(Point(800.f, 800.f));
+	audioOutputEndpoint = new AudioOutputNode(Point(appWindow->getWidth() + 340.f, appWindow->getHeight() * 0.5f + 610.f));
+
+	audioInterface = new AudioPlayback(audioOutputEndpoint, &inputDevice->vPiano);
+	assert(audioInterface->initialize());
+	DebugPrintf("audio successfully initialized\n");
+
 	base->addChild(audioOutputEndpoint);
 
 	DebugPrintf("Base Components Initialized.\n");
@@ -78,6 +82,9 @@ Synthadeus::~Synthadeus()
 
 	DebugPrintf("Deinitializing Midi Interface\n");
 	midiInterface->deinitialize();
+
+	DebugPrintf("Deinitializing audio interface\n");
+	audioInterface->deinitialize();
 
 	// destroy the window and end the renderer
 	appWindow->endRenderer();
@@ -92,6 +99,7 @@ Synthadeus::~Synthadeus()
 
 	// free the input device
 	delete midiInterface;
+	delete audioInterface;
 	delete inputDevice;
 	delete base;
 	DebugPrintf("Freed Base Components.\n");
@@ -119,12 +127,20 @@ void Synthadeus::update()
 
 	inputDevice->vMouse.instance(appWindow->getViewportInstance());
 	//if (inputDevice->vMouse.left.check())
-		base->handleMouseInput(this, &inputDevice->vMouse);
+	base->handleMouseInput(this, &inputDevice->vMouse);
 	inputDevice->vMouse.restore();
 
 	base->updateTree();
 
 	base->sweepDeletion();
+
+	if (inputDevice->vController.waveExport.checkReleased())
+	{
+		WaveExporter exporter(audioOutputEndpoint->getNumSamples(), audioOutputEndpoint->getBufferL(), audioOutputEndpoint->getBufferR());
+		exporter.prepareExport();
+		exporter.saveWaveFile();
+		exporter.unprepareExport();
+	}
 
 	if (inputDevice->vController.quit.checkReleased())
 		quit();

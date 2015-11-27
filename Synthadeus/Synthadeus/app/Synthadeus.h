@@ -20,8 +20,10 @@
 #include "Connector.h"
 #include "MidiInterface.h"
 #include "AudioOutputNode.h"
+#include "AudioPlayback.h"
+#include "WaveExporter.h"
 
-#define SYNTHADEUS_VERSION "Synthadeus 0.5" // arbitrary number kek
+#define SYNTHADEUS_VERSION "Synthadeus 0.9" // arbitrary number kek
 
 class Synthadeus : public Application
 {
@@ -34,6 +36,9 @@ private:
 
 	// midi interface
 	MidiInterface* midiInterface;
+
+	// audio interface
+	AudioPlayback* audioInterface;
 
 	// the output node to play audio back from
 	AudioOutputNode* audioOutputEndpoint;
