@@ -16,7 +16,7 @@
 class CommandMenu : public Component
 {
 private:
-	Button btnMakeOscillator, btnMakeEnvelope, btnMakeConstant, btnMakeSummation;
+	Button *btnMakeOscillator, *btnMakeEnvelope, *btnMakeConstant, *btnMakeSummation;
 	Point origin;
 	const Point size;
 	bool needsClosing;

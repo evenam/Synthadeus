@@ -88,6 +88,10 @@ Synthadeus::~Synthadeus()
 {
 	DebugPrintf("Shutting down Synthadeus.\n");
 
+	DebugPrintf("Freeing components\n");
+	base->signalRemoval();
+	base->sweepDeletion();
+
 	DebugPrintf("Deinitializing Midi Interface\n");
 	midiInterface->deinitialize();
 
