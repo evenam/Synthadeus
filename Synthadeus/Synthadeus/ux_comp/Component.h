@@ -130,7 +130,7 @@ public:
 	inline void sweepDeletion()
 	{
 		Component* current = NULL;
-		for (int i = 0; i < numChildren; i++)
+		for (int i = numChildren - 1; i >= 0; i--)
 		{
 			current = children[i];
 			current->sweepDeletion();
