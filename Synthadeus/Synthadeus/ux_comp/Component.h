@@ -124,6 +124,8 @@ public:
 	inline void signalRemoval()
 	{
 		removeMe = true;
+		for (int i = 0; i < numChildren; i++)
+			children[i]->signalRemoval();
 	}
 
 	// sweep portion of mark and sweep pseudo garbage collection
