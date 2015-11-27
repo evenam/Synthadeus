@@ -52,7 +52,7 @@ void InputDevice::update()
 	vController.quit.update((GetAsyncKeyState(VK_ESCAPE) ? true : false));
 
 	// waveExport is the F5 key
-	vController.quit.update((GetAsyncKeyState(VK_F5) ? true : false));
+	vController.waveExport.update((GetAsyncKeyState(VK_F5) ? true : false));
 
 	// the virtual piano keyboard keys octave 5/6... Q-->] is white keys, 1-->= is black keys (trust me)
 	vPiano.keys[5][Piano::C].update((GetAsyncKeyState('Q') ? true : false));

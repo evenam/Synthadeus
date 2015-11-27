@@ -13,20 +13,21 @@
 #include "portaudio.h"
 #include "pa_asio.h"
 
-#include "AudioNode.h"
 #include "Error.h"
 #include "InputDevice.h"
+#include "CFMaths.h"
 
 #pragma comment(lib, "portaudio_x86.lib")
 
 class AudioOutputNode;
-typedef float(AudioOutputNode::*AudioGenerator)(float);
 
 class AudioPlayback
 {
 private:
-	AudioGenerator left, right;
+	AudioOutputNode* node;
 	InputDevice::Piano* vPiano;
+
+	bool initialized = false;
 
 	// tuned for A4 to be 440 Hz
 	inline float getFrequencyForNote(int note) { return 440.f * fpowf(1.0594631f, (note - 69)); };
@@ -34,7 +35,8 @@ private:
 	float thetas[InputDevice::Piano::OCTAVES][InputDevice::Piano::KEYS];
 
 public:
-	AudioPlayback(AudioGenerator leftGenerator, AudioGenerator rightGenerator, InputDevice::Piano* virtualPiano);
-	void initialize();
-	void deinitialize();
+	AudioPlayback(AudioOutputNode* outputNode, InputDevice::Piano* virtualPiano);
+	bool initialize();
+	bool deinitialize();
+	inline bool isInitialized() { return initialized; };
 };
