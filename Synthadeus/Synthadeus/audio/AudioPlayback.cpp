@@ -8,6 +8,11 @@ AudioPlayback::AudioPlayback(AudioOutputNode* outputNode, InputDevice::Piano* vi
 	node = outputNode;
 	stream = NULL;
 	initialized = false;
+	for (int i = 0; i < InputDevice::Piano::TOTAL_KEYS; i++)
+	{
+		positions[i] = 0.f;
+		speeds[i] = getFrequencyForNote(i) / AUDIO_TUNE_FREQUENCY;
+	}
 }
 
 bool AudioPlayback::initialize()
@@ -74,6 +79,7 @@ int AudioPlayback::AudioCallback(const void* inputBuffer, void* outputBuffer, un
 	(void)inputBuffer; /* Prevent unused variable warning. */
 	
 	AudioPlayback* myself = (AudioPlayback*)userdata;
+	EnterCriticalSection(&myself->vPiano->pianoCriticalSection);
 	myself->updatePositions();
 	myself->calculateSummedSignal();
 	for (i = 0; i < framesPerBuffer; i++)
@@ -81,6 +87,7 @@ int AudioPlayback::AudioCallback(const void* inputBuffer, void* outputBuffer, un
 		*out++ = myself->summedSignal[2 * i];
 		*out++ = myself->summedSignal[2 * i + 1];
 	}
+	LeaveCriticalSection(&myself->vPiano->pianoCriticalSection);
 
 	return 0;
 }
@@ -91,13 +98,8 @@ void AudioPlayback::updatePositions()
 	{
 		if (vPiano->keys[MidiInterface::getOctaveValue(i)][MidiInterface::getNoteValue(i)].check())
 		{
-			float speed = getFrequencyForNote(i) / 440.f;
-			positions[i] += speed;
-			//if (positions[i] > node->getNumSamples())
-			//	positions[i] -= (float)node->getNumSamples();
+			positions[i] += speeds[i];
 		}
-		else
-			positions[i] = 0.f;
 	}
 }
 
@@ -108,15 +110,13 @@ void AudioPlayback::calculateSummedSignal()
 	{
 		summedSignal[2 * j] = 0.f;
 		summedSignal[2 * j + 1] = 0.f;
-		//for (int i = 0; i < vPiano->getNumKeysPressed(); i++)
-		if (vPiano->getNumKeysPressed() > 0)
+		for (int i = 0; i < vPiano->getNumKeysPressed(); i++)
 		{
-			summedSignal[2 * j] = node->getAudioNode()->getBufferAtPositionL();
-			summedSignal[2 * j + 1] = node->getAudioNode()->getBufferAtPositionR();
-		}
-		else
-		{
-			node->getAudioNode()->moveToStart();
+			int currentNote = vPiano->getKey(i);
+			//DebugPrintf("Position: %d\n", positions[currentNote]);
+			summedSignal[2 * j] += node->getAudioNode()->lerpValueL(positions[currentNote]) / (float)vPiano->getNumKeysPressed();
+			summedSignal[2 * j + 1] += node->getAudioNode()->lerpValueL(positions[currentNote]) / (float)vPiano->getNumKeysPressed();
+			positions[currentNote] += speeds[currentNote];
 		}
 	}
 }
