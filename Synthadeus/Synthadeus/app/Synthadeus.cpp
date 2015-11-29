@@ -136,11 +136,11 @@ void Synthadeus::update()
 
 	if (inputDevice->vController.waveExport.checkReleased())
 	{
-		//WaveExporter exporter(audioOutputEndpoint->getAudioNode()->getBufferSize(), audioOutputEndpoint->getAudioNode()->getBufferL(), audioOutputEndpoint->getAudioNode()->getBufferR());
-		//exporter.prepareExport();
-		//exporter.saveWaveFile();
-		//exporter.unprepareExport();
 		recalculateAudioGraph();
+		WaveExporter exporter(audioOutputEndpoint->getAudioNode()->getBufferSize(), audioOutputEndpoint->getAudioNode()->getBufferL(), audioOutputEndpoint->getAudioNode()->getBufferR());
+		exporter.prepareExport();
+		exporter.saveWaveFile();
+		exporter.unprepareExport();
 	}
 
 	if (inputDevice->vController.quit.checkReleased())
