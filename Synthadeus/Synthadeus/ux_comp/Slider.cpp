@@ -1,6 +1,7 @@
 #include "Slider.h"
 
-Slider::Slider(Point origin, Point size, unsigned int bkgColor, unsigned int fgColor, Orientation orien, float minVal, float maxVal, ActionCallback actionCallbackFunction) : sliderLogicUnit(-1.f, 1.f, 0.f)
+Slider::Slider(Point origin, Point size, unsigned int bkgColor, unsigned int fgColor, Orientation orien, float minVal, float maxVal, float initVal, float tickVal, ActionCallback actionCallbackFunction) 
+	: sliderLogicUnit(minVal, maxVal, initVal, tickVal), minimumValue(minVal), maximumValue(maxVal), totalValue(maxVal - minVal)
 {
 	orientation = orien;
 	sliderOrigin[0] = origin[0];
@@ -12,6 +13,14 @@ Slider::Slider(Point origin, Point size, unsigned int bkgColor, unsigned int fgC
 	setBoundingRectangle(sliderOrigin, sliderSize);
 
 	callback = actionCallbackFunction;
+}
+
+float Slider::normalizedLerpValue()
+{
+	float normalizedValue = (sliderLogicUnit.getValue() - minimumValue) / totalValue;
+	assert(normalizedValue >= 0.f);
+	assert(normalizedValue <= 1.f);
+	return normalizedValue * 2.f - 1.f;
 }
 
 // modify properties
@@ -43,22 +52,26 @@ Renderable* Slider::getRenderList()
 	if (orientation == VERTICAL)
 	{
 		// lerp
-		tick = sliderOrigin[1] + sliderSize[1] / 2.f + sliderLogicUnit.getValue() * (sliderSize[1] / 2.f);
+		tick = sliderOrigin[1] + sliderSize[1] / 2.f + normalizedLerpValue() * (sliderSize[1] / 2.f);
 		tickMarker = new Line(Point(sliderOrigin[0], tick), Point(sliderOrigin[0] + sliderSize[0], tick), sliderFgColor, 4.5f);
 	}
 	else
 	{
 		// lerp
-		tick = sliderOrigin[0] + sliderSize[0] / 2.f + sliderLogicUnit.getValue() * (sliderSize[0] / 2.f);
+		tick = sliderOrigin[0] + sliderSize[0] / 2.f + normalizedLerpValue() * (sliderSize[0] / 2.f);
 		tickMarker = new Line(Point(tick, sliderOrigin[1]), Point(tick, sliderOrigin[1] + sliderSize[1]), sliderFgColor, 4.5f);
 	}
 	boundingRectangle->next = tickMarker;
 
 	if (interacting)
 	{
-		char stringBuffer[10];
-		sprintf_s(stringBuffer, "%6.3f\0", sliderLogicUnit.getValue());
-		Renderable* text = new Text(stringBuffer, Point((sliderSize[0] - 30.f) / 2.f, -18.f), Point(30.f, 15.f), FONT_ARIAL11, COLOR_WHITE);
+		char stringBuffer[15];
+		sprintf_s(stringBuffer, "%.3f\0", sliderLogicUnit.getValue());
+		Renderable* text = NULL;
+		if (orientation == VERTICAL)
+			text = new Text(stringBuffer, Point((sliderSize[0] - 50.f) / 2.f, -18.f), Point(50.f, 15.f), FONT_ARIAL11, COLOR_WHITE);
+		else
+			text = new Text(stringBuffer, Point(-25.f, -12.f), Point(50.f, 15.f), FONT_ARIAL11, COLOR_WHITE);
 		tickMarker->child = text;
 	}
 
@@ -74,14 +87,14 @@ void Slider::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 {
 	float tick = 0.f;
 	if (orientation == HORIZONTAL)
-		tick = 2.f * (vMouse->instancePosition()[0] - sliderOrigin[0]) / (sliderSize[0]) - 1.f;									 
+		tick = (vMouse->instancePosition()[0] - sliderOrigin[0]) / (sliderSize[0]);									 
 	else										 
-		tick = 2.f * (vMouse->instancePosition()[1] - sliderOrigin[1]) / (sliderSize[1]) - 1.f;
+		tick = (vMouse->instancePosition()[1] - sliderOrigin[1]) / (sliderSize[1]);
 
 	if (!interacting && vMouse->left.checkPressed())
 	{
 		interacting = true;
-		sliderLogicUnit.setValue(tick);
+		sliderLogicUnit.setValue(tick * totalValue + minimumValue);
 	}
 	else if (interacting && vMouse->left.checkReleased())
 	{
@@ -90,5 +103,5 @@ void Slider::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 	}
 
 	if (interacting && vMouse->left.check())
-		sliderLogicUnit.setValue(tick);
+		sliderLogicUnit.setValue(tick * totalValue + minimumValue);
 }

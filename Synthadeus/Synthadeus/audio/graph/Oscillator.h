@@ -16,6 +16,7 @@ class Oscillator : public AudioNode
 {
 public:
 	enum WAVEFORM { SINE, SAW, SQUARE };
+	RTTI_MACRO(Oscillator);
 
 private:
 	AudioNode* frequencyMod;

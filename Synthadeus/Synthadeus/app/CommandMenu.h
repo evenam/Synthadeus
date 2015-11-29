@@ -16,7 +16,7 @@
 class CommandMenu : public Component
 {
 private:
-	Button *btnMakeOscillator, *btnMakeEnvelope, *btnMakeConstant, *btnMakeSummation;
+	Button *btnMakeOscillator, *btnMakeEnvelope, *btnMakeConstant, *btnMakeMultiplier, *btnMakeSummation;
 	Point origin;
 	const Point size;
 	bool needsClosing;
@@ -26,6 +26,7 @@ public:
 	static void createOscillator(Synthadeus* app, Component* other);
 	static void createEnvelope(Synthadeus* app, Component* other);
 	static void createConstant(Synthadeus* app, Component* other);
+	static void createMultiplier(Synthadeus* app, Component* other);
 	static void createSummation(Synthadeus* app, Component* other);
 
 	virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse);

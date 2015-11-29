@@ -66,11 +66,6 @@ protected:
 	// marked for removal?
 	bool removeMe;
 
-	inline Component* getParent()
-	{
-		return parent;
-	}
-
 public:
 	inline Component() { numChildren = 0; interacting = false; removeMe = false; }
 	inline virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse) {};
@@ -273,6 +268,11 @@ public:
 
 	inline Point getOrigin() { return origin; }
 	inline Point getSize() { return size; }
+
+	inline Component* getParent()
+	{
+		return parent;
+	}
 };
 
 typedef void(*ActionCallback)(Synthadeus* app, Component* myself);

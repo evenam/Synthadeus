@@ -17,6 +17,7 @@ private:
 	float value;
 
 public:
+	RTTI_MACRO(AudioConstant);
 	AudioConstant(float val = 440.f);
 	void setValue(float val);
 	virtual void recalculate();

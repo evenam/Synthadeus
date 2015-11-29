@@ -176,9 +176,6 @@
     <ClCompile Include="audio\AudioPlayback.cpp">
       <Filter>Source Files\audio</Filter>
     </ClCompile>
-    <ClCompile Include="audio\graph\BezierEnvelope.cpp">
-      <Filter>Source Files\audio\graph</Filter>
-    </ClCompile>
     <ClCompile Include="audio\graph\SignalSummation.cpp">
       <Filter>Source Files\audio\graph</Filter>
     </ClCompile>
@@ -199,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="app\AudioOutputNode.cpp">
       <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="audio\graph\ExponentialEnvelope.cpp">
+      <Filter>Source Files\audio\graph</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -331,9 +331,6 @@
     <ClInclude Include="audio\graph\AudioNode.h">
       <Filter>Header Files\audio\graph</Filter>
     </ClInclude>
-    <ClInclude Include="audio\graph\BezierEnvelope.h">
-      <Filter>Header Files\audio\graph</Filter>
-    </ClInclude>
     <ClInclude Include="audio\graph\AudioPlaybackPosition.h">
       <Filter>Header Files\audio\graph</Filter>
     </ClInclude>
@@ -360,6 +357,9 @@
     </ClInclude>
     <ClInclude Include="audio\AudioDefines.h">
       <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\graph\ExponentialEnvelope.h">
+      <Filter>Header Files\audio\graph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

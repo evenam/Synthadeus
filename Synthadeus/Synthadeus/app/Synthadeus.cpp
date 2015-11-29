@@ -136,10 +136,11 @@ void Synthadeus::update()
 
 	if (inputDevice->vController.waveExport.checkReleased())
 	{
-		WaveExporter exporter(audioOutputEndpoint->getAudioNode()->getBufferSize(), audioOutputEndpoint->getAudioNode()->getBufferL(), audioOutputEndpoint->getAudioNode()->getBufferR());
-		exporter.prepareExport();
-		exporter.saveWaveFile();
-		exporter.unprepareExport();
+		//WaveExporter exporter(audioOutputEndpoint->getAudioNode()->getBufferSize(), audioOutputEndpoint->getAudioNode()->getBufferL(), audioOutputEndpoint->getAudioNode()->getBufferR());
+		//exporter.prepareExport();
+		//exporter.saveWaveFile();
+		//exporter.unprepareExport();
+		recalculateAudioGraph();
 	}
 
 	if (inputDevice->vController.quit.checkReleased())
@@ -194,14 +195,7 @@ Renderable * Synthadeus::sortRenderList(Renderable * list)
 void Synthadeus::createOscillatorNode()
 {
 	Point place = inputDevice->vMouse.position - base->getOrigin() - appWindow->getViewportInstance();
-	Node* node = new Node(place, Point(200.f, 200.f), COLOR_MAGENTA, COLOR_ABLACK);
-	node->addChild(new OutputConnector(Point(180.f, 10.f), Point(10.f, 10.f), COLOR_RED, node));
-	node->addChild(new OutputConnector(Point(180.f, 85.f), Point(10.f, 10.f), COLOR_RED, node));
-	node->addChild(new OutputConnector(Point(180.f, 170.f), Point(10.f, 10.f), COLOR_RED, node));
-	node->addChild(new InputConnector(Point(10.f, 10.f), Point(10.f, 10.f), COLOR_RED, node));
-	node->addChild(new InputConnector(Point(10.f, 85.f), Point(10.f, 10.f), COLOR_RED, node));
-	node->addChild(new InputConnector(Point(10.f, 170.f), Point(10.f, 10.f), COLOR_RED, node));
-	base->addChild(node);
+	base->addChild(new OscillatorNode(place));
 }
 
 void Synthadeus::createEnvelopeNode()
@@ -213,4 +207,15 @@ void Synthadeus::createEnvelopeNode()
 	node->addChild(new InputConnector(Point(10.f, 10.f), Point(10.f, 10.f), COLOR_RED, node));
 	node->addChild(new InputConnector(Point(10.f, 170.f), Point(10.f, 10.f), COLOR_RED, node));
 	base->addChild(node);
+}
+
+void Synthadeus::recalculateAudioGraph()
+{
+	// show a brief message while the program recalculates (could be upwards of several seconds if the graph is LARGE)
+	Renderable* recalculatingMark = new Text("Calculating", -1.f * appWindow->getViewportInstance() + Point(0.f, appWindow->getHeight() / 2.f), Point((float)appWindow->getWidth(), 40.f), FONT_ARIAL40, COLOR_WHITE);
+	Renderable* list = getRenderList();
+	list->next->next = recalculatingMark;
+	appWindow->setRenderList(list);
+	appWindow->render();
+	audioOutputEndpoint->getAudioNode()->recalculate();
 }
