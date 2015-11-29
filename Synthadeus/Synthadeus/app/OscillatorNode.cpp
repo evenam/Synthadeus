@@ -6,15 +6,15 @@ OscillatorNode::OscillatorNode(Point position)
 {
 	frequencySlider = new Slider(Point(10.f, 65.f), Point(100.f, 15.f), COLOR_NONE, COLOR_CORNFLOWERBLUE, Slider::HORIZONTAL, 0.25f, 1000.f, 440.f, 0.25f, onFrequencyChanged);
 	addChild(frequencySlider);
-	frequencyModulator = new InputConnector(Point(10.f, 40.f), Point(15.f, 15.f), COLOR_CORNFLOWERBLUE, this);
+	frequencyModulator = new InputConnector(Point(10.f, 40.f), Point(15.f, 15.f), COLOR_CORNFLOWERBLUE, this, onFreqModChanged);
 	addChild(frequencyModulator);
 	volumeSlider = new Slider(Point(10.f, 115.f), Point(100.f, 15.f), COLOR_NONE, COLOR_ORANGE, Slider::HORIZONTAL, -1.f, 1.f, 1.f, 0.001f, onVolumeChanged);
 	addChild(volumeSlider);
-	volumeModulator = new InputConnector(Point(10.f, 90.f), Point(15.f, 15.f), COLOR_ORANGE, this);
+	volumeModulator = new InputConnector(Point(10.f, 90.f), Point(15.f, 15.f), COLOR_ORANGE, this, onVolModChanged);
 	addChild(volumeModulator);
 	panningSlider = new Slider(Point(10.f, 165.f), Point(100.f, 15.f), COLOR_NONE, COLOR_CYAN, Slider::HORIZONTAL, -1.f, 1.f, 0.f, 0.001f, onPanningChanged);
 	addChild(panningSlider);
-	panningModulator = new InputConnector(Point(10.f, 140.f), Point(15.f, 15.f), COLOR_CYAN, this);
+	panningModulator = new InputConnector(Point(10.f, 140.f), Point(15.f, 15.f), COLOR_CYAN, this, onPanModChanged);
 	addChild(panningModulator);
 	oscOutput = new OutputConnector(Point(270.f, 90.f), Point(20.f, 20.f), COLOR_RED, this);
 	addChild(oscOutput);
@@ -58,33 +58,50 @@ Renderable * OscillatorNode::getRenderList()
 
 void OscillatorNode::onFreqModChanged(Synthadeus * app, Component * me)
 {
+	OscillatorNode* myself = (OscillatorNode*)(me->getParent());
+	AudioUINode* other = dynamic_cast<AudioUINode*>(((InputConnector*)me)->getConnectionParent());
+	myself->connectFrequency(other);
+	DebugPrintf("Connected %s to %s\n",(((InputConnector*)me)->getConnectionParent() ? ((InputConnector*)me)->getConnectionParent()->getClassName() : "NULL"), myself->getClassName());
+	app->recalculateAudioGraph();
 }
 
 void OscillatorNode::onVolModChanged(Synthadeus * app, Component * me)
 {
+	OscillatorNode* myself = (OscillatorNode*)(me->getParent());
+	AudioUINode* other = dynamic_cast<AudioUINode*>(((InputConnector*)me)->getConnectionParent());
+	myself->connectVolume(other);
+	DebugPrintf("Connected %s to %s\n", (((InputConnector*)me)->getConnectionParent() ? ((InputConnector*)me)->getConnectionParent()->getClassName() : "NULL"), myself->getClassName());
+	myself->oscillator->recalculate();
+	app->recalculateAudioGraph();
 }
 
 void OscillatorNode::onPanModChanged(Synthadeus * app, Component * me)
 {
+	OscillatorNode* myself = (OscillatorNode*)(me->getParent());
+	AudioUINode* other = dynamic_cast<AudioUINode*>(((InputConnector*)me)->getConnectionParent());
+	myself->connectPanning(other);
+	DebugPrintf("Connected %s to %s\n", (((InputConnector*)me)->getConnectionParent() ? ((InputConnector*)me)->getConnectionParent()->getClassName() : "NULL"), myself->getClassName());
+	app->recalculateAudioGraph();
 }
 
 void OscillatorNode::onFrequencyChanged(Synthadeus * app, Component * me)
 {
-	OscillatorNode* myself = (OscillatorNode*)(me->getParent());
+	OscillatorNode* myself = dynamic_cast<OscillatorNode*>(me->getParent());
 	myself->updateNodeConstants();
+	myself->oscillator->recalculate();
 	app->recalculateAudioGraph();
 }
 
 void OscillatorNode::onVolumeChanged(Synthadeus * app, Component * me)
 {
-	OscillatorNode* myself = (OscillatorNode*)(me->getParent());
+	OscillatorNode* myself = dynamic_cast<OscillatorNode*>(me->getParent());
 	myself->updateNodeConstants();
 	app->recalculateAudioGraph();
 }
 
 void OscillatorNode::onPanningChanged(Synthadeus * app, Component * me)
 {
-	OscillatorNode* myself = (OscillatorNode*)(me->getParent());
+	OscillatorNode* myself = dynamic_cast<OscillatorNode*>(me->getParent());
 	myself->updateNodeConstants();
 	app->recalculateAudioGraph();
 }
@@ -110,7 +127,7 @@ void OscillatorNode::onSquareClick(Synthadeus * app, Component * me)
 	app->recalculateAudioGraph();
 }
 
-Oscillator * OscillatorNode::getAudioNode()
+AudioNode* OscillatorNode::getAudioNode()
 {
 	assert(oscillator != NULL);
 	return oscillator;
@@ -123,6 +140,24 @@ void OscillatorNode::updateNodeConstants()
 	float panning = panningSlider->getValue();
 	oscillator->setFrequency(frequency);
 	oscillator->setVolume(volume);
-	oscillator->setFrequency(panning);
+	oscillator->setPanning(panning);
+}
+
+void OscillatorNode::connectFrequency(AudioUINode * other)
+{
+	AudioNode* otherNode = other->getAudioNode();
+	oscillator->setFrequencyModulator(otherNode);
+}
+
+void OscillatorNode::connectVolume(AudioUINode * other)
+{
+	AudioNode* otherNode = other->getAudioNode();
+	oscillator->setVolumeModulator(otherNode);
+}
+
+void OscillatorNode::connectPanning(AudioUINode * other)
+{
+	AudioNode* otherNode = other->getAudioNode();
+	oscillator->setPanningModulator(otherNode);
 }
 

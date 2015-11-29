@@ -4,7 +4,7 @@
 
 Connector::HighlightType Connector::currentHighlight = Connector::NONE;
 
-Connector::Connector(Point connectorOrigin, Point connectorSize, Node* connectorParent, unsigned int connectorColor, ActionCallback actionCallbackFunction)
+Connector::Connector(Point connectorOrigin, Point connectorSize, Node* connectorParent, unsigned int connectorColor)
 {
 	origin[0] = connectorOrigin[0];
 	origin[1] = connectorOrigin[1];
@@ -13,8 +13,6 @@ Connector::Connector(Point connectorOrigin, Point connectorSize, Node* connector
 	parent = connectorParent;
 	color = connectorColor;
 	setBoundingRectangle(origin, size);
-
-	callback = actionCallbackFunction;
 }
 
 void Connector::setSize(Point connectorOrigin, Point connectorSize)
@@ -38,11 +36,12 @@ void Connector::setParent(Node* connectorParent)
 	parent = connectorParent;
 }
 
-InputConnector::InputConnector(Point connectorOrigin, Point connectorSize, unsigned int connectorColor, Node* connectorParent)
+InputConnector::InputConnector(Point connectorOrigin, Point connectorSize, unsigned int connectorColor, Node* connectorParent, ActionCallback actioncCallback)
 	: Connector(connectorOrigin, connectorSize, connectorParent, connectorColor)
 {
 	connectedComponent = NULL;
 	connected = false;
+	callback = actioncCallback;
 }
 
 Node* Connector::getParent()
@@ -115,6 +114,7 @@ void InputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMou
 	if (vMouse->left.checkPressed() && !interacting)
 	{
 		disconnect();
+		callback(app, this);
 		interacting = true;
 		Connector::currentHighlight = Connector::OUTPUT;
 		}
@@ -126,15 +126,15 @@ void InputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMou
 		if (other && (_strcmpi(other->getClassName(), OutputConnector::nameString()) == 0))
 		{
 			connect((OutputConnector*)other);
-			if (connected == 1)
-			{
-				callback(app, this);
-			}
+			callback(app, this);
 		}
 	}
 
 	if (vMouse->right.checkReleased())
+	{
 		onDestroy(); // shortcut to remove the connection
+		callback(app, this);
+	}
 }
 
 void InputConnector::update()
@@ -230,6 +230,7 @@ void OutputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMo
 		if (other && (_strcmpi(other->getClassName(), InputConnector::nameString()) == 0))
 		{
 			((InputConnector*)other)->connect(this);
+			((InputConnector*)other)->callback(app, other);
 			assert(((InputConnector*)other)->isConnected() == 1);
 		}
 	}

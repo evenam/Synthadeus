@@ -29,10 +29,8 @@ protected:
 	enum HighlightType { INPUT, OUTPUT, NONE };
 	static HighlightType currentHighlight;
 
-	ActionCallback callback;
-
 public:
-	Connector(Point connectorOrigin, Point connectorSize, Node* connectorParent, unsigned int connectorColor, ActionCallback actionCallbackFunction = DEFAULT_ACTION_CALLBACK);
+	Connector(Point connectorOrigin, Point connectorSize, Node* connectorParent, unsigned int connectorColor);
 	void setSize(Point connectorOrigin, Point connectorSize);
 	void setColor(unsigned int connectorColor);
 	void setParent(Node* connectorParent);
@@ -52,9 +50,11 @@ private:
 	friend class OutputConnector;
 	OutputConnector* connectedComponent;
 	bool connected;
+
+	ActionCallback callback;
 public:
 	RTTI_MACRO(InputConnector);
-	InputConnector(Point connectorOrigin, Point connectorSize, unsigned int connectorColor, Node* connectorParent = NULL);
+	InputConnector(Point connectorOrigin, Point connectorSize, unsigned int connectorColor, Node* connectorParent = NULL, ActionCallback actionCallbackFunction = DEFAULT_ACTION_CALLBACK);
 	Node* getConnectionParent();
 	virtual inline int isConnected() { return (connected ? 1 : 0); }
 	void disconnect();
