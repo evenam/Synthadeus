@@ -28,6 +28,7 @@ class OscillatorNode : public Node, public AudioUINode
 
 public:
 	OscillatorNode(Point position);
+	RTTI_MACRO(OscillatorNode);
 
 	virtual Renderable* getRenderList();
 	// callbacks for various functionality
@@ -43,6 +44,10 @@ public:
 
 	virtual AudioNode* getAudioNode();
 	void updateNodeConstants();
+
+	void connectFrequency(AudioUINode* other);
+	void connectVolume(AudioUINode* other);
+	void connectPanning(AudioUINode* other);
 
 	virtual inline void onDestroy() { delete oscillator; }
 };

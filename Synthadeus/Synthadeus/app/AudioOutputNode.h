@@ -20,13 +20,18 @@ class AudioOutputNode : public Node, public AudioUINode
 	//AudioNode* outputNode;
 	InputConnector* input;
 	AudioConstant* defaultValue;
+	AudioNode* outputNode;
 public:
 	AudioOutputNode(Point audioOutputNodeOrigin);
+	RTTI_MACRO(AudioOutputNode);
 
 	// extends to lerp from audio nodes
 	virtual AudioNode* getAudioNode();
 
 	virtual Renderable* getRenderList();
 	virtual inline void onDestroy() { delete defaultValue; }
+
+	static void onConnected(Synthadeus* app, Component* me);
+	void setOutputNode(AudioUINode* node);
 };
 
