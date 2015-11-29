@@ -29,4 +29,4 @@ extern bool isUsingAsio;
 #define AUDIO_FRAME_SIZE 64
 
 // small 10s buffer
-#define AUDIO_BUFFER_SIZE (AUDIO_SAMPLE_RATE * 10)
+#define AUDIO_BUFFER_SIZE (AUDIO_SAMPLE_RATE * 60)
