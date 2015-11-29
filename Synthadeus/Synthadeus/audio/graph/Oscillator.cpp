@@ -68,6 +68,11 @@ float Oscillator::calcFrequencyR(int sample)
 
 void Oscillator::calcBuffer()
 {
+	// recalc the potential inputs
+	POTENTIAL_NULL(frequencyMod, recalculate(), 0);
+	POTENTIAL_NULL(volumeMod, recalculate(), 0);
+	POTENTIAL_NULL(panningMod, recalculate(), 0);
+
 	// flesh out the new audio buffers
 	bufferSize = calculatePhase();
 
@@ -120,43 +125,36 @@ void Oscillator::calcBuffer()
 void Oscillator::setFrequencyModulator(AudioNode* freqMod)
 {
 	frequencyMod = freqMod;
-	recalculate();
 }
 
 void Oscillator::setVolumeModulator(AudioNode* volMod)
 {
 	volumeMod = volMod;
-	recalculate();
 }
 
 void Oscillator::setPanningModulator(AudioNode* panMod)
 {
 	panningMod = panMod;
-	recalculate();
 }
 
 void Oscillator::setVolume(float vol)
 {
 	volume = vol;
-	recalculate();
 }
 
 void Oscillator::setFrequency(float freq)
 {
 	frequency = freq;
-	recalculate();
 }
 
 void Oscillator::setPanning(float pan)
 {
 	panning = pan;
-	recalculate();
 }
 
 void Oscillator::setWaveform(WAVEFORM wave)
 {
 	waveform = wave;
-	recalculate();
 }
 
 float Oscillator::getFrequency()

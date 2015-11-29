@@ -34,9 +34,16 @@ private:
 
 	ActionCallback callback;
 
+	const float maximumValue;
+	const float minimumValue;
+	const float totalValue;
+
+	float normalizedLerpValue();
+
 public:
 	RTTI_MACRO(Slider);
-	Slider(Point origin, Point size, unsigned int bkgColor, unsigned int fgColor, Orientation orien, float minVal, float maxVal, ActionCallback actionCallbackFunction = DEFAULT_ACTION_CALLBACK);
+	Slider(Point origin, Point size, unsigned int bkgColor, unsigned int fgColor, Orientation orien, 
+		float minVal, float maxVal, float initVal, float tickVal, ActionCallback actionCallbackFunction = DEFAULT_ACTION_CALLBACK);
 
 	// modify properties
 	void setSize(Point origin, Point size);
@@ -46,5 +53,7 @@ public:
 	virtual Renderable* getRenderList();
 	virtual void update();
 	virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse);
+
+	float getValue() { return sliderLogicUnit.getValue(); }
 };
 

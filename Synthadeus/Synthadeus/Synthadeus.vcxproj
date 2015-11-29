@@ -166,7 +166,7 @@
     <ClCompile Include="audio\graph\AudioConstant.cpp" />
     <ClCompile Include="audio\graph\AudioNode.cpp" />
     <ClCompile Include="audio\AudioPlayback.cpp" />
-    <ClCompile Include="audio\graph\BezierEnvelope.cpp" />
+    <ClCompile Include="audio\graph\ExponentialEnvelope.cpp" />
     <ClCompile Include="audio\graph\Oscillator.cpp" />
     <ClCompile Include="audio\graph\SignalSummation.cpp" />
     <ClCompile Include="platform\MidiInterface.cpp" />
@@ -203,7 +203,7 @@
     <ClInclude Include="audio\graph\AudioNode.h" />
     <ClInclude Include="audio\AudioPlayback.h" />
     <ClInclude Include="audio\graph\AudioPlaybackPosition.h" />
-    <ClInclude Include="audio\graph\BezierEnvelope.h" />
+    <ClInclude Include="audio\graph\ExponentialEnvelope.h" />
     <ClInclude Include="audio\external\pa_asio.h" />
     <ClInclude Include="audio\external\pa_jack.h" />
     <ClInclude Include="audio\external\pa_linux_alsa.h" />

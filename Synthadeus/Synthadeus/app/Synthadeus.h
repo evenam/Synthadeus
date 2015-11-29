@@ -22,6 +22,7 @@
 #include "AudioOutputNode.h"
 #include "AudioPlayback.h"
 #include "WaveExporter.h"
+#include "OscillatorNode.h"
 
 #define SYNTHADEUS_VERSION "Synthadeus 0.9" // arbitrary number kek
 
@@ -86,5 +87,8 @@ public:
 	// graph creation
 	void createOscillatorNode();
 	void createEnvelopeNode();
+
+	// recalculate audio
+	void recalculateAudioGraph();
 };
 

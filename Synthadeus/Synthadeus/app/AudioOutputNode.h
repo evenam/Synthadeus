@@ -13,19 +13,20 @@
 #include "Component.h"
 #include "Node.h"
 #include "Connector.h"
-#include "Oscillator.h"
+#include "AudioConstant.h"
 
-class AudioOutputNode : public Node
+class AudioOutputNode : public Node, public AudioUINode
 {
 	//AudioNode* outputNode;
 	InputConnector* input;
-	Oscillator* testOscillator;
+	AudioConstant* defaultValue;
 public:
 	AudioOutputNode(Point audioOutputNodeOrigin);
 
 	// extends to lerp from audio nodes
-	AudioNode* getAudioNode();
+	virtual AudioNode* getAudioNode();
 
 	virtual Renderable* getRenderList();
+	virtual inline void onDestroy() { delete defaultValue; }
 };
 

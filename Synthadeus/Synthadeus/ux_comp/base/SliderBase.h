@@ -14,7 +14,7 @@
 class SliderBase
 {
 public:
-	SliderBase(float minValue, float maxValue, float initialValue);
+	SliderBase(float minValue, float maxValue, float initialValue, float tickValue = 0.25f);
 	void update(float deltaValue);
 	void setValue(float newValue);
 	float getValue() { return currentValue; }
@@ -25,5 +25,6 @@ private:
 	const float minimum;
 	const float maximum;
 	float currentValue;
+	const float tick;
 };
 

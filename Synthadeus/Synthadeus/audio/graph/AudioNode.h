@@ -15,8 +15,9 @@
 #include "AudioDefines.h"
 #define POTENTIAL_NULL(x, a, d) (((x) != NULL)? (x)->a : (d))
 #include "Error.h"
+#include "Object.h"
 
-class AudioNode : public AudioPlaybackPosition
+class AudioNode : public AudioPlaybackPosition, public Object
 {
 protected:
 	float bufferL[AUDIO_BUFFER_SIZE];
@@ -28,6 +29,7 @@ protected:
 	static int GCD(int A, int B);
 
 public:
+	RTTI_MACRO(AudioNode);
 	inline AudioNode() : AudioPlaybackPosition() { }
 	inline int getBufferSize() { return bufferSize; }
 	inline float* getBufferL() { return bufferL; }
@@ -39,4 +41,11 @@ public:
 	virtual void recalculate() = 0;
 	float lerpValueL(float t);
 	float lerpValueR(float t);
+};
+
+// interface for the UI
+class AudioUINode
+{
+public:
+	virtual AudioNode* getAudioNode() = 0;
 };

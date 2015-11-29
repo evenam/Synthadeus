@@ -12,19 +12,38 @@
 
 #include "Component.h"
 #include "Node.h"
+#include "Slider.h"
+#include "Button.h"
+#include "Connector.h"
+#include "Oscillator.h"
 
-class OscillatorNode // : public Node
+class OscillatorNode : public Node, public AudioUINode
 {
-public:
-	OscillatorNode();
+	Slider *frequencySlider, *volumeSlider, *panningSlider;
+	Button *btnSaw, *btnSquare, *btnSine;
+	InputConnector *frequencyModulator, *volumeModulator, *panningModulator;
+	OutputConnector *oscOutput;
 
+	Oscillator* oscillator;
+
+public:
+	OscillatorNode(Point position);
+
+	virtual Renderable* getRenderList();
 	// callbacks for various functionality
-	ActionCallback onConnected(Synthadeus* app, Component* me);
-	ActionCallback onFrequencyChanged(Synthadeus* app, Component* me);
-	ActionCallback onVolumeChanged(Synthadeus* app, Component* me);
-	ActionCallback onPanningChanged(Synthadeus* app, Component* me);
-	ActionCallback onSineClick(Synthadeus* app, Component* me);
-	ActionCallback onSawClick(Synthadeus* app, Component* me);
-	ActionCallback onSquareClick(Synthadeus* app, Component* me);
+	static void onFreqModChanged(Synthadeus* app, Component* me);
+	static void onVolModChanged(Synthadeus* app, Component* me);
+	static void onPanModChanged(Synthadeus* app, Component* me);
+	static void onFrequencyChanged(Synthadeus* app, Component* me);
+	static void onVolumeChanged(Synthadeus* app, Component* me);
+	static void onPanningChanged(Synthadeus* app, Component* me);
+	static void onSineClick(Synthadeus* app, Component* me);
+	static void onSawClick(Synthadeus* app, Component* me);
+	static void onSquareClick(Synthadeus* app, Component* me);
+
+	virtual AudioNode* getAudioNode();
+	void updateNodeConstants();
+
+	virtual inline void onDestroy() { delete oscillator; }
 };
 

@@ -5,7 +5,6 @@ SignalSummation::SignalSummation(int signalCount, AudioNode** theSignals) : numS
 {
 	for (int i = 0; i < signalCount; i++)
 		signals[i] = theSignals[i];
-	recalculate();
 }
 
 int SignalSummation::calculatePhase()
@@ -21,7 +20,6 @@ void SignalSummation::addChild(AudioNode* signal)
 {
 	assert(numSignals < MAX_SIGNALS);
 	signals[numSignals++] = signal;
-	recalculate();
 }
 
 void SignalSummation::removeChild(AudioNode* signal)
@@ -40,7 +38,6 @@ void SignalSummation::removeChild(int signalIndex)
 	for (int i = signalIndex; i < numSignals; i++)
 		signals[i] = signals[i + 1];
 	numSignals--;
-	recalculate();
 }
 
 int SignalSummation::getSignalIndex(AudioNode* signal)
@@ -62,6 +59,9 @@ AudioNode* SignalSummation::getSignal(int signalIndex)
 
 void SignalSummation::recalculate()
 {
+	for (int j = 0; j < numSignals; j++)
+		signals[j]->recalculate();
+
 	bufferSize = calculatePhase();
 	for (int i = 0; i < bufferSize; i++)
 	{

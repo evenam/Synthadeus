@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
-//   Signal Summation                                                         //
+//   Bezier Envelope                                                          //
 //   Everett Moser                                                            //
 //   11-23-15                                                                 //
 //                                                                            //
-//   An audio graph node for combining multiple signals into a single signal  //
+//   An audio graph node for creating an envelope with one of 2 exponentials  //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -12,24 +12,20 @@
 
 #include "AudioNode.h"
 
-class SignalSummation : public AudioNode
+class ExponentialEnvelope : public AudioNode
 {
-	const static int MAX_SIGNALS = 40;
-	AudioNode* signals[MAX_SIGNALS];
-	int numSignals;
+private:
+	float length;
+	float exponent;
+	float minimumVolume;
+	float maximumVolume;
 
 	int calculatePhase();
 
+	//float positiveExponentFunction(float t) { return -fpowf(t, ) }
+
 public:
-	RTTI_MACRO(SignalSummation);
-	SignalSummation(int signalCount = 0, AudioNode** theSignals = NULL);
-
-	void addChild(AudioNode* signal);
-	void removeChild(AudioNode* signal);
-	void removeChild(int signalIndex);
-
-	int getSignalIndex(AudioNode* signal);
-	AudioNode* getSignal(int signalIndex);
-
+	RTTI_MACRO(ExponentialEnvelope);
+	ExponentialEnvelope(float length, float exponent, AudioNode* lenMod, AudioNode* expMod);
 	virtual void recalculate();
-};
+}
