@@ -236,7 +236,16 @@ void OutputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMo
 	}
 
 	if (vMouse->right.checkReleased())
-		onDestroy(); // shortcut to kill all connections
+	{
+		for (int i = numConnectedComponents - 1; i >= 0; i--)
+		{
+			InputConnector* other = connectedComponents[i];
+			other->disconnect();
+			other->callback(app, other);
+			connectedComponents[i] = NULL;
+		}
+		numConnectedComponents = 0;
+	}
 }
 
 void OutputConnector::update()

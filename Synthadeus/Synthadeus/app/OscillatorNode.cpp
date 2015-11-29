@@ -145,19 +145,25 @@ void OscillatorNode::updateNodeConstants()
 
 void OscillatorNode::connectFrequency(AudioUINode * other)
 {
-	AudioNode* otherNode = other->getAudioNode();
-	oscillator->setFrequencyModulator(otherNode);
+	if (other)
+		oscillator->setFrequencyModulator(other->getAudioNode());
+	else
+		oscillator->setFrequencyModulator(NULL);
 }
 
 void OscillatorNode::connectVolume(AudioUINode * other)
 {
-	AudioNode* otherNode = other->getAudioNode();
-	oscillator->setVolumeModulator(otherNode);
+	if (other)
+		oscillator->setVolumeModulator(other->getAudioNode());
+	else
+		oscillator->setVolumeModulator(NULL);
 }
 
 void OscillatorNode::connectPanning(AudioUINode * other)
 {
-	AudioNode* otherNode = other->getAudioNode();
-	oscillator->setPanningModulator(otherNode);
+	if (other)
+		oscillator->setPanningModulator(other->getAudioNode());
+	else
+		oscillator->setPanningModulator(NULL);
 }
 
