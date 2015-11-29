@@ -10,8 +10,6 @@
 
 #pragma once
 
-#ifndef NO_CFMATHS
-
 // global constants
 #define PI  3.1415927f
 #define TAO 6.2831854f
@@ -71,17 +69,24 @@ namespace CFMaths
 	void init();
 }
 
+// created to help find math errors
+//#define USE_CMATH_ALSO
+#ifndef USE_CMATH_ALSO
 // quick redefines for these functions
 #define fsinf(x) (CFMaths::__fast_sin(x))
 #define fcosf(x) (CFMaths::__fast_cos(x))
 #define fabsf(x) (CFMaths::__fast_abs(x))
 
+#define fpowf(x, y) (CFMaths::__powf(x, y))
+#else
+#include <cmath>
+#define fsinf sinf
+#define fcosf cosf
+#define fpowf powf
+#define fabsf absf
+#endif
+
 #define iswapf(x, y) (CFMaths::__inplace_swap(x, y))
 #define rfactf(x) (CFMaths::__regular_factorial(x))
 #define CONST_FACTORIAL(a) CFMaths::__factorial_templ<(a)>::val();
-
 #define lsinf(x) (CFMaths::__lookup_sin(x))
-
-#define fpowf(x, y) (CFMaths::__powf(x, y))
-
-#endif

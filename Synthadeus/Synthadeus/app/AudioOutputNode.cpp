@@ -6,7 +6,7 @@ AudioOutputNode::AudioOutputNode(Point audioOutputNodeOrigin)
 	input = new InputConnector(Point(20.f, 20.f), Point(20.f, 20.f), COLOR_PINK, this);
 	addChild(input);
 
-	testOscillator = new Oscillator(Oscillator::SAW, 440.f, 1.f, 0.f);
+	testOscillator = new Oscillator(Oscillator::SAW, 440.f, 1.f, 0.f, new Oscillator(Oscillator::SINE, 1.f, 1.f, 0.f));
 }
 
 AudioNode* AudioOutputNode::getAudioNode()

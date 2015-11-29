@@ -36,14 +36,14 @@ float Oscillator::calcPanL(int sample)
 {
 	// the panning value is centered at 'pannng' and fluctates with panning mod.
 	// left panning = (1 + panning value) / 2 (i.e. a bigger value pans it to the left)
-	return (1 + POTENTIAL_NULL(panningMod, getBufferValueL(sample) * (1 - abs(panning)) + panning, panning)) * 0.5f;
+	return (1 + POTENTIAL_NULL(panningMod, getBufferValueL(sample) * (1 - fabsf(panning)) + panning, panning)) * 0.5f;
 }
 
 float Oscillator::calcPanR(int sample)
 {
 	// the panning value is centered at 'pannng' and fluctates with panning mod.
 	// left panning = (1 - panning value) / 2 (i.e. a smaller value pans it to the right)
-	return (1 - POTENTIAL_NULL(panningMod, getBufferValueR(sample) * (1 - abs(panning)) + panning, panning)) * 0.5f;
+	return (1 - POTENTIAL_NULL(panningMod, getBufferValueR(sample) * (1 - fabsf(panning)) + panning, panning)) * 0.5f;
 }
 
 float Oscillator::calcVolumeL(int sample)
