@@ -40,6 +40,11 @@ void SignalSummation::removeChild(int signalIndex)
 	numSignals--;
 }
 
+void SignalSummation::clearChildren()
+{
+	numSignals = 0;
+}
+
 int SignalSummation::getSignalIndex(AudioNode* signal)
 {
 	for (int i = 0; i < numSignals; i++)

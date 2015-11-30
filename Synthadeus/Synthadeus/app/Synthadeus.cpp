@@ -159,10 +159,7 @@ bool Synthadeus::needsRendering()
 Renderable* Synthadeus::getRenderList()
 {
 	// create the watermark
-	inputDevice->vMouse.instance(appWindow->getViewportInstance());
-	Component* hover = base->getComponentAtPoint(inputDevice->vMouse.instancePosition());
-	inputDevice->vMouse.restore();
-	Renderable* watermark = new Text((hover == NULL) ? SYNTHADEUS_VERSION : hover->getClassName(), -1.f * appWindow->getViewportInstance(), Point((float)appWindow->getWidth(), 40.f), FONT_ARIAL40, COLOR_LTGREY);
+	Renderable* watermark = new Text(SYNTHADEUS_VERSION, -1.f * appWindow->getViewportInstance(), Point((float)appWindow->getWidth(), 40.f), FONT_ARIAL40, COLOR_LTGREY);
 	Renderable* renderList = sortRenderList(base->getRenderTree());
 	renderList->next = watermark;
 
@@ -200,13 +197,26 @@ void Synthadeus::createOscillatorNode()
 
 void Synthadeus::createEnvelopeNode()
 {
+	MessageBox(appWindow->getWindowHandle(), "Feature not yet fully implemented. ", "Whoops!", MB_ICONERROR);
+	DebugPrintf("User requested non-existant feature: Envelope Node\n");
+}
+
+void Synthadeus::createConstantNode()
+{
+	MessageBox(appWindow->getWindowHandle(), "Feature not yet fully implemented. ", "Whoops!", MB_ICONERROR);
+	DebugPrintf("User requested non-existant feature: Constant Node\n");
+}
+
+void Synthadeus::createMultiplierNode()
+{
+	MessageBox(appWindow->getWindowHandle(), "Feature not yet fully implemented. ", "Whoops!", MB_ICONERROR);
+	DebugPrintf("User requested non-existant feature: Multiplier Node\n");
+}
+
+void Synthadeus::createSummationNode()
+{
 	Point place = inputDevice->vMouse.position - base->getOrigin() - appWindow->getViewportInstance();
-	Node* node = new Node(place, Point(200.f, 200.f), COLOR_MAGENTA, COLOR_ABLACK, false);
-	node->addChild(new OutputConnector(Point(180.f, 10.f), Point(10.f, 10.f), COLOR_RED, node));
-	node->addChild(new OutputConnector(Point(180.f, 170.f), Point(10.f, 10.f), COLOR_RED, node));
-	node->addChild(new InputConnector(Point(10.f, 10.f), Point(10.f, 10.f), COLOR_RED, node));
-	node->addChild(new InputConnector(Point(10.f, 170.f), Point(10.f, 10.f), COLOR_RED, node));
-	base->addChild(node);
+	base->addChild(new SummationNode(place));
 }
 
 void Synthadeus::recalculateAudioGraph()

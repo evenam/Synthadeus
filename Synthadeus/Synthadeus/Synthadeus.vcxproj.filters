@@ -200,6 +200,9 @@
     <ClCompile Include="audio\graph\ExponentialEnvelope.cpp">
       <Filter>Source Files\audio\graph</Filter>
     </ClCompile>
+    <ClCompile Include="app\SummationNode.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CFMaths.h">
@@ -360,6 +363,9 @@
     </ClInclude>
     <ClInclude Include="audio\graph\ExponentialEnvelope.h">
       <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="app\SummationNode.h">
+      <Filter>Header Files\app</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

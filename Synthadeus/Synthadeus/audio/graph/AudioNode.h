@@ -34,10 +34,10 @@ public:
 	inline int getBufferSize() { return bufferSize; }
 	inline float* getBufferL() { return bufferL; }
 	inline float* getBufferR() { return bufferR; }
-	inline float getBufferValueL(int pos) { return bufferL[pos % bufferSize]; }
-	inline float getBufferValueR(int pos) { return bufferR[pos % bufferSize]; }
-	inline float getBufferAtPositionL() { return bufferL[getPositionL() % bufferSize]; }
-	inline float getBufferAtPositionR() { return bufferR[getPositionR() % bufferSize]; }
+	inline float getBufferValueL(int pos) { if (bufferSize == 0) return 0; return bufferL[pos % bufferSize]; }
+	inline float getBufferValueR(int pos) { if (bufferSize == 0) return 0; return bufferR[pos % bufferSize]; }
+	inline float getBufferAtPositionL() { if (bufferSize == 0) return 0; return bufferL[getPositionL() % bufferSize]; }
+	inline float getBufferAtPositionR() { if (bufferSize == 0) return 0; return bufferR[getPositionR() % bufferSize]; }
 	virtual void recalculate() = 0;
 	float lerpValueL(float t);
 	float lerpValueR(float t);
