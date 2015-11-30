@@ -1,4 +1,5 @@
 #include "Node.h"
+#include "Connector.h"
 
 Node::Node(Point nodeOrigin, Point nodeSize, unsigned int nodeFgColor, unsigned int nodeBgColor, bool isRemoveable) : Component()
 {
@@ -59,6 +60,24 @@ void Node::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 			int nChildren = getNumChildren();
 			for (int i = 0; i < nChildren; i++)
 			{
+				// callbacks as necessary
+				InputConnector* input = dynamic_cast<InputConnector*>(child(i));
+				OutputConnector* output = dynamic_cast<OutputConnector*>(child(i));
+				if (input)
+				{
+					input->disconnect();
+					input->callback(app, input);
+				}
+				else if (output)
+				{
+					for (int i = output->numConnectedComponents - 1; i >= 0; i--)
+					{
+						input = output->connectedComponents[i];
+						input->disconnect();
+						input->callback(app, input);
+					}
+				}
+
 				// early call to break connections
 				child(i)->onDestroy();
 				child(i)->signalRemoval();

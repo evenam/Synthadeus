@@ -46,6 +46,7 @@ public:
 
 class InputConnector : public Connector
 {
+	friend class Node;
 private:
 	friend class OutputConnector;
 	OutputConnector* connectedComponent;
@@ -70,6 +71,7 @@ public:
 
 class OutputConnector : public Connector
 {
+	friend class Node;
 	friend class InputConnector;
 	const static int MAX_CONNECTED_COMPONENTS = 16;
 	InputConnector* connectedComponents[MAX_CONNECTED_COMPONENTS];
