@@ -62,7 +62,7 @@ Renderable* Slider::getRenderList()
 		tickMarker = new Line(Point(tick, sliderOrigin[1]), Point(tick, sliderOrigin[1] + sliderSize[1]), sliderFgColor, 4.5f);
 	}
 	boundingRectangle->next = tickMarker;
-	
+
 	if (interacting)
 	{
 		char stringBuffer[15];
