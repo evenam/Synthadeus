@@ -31,6 +31,7 @@ public:
 	virtual InputDevice* getInputDevice() = 0;
 };
 
+// the main window class for Synthadeus
 class MainWindow : public Window
 {
 protected:
@@ -40,8 +41,10 @@ protected:
 	// handle windows messages
 	virtual int handleMessage(UINT msg, WPARAM wParam, LPARAM lParam);
 
-	// initialize and deinitize any information prior to window creation/deletion
+	// initialize any information prior to window creation
 	virtual bool initialize();
+
+	// deinitialize any informatiotion necessary before removal
 	virtual bool uninitialize();
 
 	// pointer to application logic object
@@ -54,21 +57,37 @@ protected:
 	void updateWindowDimensions();
 
 public:
-	// start, stop and render with the window renderer
+	// request a render frame
 	void render();
+
+	// start the renderer
 	void startRenderer();
+
+	// stop the renderer
 	void endRenderer();
 
-	// modify render list for window's renderer
+	// add an item to the render list
 	void addToRenderList(Renderable* list);
+
+	// free the old list
 	void clearRenderList();
+
+	// set the current list 
 	void setRenderList(Renderable* list);
+	
+	// returns the current render list the renderer is being sent
 	Renderable* getRenderList();
 
-	// modify the renderer viewport
+	// apply a viewport zoom
 	void viewportApplyZoom(float factor);
+
+	// apply a viewort translation
 	void viewportApplyTranslation(Point factor);
+
+	// reset the viewport to the default position
 	void viewportSetDefault();
+
+	// get the viewport coordinates
 	Point getViewportInstance();
 
 	// constructor from window to initialize the window and the logic object

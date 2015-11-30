@@ -76,14 +76,6 @@ void CommandMenu::createSummation(Synthadeus* app, Component* other)
 	app->createSummationNode();
 }
 
-void CommandMenu::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
-{
-}
-
-void CommandMenu::update()
-{
-}
-
 Renderable* CommandMenu::getRenderList()
 {
 	return new Rectangle2(origin, size, COLOR_NONE, COLOR_NONE);

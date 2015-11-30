@@ -47,35 +47,56 @@ private:
 	// the output node to play audio back from
 	AudioOutputNode* audioOutputEndpoint;
 
-	// viewport momentum and cool stuff
+	// viewport friction constant
 	const float viewportFriction;
+
+	// viewport acceleration for translation
 	const float viewportTranslateAcceleration;
+
+	// viewport acceleration for zoom
 	const float viewportZoomAcceleration;
+
+	// viewport error minimum to stop movement
 	const float viewportEpsilon;
+
+	// the maximum speed the viewport can move
 	const float viewportMaxTranslateSpeed;
+	
+	// the max speed the viewport can be zoomed
 	const float viewportMaxZoomSpeed;
+
+	// the total amount to translate the viewport
 	Point viewportMoveAmount;
+
+	// the total amount to zoom the viewport
 	float viewportZoomAmount;
 
 	// viewport modification with arrow keys and scroll wheel
 	void updateViewport();
 
+	// the base of the UI tree: a grid
 	GridBase* base;
-	Button* projectPageButton;
-	Node* testNode;
 
 public:
-	// create and destroy the application
+	// constructs the awesome! initializes everything and prepares the application to enter the update loop
 	Synthadeus();
+
+	// deinitializes everything and frees memory references before we clean up the rest of the COM
 	~Synthadeus();
 
 	// start up the application
 	void run();
 
-	// overrides from Application interface
+	// update happens once every ~16ms
 	virtual void update();
+
+	// always true, needs optimization, which signals whether the application needs to render this update cycle
 	virtual bool needsRendering();
+
+	// get the render list for the application
 	virtual Renderable* getRenderList();
+
+	// get the input device for the application
 	virtual InputDevice* getInputDevice();
 
 	// request the application to close
@@ -87,11 +108,19 @@ public:
 	// resort render list
 	Renderable* sortRenderList(Renderable* list);
 
-	// graph creation
+	// create an oscillator within the base node
 	void createOscillatorNode();
+
+	// create an envelope within the base node
 	void createEnvelopeNode();
+
+	// create an constant within the base node
 	void createConstantNode();
+
+	// create an multiplier within the base node
 	void createMultiplierNode();
+
+	// create an summation within the base node
 	void createSummationNode();
 
 	// recalculate audio

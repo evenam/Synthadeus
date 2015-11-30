@@ -17,21 +17,36 @@
 
 class AudioOutputNode : public Node, public AudioUINode
 {
-	//AudioNode* outputNode;
+	// Connection to final graph node
 	InputConnector* input;
+
+	// A default value to feed the audio driver when not connected to another graph node
 	AudioConstant* defaultValue;
+
+	// the actual graph node whose data is fed to the audio playback mechanism
 	AudioNode* outputNode;
+
 public:
-	AudioOutputNode(Point audioOutputNodeOrigin);
+
+	// runtime type information macro
 	RTTI_MACRO(AudioOutputNode);
 
-	// extends to lerp from audio nodes
+	// a simple contructor creating the node at a target location
+	AudioOutputNode(Point audioOutputNodeOrigin);
+
+	// get the audio node related to this UI graph node
 	virtual AudioNode* getAudioNode();
 
+	// get the render list
 	virtual Renderable* getRenderList();
+
+	// free the default value node
 	virtual inline void onDestroy() { delete defaultValue; }
 
+	// on input connected callback
 	static void onConnected(Synthadeus* app, Component* me);
+
+	// updates the default node when the connection changes
 	void setOutputNode(AudioUINode* node);
 };
 

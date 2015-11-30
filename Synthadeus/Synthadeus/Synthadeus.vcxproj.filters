@@ -397,16 +397,16 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="portaudio\dbg\portaudio_x86.dll">
+    <None Include="portaudio\rls\portaudio_x86.dll">
       <Filter>Binaries\portaudio\release</Filter>
     </None>
-    <None Include="portaudio_ASIO\rls\portaudio_x86.dll">
+    <None Include="portaudio\dbg\portaudio_x86.dll">
       <Filter>Binaries\portaudio\debug</Filter>
     </None>
-    <None Include="portaudio_ASIO\dbg\portaudio_x86.dll">
+    <None Include="portaudio_ASIO\rls\portaudio_x86.dll">
       <Filter>Binaries\portaudio_ASIO\release</Filter>
     </None>
-    <None Include="portaudio\rls\portaudio_x86.dll">
+    <None Include="portaudio_ASIO\dbg\portaudio_x86.dll">
       <Filter>Binaries\portaudio_ASIO\debug</Filter>
     </None>
     <None Include="portmidi\dbg\portmidi.dll">
@@ -417,13 +417,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="portaudio_ASIO\dbg\portaudio_x86.lib">
+    <Library Include="portaudio\dbg\portaudio_x86.lib">
       <Filter>Binaries\portaudio\debug</Filter>
     </Library>
     <Library Include="portaudio\rls\portaudio_x86.lib">
       <Filter>Binaries\portaudio\release</Filter>
     </Library>
-    <Library Include="portaudio\dbg\portaudio_x86.lib">
+    <Library Include="portaudio_ASIO\dbg\portaudio_x86.lib">
       <Filter>Binaries\portaudio_ASIO\debug</Filter>
     </Library>
     <Library Include="portaudio_ASIO\rls\portaudio_x86.lib">
