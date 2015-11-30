@@ -14,6 +14,7 @@ int AudioNode::GCD(int A, int B)
 	// idiot test (just suppose the numbers are relatively prime)
 	if (min * max == 0) return 1;
 
+	// intial quotient and remainder
 	int Q = max / min;
 	int R = max % min;
 

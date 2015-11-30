@@ -15,6 +15,7 @@ Oscillator::Oscillator(WAVEFORM wave, float freq, float vol, float pan, AudioNod
 
 int Oscillator::calculatePhase()
 {
+	// calculate the potential modifiers from the modulators
 	int freqMod = POTENTIAL_NULL(frequencyMod, getBufferSize(), 1.f);
 	int volMod = POTENTIAL_NULL(volumeMod, getBufferSize(), 1.f);
 	int panMod = POTENTIAL_NULL(panningMod, getBufferSize(), 1.f);
@@ -22,7 +23,10 @@ int Oscillator::calculatePhase()
 
 	// the LCM is a major optimization in terms of space requirements
 	// it reduces the space by a factor of 10-10000x depending on the input nodes
+	// also reduces subsequend calculations
 	int phase = LCM(LCM(freqMod, volMod), LCM(panMod, sampleMod));
+
+	// kids, keep on your harmonics and avoid relatively prime numbers
 	return phase;
 }
 
@@ -48,21 +52,25 @@ float Oscillator::calcPanR(int sample)
 
 float Oscillator::calcVolumeL(int sample)
 {
+	// volume is the current volume adjusted by the volume modulator by that percent
 	return POTENTIAL_NULL(volumeMod, getBufferValueL(sample) * 0.5 + 0.5 * volume, volume);
 }
 
 float Oscillator::calcVolumeR(int sample)
 {
+	// volume is the current volume adjusted by the volume modulator by that percent
 	return POTENTIAL_NULL(volumeMod, getBufferValueR(sample) * 0.5 + 0.5 * volume, volume);
 }
 
 float Oscillator::calcFrequencyL(int sample)
 {
+	// frequency is calculated based upon the base and modulation can make it 0x to 2x the amount
 	return frequency + frequency * POTENTIAL_NULL(frequencyMod, getBufferValueL(sample), 0.f);
 }
 
 float Oscillator::calcFrequencyR(int sample)
 {
+	// frequency is calculated based upon the base and modulation can make it 0x to 2x the amount
 	return frequency + frequency * POTENTIAL_NULL(frequencyMod, getBufferValueR(sample), 0.f);
 }
 
@@ -111,83 +119,96 @@ void Oscillator::calcBuffer()
 			bufferR[i] = sqrf(thetaR) * pannedVolumeR;
 		}
 
-		// update theta
-		thetaL += 2 * 3.14159f * calcFrequencyL(i) / AUDIO_SAMPLE_RATE;
-		thetaR += 2 * 3.14159f * calcFrequencyR(i) / AUDIO_SAMPLE_RATE;
+		// update theta (keep it in rotation)
+		thetaL += 2 * PI * calcFrequencyL(i) / AUDIO_SAMPLE_RATE;
+		thetaR += 2 * PI * calcFrequencyR(i) / AUDIO_SAMPLE_RATE;
 
-		while (thetaL > 2 * 3.14159f) thetaL -= 2 * 3.14159f;
-		while (thetaR > 2 * 3.14159f) thetaR -= 2 * 3.14159f;
+		// cap it with some accuracy (more than the CFMATH method)
+		while (thetaL > 2 * PI) thetaL -= 2 * PI;
+		while (thetaR > 2 * PI) thetaR -= 2 * PI;
 	}
 }
 
-// Recalculate after each modification
-
 void Oscillator::setFrequencyModulator(AudioNode* freqMod)
 {
+	// set new frequency modulator
 	frequencyMod = freqMod;
 }
 
 void Oscillator::setVolumeModulator(AudioNode* volMod)
 {
+	// set new volume modulator
 	volumeMod = volMod;
 }
 
 void Oscillator::setPanningModulator(AudioNode* panMod)
 {
+	// set new panning modulator
 	panningMod = panMod;
 }
 
 void Oscillator::setVolume(float vol)
 {
+	// update the base volume
 	volume = vol;
 }
 
 void Oscillator::setFrequency(float freq)
 {
+	// update the base frequency
 	frequency = freq;
 }
 
 void Oscillator::setPanning(float pan)
 {
+	// update the base panning
 	panning = pan;
 }
 
 void Oscillator::setWaveform(WAVEFORM wave)
 {
+	// set waveform to new waveform
 	waveform = wave;
 }
 
 float Oscillator::getFrequency()
 {
+	// current frequency
 	return frequency;
 }
 
 float Oscillator::getPanning()
 {
+	// current panning
 	return panning;
 }
 
 float Oscillator::getVolume()
 {
+	// current volume
 	return volume;
 }
 
 Oscillator::WAVEFORM Oscillator::getWaveform()
 {
+	// current waveform
 	return waveform;
 }
 
 AudioNode* Oscillator::getFrequencyModulator()
 {
+	// current frequency modulator
 	return frequencyMod;
 }
 
 AudioNode* Oscillator::getVolumeModulator()
 {
+	// current volume modulator
 	return volumeMod;
 }
 
 AudioNode* Oscillator::getPanningModulator()
 {
+	// current panning modulator
 	return panningMod;
 }
