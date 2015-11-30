@@ -203,6 +203,9 @@
     <ClCompile Include="app\SummationNode.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
+    <ClCompile Include="app\ConstantNode.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CFMaths.h">
@@ -365,6 +368,9 @@
       <Filter>Header Files\audio\graph</Filter>
     </ClInclude>
     <ClInclude Include="app\SummationNode.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="app\ConstantNode.h">
       <Filter>Header Files\app</Filter>
     </ClInclude>
   </ItemGroup>

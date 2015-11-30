@@ -24,6 +24,7 @@
 #include "WaveExporter.h"
 #include "OscillatorNode.h"
 #include "SummationNode.h"
+#include "ConstantNode.h"
 
 #define SYNTHADEUS_VERSION "Synthadeus 0.9" // arbitrary number kek
 

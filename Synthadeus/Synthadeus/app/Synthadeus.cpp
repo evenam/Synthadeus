@@ -203,8 +203,8 @@ void Synthadeus::createEnvelopeNode()
 
 void Synthadeus::createConstantNode()
 {
-	MessageBox(appWindow->getWindowHandle(), "Feature not yet fully implemented. ", "Whoops!", MB_ICONERROR);
-	DebugPrintf("User requested non-existant feature: Constant Node\n");
+	Point place = inputDevice->vMouse.position - base->getOrigin() - appWindow->getViewportInstance();
+	base->addChild(new ConstantNode(place));
 }
 
 void Synthadeus::createMultiplierNode()

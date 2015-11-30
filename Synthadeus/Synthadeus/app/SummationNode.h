@@ -2,7 +2,7 @@
 //                                                                            //
 //   Summation UI Node                                                        //
 //   Everett Moser                                                            //
-//   11-19-15                                                                 //
+//   11-29-15                                                                 //
 //                                                                            //
 //   UI Node for summing up to 8 signals                                      //
 //                                                                            //

@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="app\AudioOutputNode.cpp" />
+    <ClCompile Include="app\ConstantNode.cpp" />
     <ClCompile Include="app\MainWindow.cpp" />
     <ClCompile Include="app\OscillatorNode.cpp" />
     <ClCompile Include="app\SummationNode.cpp" />
@@ -196,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="app\AudioOutputNode.h" />
+    <ClInclude Include="app\ConstantNode.h" />
     <ClInclude Include="app\MainWindow.h" />
     <ClInclude Include="app\OscillatorNode.h" />
     <ClInclude Include="app\SummationNode.h" />
