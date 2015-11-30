@@ -27,7 +27,8 @@
 #include "ConstantNode.h"
 #include "MultiplierNode.h"
 
-#define SYNTHADEUS_VERSION "Synthadeus 0.9" // arbitrary number kek
+// current Synthadeus version string
+#define SYNTHADEUS_VERSION "Synthadeus 0.9"
 
 class Synthadeus : public Application
 {

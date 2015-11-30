@@ -3,6 +3,7 @@
 
 int MainWindow::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	// a few forward declarations possibly used in the switch
 	InputDevice* iState = application->getInputDevice();
 	int wDelta = 0;
 	switch (msg)
@@ -37,9 +38,7 @@ int MainWindow::handleMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 
 bool MainWindow::initialize()
 {
-	// make the window be non-resizeable and only have a close button
-	//setBordered(false);
-	//setTitlebarAndButtons(true, true, false);
+	// no additional steps needed here, though window properties could be modified at this location
 	return true;
 }
 
@@ -51,21 +50,25 @@ bool MainWindow::uninitialize()
 
 void MainWindow::viewportApplyZoom(float factor)
 {
+	// apply a zoom to the viewport
 	renderer->viewportApplyZoom(factor);
 }
 
 void MainWindow::viewportApplyTranslation(Point factor)
 {
+	// apply a translation to the viewport
 	renderer->viewportApplyTranslation(factor);
 }
 
 void MainWindow::viewportSetDefault()
 {
+	// reset the default viewport
 	renderer->viewportSetDefault();
 }
 
 Point MainWindow::getViewportInstance()
 {
+	// get the viewport instance from the renderer
 	return renderer->getViewportInstance();
 }
 
@@ -84,6 +87,7 @@ void MainWindow::update()
 	// render if necessary
 	if (application->needsRendering())
 	{
+		// generate a new list
 		Renderable* renderList = application->getRenderList();
 
 		// reset the render list
@@ -97,8 +101,11 @@ void MainWindow::update()
 
 void MainWindow::updateWindowDimensions()
 {
+	// recalculate the client rectangle
 	RECT windowRect;
 	GetClientRect(getWindowHandle(), &windowRect);
+
+	// set the client size based upon rectangle parameterss
 	wndWidth = windowRect.right - windowRect.left;
 	wndHeight = windowRect.bottom - windowRect.top;
 }
