@@ -13,12 +13,13 @@ Object* Object::heapObject[USHRT_MAX];
 
 void Object::insertPointer(Object* pointer)
 {
+	assert(nHeapObjects < USHRT_MAX);
 	heapObject[nHeapObjects++] = pointer;
 }
 
 void Object::removePointer(Object* pointer)
 {
-
+	assert(nHeapObjects > 0);
 	for (int i = 0; i < nHeapObjects; i++)
 	{
 		if (heapObject[i] == (Object*)pointer)

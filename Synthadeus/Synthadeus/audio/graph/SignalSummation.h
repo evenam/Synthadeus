@@ -14,7 +14,7 @@
 
 class SignalSummation : public AudioNode
 {
-	const static int MAX_SIGNALS = 40;
+	const static int MAX_SIGNALS = 8;
 	AudioNode* signals[MAX_SIGNALS];
 	int numSignals;
 
@@ -27,6 +27,7 @@ public:
 	void addChild(AudioNode* signal);
 	void removeChild(AudioNode* signal);
 	void removeChild(int signalIndex);
+	void clearChildren();
 
 	int getSignalIndex(AudioNode* signal);
 	AudioNode* getSignal(int signalIndex);

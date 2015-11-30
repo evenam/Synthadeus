@@ -118,8 +118,8 @@ void AudioPlayback::calculateSummedSignal()
 		{
 			int currentNote = vPiano->getKey(i);
 			//DebugPrintf("Position: %d\n", positions[currentNote]);
-			summedSignal[2 * j] += node->getAudioNode()->lerpValueL(positions[currentNote]) / (float)vPiano->getNumKeysPressed();
-			summedSignal[2 * j + 1] += node->getAudioNode()->lerpValueR(positions[currentNote]) / (float)vPiano->getNumKeysPressed();
+			summedSignal[2 * j + 1] += node->getAudioNode()->lerpValueL(positions[currentNote]) / (float)vPiano->getNumKeysPressed();
+			summedSignal[2 * j] += node->getAudioNode()->lerpValueR(positions[currentNote]) / (float)vPiano->getNumKeysPressed();
 			positions[currentNote] += speeds[currentNote];
 		}
 	}

@@ -71,7 +71,6 @@ void OscillatorNode::onVolModChanged(Synthadeus * app, Component * me)
 	AudioUINode* other = dynamic_cast<AudioUINode*>(((InputConnector*)me)->getConnectionParent());
 	myself->connectVolume(other);
 	DebugPrintf("Connected %s to %s\n", (((InputConnector*)me)->getConnectionParent() ? ((InputConnector*)me)->getConnectionParent()->getClassName() : "NULL"), myself->getClassName());
-	myself->oscillator->recalculate();
 	app->recalculateAudioGraph();
 }
 

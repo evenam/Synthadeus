@@ -32,6 +32,9 @@ int AudioNode::GCD(int A, int B)
 
 float AudioNode::lerpValueL(float t)
 {
+	// idiot test
+	if (bufferSize == 0) return 0;
+
 	// calculate the decimal on t
 	float deltaT = t - (long)t;
 
@@ -46,6 +49,9 @@ float AudioNode::lerpValueL(float t)
 
 float AudioNode::lerpValueR(float t)
 {
+	// idiot test
+	if (bufferSize == 0) return 0;
+
 	// calculate the decimal on t
 	float deltaT = t - (long)t;
 

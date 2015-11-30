@@ -200,6 +200,18 @@
     <ClCompile Include="audio\graph\ExponentialEnvelope.cpp">
       <Filter>Source Files\audio\graph</Filter>
     </ClCompile>
+    <ClCompile Include="app\SummationNode.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="app\ConstantNode.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
+    <ClCompile Include="audio\graph\SignalMultiplier.cpp">
+      <Filter>Source Files\audio\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="app\MultiplierNode.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CFMaths.h">
@@ -360,6 +372,18 @@
     </ClInclude>
     <ClInclude Include="audio\graph\ExponentialEnvelope.h">
       <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="app\SummationNode.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="app\ConstantNode.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\graph\SignalMultiplier.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="app\MultiplierNode.h">
+      <Filter>Header Files\app</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -82,11 +82,11 @@ void InputDevice::update(MidiInterface* midi)
 
 	// the virtual piano keyboard keys octave 5/6... R-->] is white keys, 5-->= is black keys (trust me)
 	vPiano.keys[5][Piano::F].update(midi->check(5, Piano::F) || (GetAsyncKeyState('R') ? true : false));
-	vPiano.keys[5][Piano::FS].update(midi->check(5, Piano::FS) || (GetAsyncKeyState('4') ? true : false));
+	vPiano.keys[5][Piano::FS].update(midi->check(5, Piano::FS) || (GetAsyncKeyState('5') ? true : false));
 	vPiano.keys[5][Piano::G].update(midi->check(5, Piano::G) || (GetAsyncKeyState('T') ? true : false));
-	vPiano.keys[5][Piano::GS].update(midi->check(5, Piano::GS) || (GetAsyncKeyState('5') ? true : false));
+	vPiano.keys[5][Piano::GS].update(midi->check(5, Piano::GS) || (GetAsyncKeyState('6') ? true : false));
 	vPiano.keys[5][Piano::A].update(midi->check(5, Piano::A) || (GetAsyncKeyState('Y') ? true : false));
-	vPiano.keys[5][Piano::AS].update(midi->check(5, Piano::AS) || (GetAsyncKeyState('6') ? true : false));
+	vPiano.keys[5][Piano::AS].update(midi->check(5, Piano::AS) || (GetAsyncKeyState('7') ? true : false));
 	vPiano.keys[5][Piano::B].update(midi->check(5, Piano::B) || (GetAsyncKeyState('U') ? true : false));
 	vPiano.keys[6][Piano::C].update(midi->check(6, Piano::C) || (GetAsyncKeyState('I') ? true : false));
 	vPiano.keys[6][Piano::CS].update(midi->check(6, Piano::CS) || (GetAsyncKeyState('9') ? true : false));
