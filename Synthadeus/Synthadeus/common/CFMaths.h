@@ -83,7 +83,7 @@ namespace CFMaths
 #define fsinf sinf
 #define fcosf cosf
 #define fpowf powf
-#define fabsf absf
+#define fabsf abs
 #endif
 
 #define iswapf(x, y) (CFMaths::__inplace_swap(x, y))

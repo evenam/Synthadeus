@@ -120,7 +120,10 @@ public:
 	{
 		removeMe = true;
 		for (int i = 0; i < numChildren; i++)
-			children[i]->signalRemoval();
+		{
+			if (children[i] != NULL)
+				children[i]->signalRemoval();
+		}
 	}
 
 	// sweep portion of mark and sweep pseudo garbage collection

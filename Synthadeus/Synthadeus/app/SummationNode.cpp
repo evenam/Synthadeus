@@ -1,4 +1,5 @@
 #include "SummationNode.h"
+#include "Synthadeus.h"
 
 SummationNode::SummationNode(Point position)
 	: Node(position, Point(150.f, 260.f), COLOR_GREEN, COLOR_ABLACK)
@@ -20,17 +21,30 @@ SummationNode::SummationNode(Point position)
 
 void SummationNode::inputConnected(Synthadeus * app, Component * connector)
 {
+	SummationNode* myself = (SummationNode*)connector->getParent();
+	myself->updateConnected();
+	app->recalculateAudioGraph();
 }
 
 void SummationNode::updateConnected()
 {
+	summation->clearChildren();
+	for (int i = 0; i < MAX_INPUTS; i++)
+	{
+		if (inputs[i]->isConnected() > 0)
+		{
+			AudioUINode* uiNode = dynamic_cast<AudioUINode*>(inputs[i]->getConnectionParent());
+			assert(uiNode != NULL);
+			summation->addChild(uiNode->getAudioNode());
+		}
+	}
 }
 
 Renderable * SummationNode::getRenderList()
 {
 	Renderable* nodeRenderList = Node::getRenderList();
 	Renderable* titleText = new Text("Summation", getOrigin(), Point(150.f, 40.f), FONT_ARIAL20, COLOR_WHITE);
-	Renderable* inputText = new Text("Inputs", getOrigin() + Point(10.f, 40.f), Point(30.f, 20.f), FONT_ARIAL11, COLOR_WHITE);
+	Renderable* inputText = new Text("Inputs", getOrigin() + Point(10.f, 35.f), Point(30.f, 20.f), FONT_ARIAL11, COLOR_WHITE);
 	Renderable* outputText = new Text("Output", getOrigin() + Point(110.f, 80.f), Point(40.f, 20.f), FONT_ARIAL11, COLOR_WHITE);
 
 	nodeRenderList->next = titleText;
