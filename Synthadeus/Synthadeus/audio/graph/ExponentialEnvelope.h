@@ -12,6 +12,9 @@
 
 #include "AudioNode.h"
 
+// !! UNDECORATED UNTIL IMPLEMENTATION !! \\
+\\\\\\\\\\\\\\\\\\\\\\//////////////////////
+
 class ExponentialEnvelope : public AudioNode
 {
 private:
