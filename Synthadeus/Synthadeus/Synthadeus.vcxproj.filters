@@ -206,6 +206,12 @@
     <ClCompile Include="app\ConstantNode.cpp">
       <Filter>Source Files\app</Filter>
     </ClCompile>
+    <ClCompile Include="audio\graph\SignalMultiplier.cpp">
+      <Filter>Source Files\audio\graph</Filter>
+    </ClCompile>
+    <ClCompile Include="app\MultiplierNode.cpp">
+      <Filter>Source Files\app</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common\CFMaths.h">
@@ -371,6 +377,12 @@
       <Filter>Header Files\app</Filter>
     </ClInclude>
     <ClInclude Include="app\ConstantNode.h">
+      <Filter>Header Files\app</Filter>
+    </ClInclude>
+    <ClInclude Include="audio\graph\SignalMultiplier.h">
+      <Filter>Header Files\audio\graph</Filter>
+    </ClInclude>
+    <ClInclude Include="app\MultiplierNode.h">
       <Filter>Header Files\app</Filter>
     </ClInclude>
   </ItemGroup>

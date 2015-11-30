@@ -25,6 +25,7 @@
 #include "OscillatorNode.h"
 #include "SummationNode.h"
 #include "ConstantNode.h"
+#include "MultiplierNode.h"
 
 #define SYNTHADEUS_VERSION "Synthadeus 0.9" // arbitrary number kek
 

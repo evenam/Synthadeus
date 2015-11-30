@@ -162,6 +162,7 @@
     <ClCompile Include="app\AudioOutputNode.cpp" />
     <ClCompile Include="app\ConstantNode.cpp" />
     <ClCompile Include="app\MainWindow.cpp" />
+    <ClCompile Include="app\MultiplierNode.cpp" />
     <ClCompile Include="app\OscillatorNode.cpp" />
     <ClCompile Include="app\SummationNode.cpp" />
     <ClCompile Include="app\Synthadeus.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="audio\AudioPlayback.cpp" />
     <ClCompile Include="audio\graph\ExponentialEnvelope.cpp" />
     <ClCompile Include="audio\graph\Oscillator.cpp" />
+    <ClCompile Include="audio\graph\SignalMultiplier.cpp" />
     <ClCompile Include="audio\graph\SignalSummation.cpp" />
     <ClCompile Include="platform\MidiInterface.cpp" />
     <ClCompile Include="platform\WaveExporter.cpp" />
@@ -199,6 +201,7 @@
     <ClInclude Include="app\AudioOutputNode.h" />
     <ClInclude Include="app\ConstantNode.h" />
     <ClInclude Include="app\MainWindow.h" />
+    <ClInclude Include="app\MultiplierNode.h" />
     <ClInclude Include="app\OscillatorNode.h" />
     <ClInclude Include="app\SummationNode.h" />
     <ClInclude Include="app\Synthadeus.h" />
@@ -221,6 +224,7 @@
     <ClInclude Include="audio\external\portmidi.h" />
     <ClInclude Include="audio\external\porttime.h" />
     <ClInclude Include="audio\graph\Oscillator.h" />
+    <ClInclude Include="audio\graph\SignalMultiplier.h" />
     <ClInclude Include="audio\graph\SignalSummation.h" />
     <ClInclude Include="common\Bezier.h" />
     <ClInclude Include="platform\MidiInterface.h" />

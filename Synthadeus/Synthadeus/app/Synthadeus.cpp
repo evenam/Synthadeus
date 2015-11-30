@@ -209,8 +209,8 @@ void Synthadeus::createConstantNode()
 
 void Synthadeus::createMultiplierNode()
 {
-	MessageBox(appWindow->getWindowHandle(), "Feature not yet fully implemented. ", "Whoops!", MB_ICONERROR);
-	DebugPrintf("User requested non-existant feature: Multiplier Node\n");
+	Point place = inputDevice->vMouse.position - base->getOrigin() - appWindow->getViewportInstance();
+	base->addChild(new MultiplierNode(place));
 }
 
 void Synthadeus::createSummationNode()
