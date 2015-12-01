@@ -1,5 +1,6 @@
 #include "Rectangle2.h"
 
+// creates rectangle object
 Rectangle2::Rectangle2(Point rectOrigin, Point rectSize, unsigned int lineCol, unsigned int bkgCol)
 {
 	origin[0] = rectOrigin[0];
@@ -10,6 +11,7 @@ Rectangle2::Rectangle2(Point rectOrigin, Point rectSize, unsigned int lineCol, u
 	bkgColor = bkgCol;
 }
 
+// renders rectangle object
 void Rectangle2::render(Render2D* render2d, ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette)
 {
 	Point instanceOrigin = render2d->getInstance();

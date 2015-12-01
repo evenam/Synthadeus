@@ -1,5 +1,6 @@
 #include "Text.h"
 
+// creates text 
 Text::Text(char * string, Point p1, Point p2, int fontType, unsigned int fontColor)
 {
 	strcpy_s(buffer, string);
@@ -11,6 +12,7 @@ Text::Text(char * string, Point p1, Point p2, int fontType, unsigned int fontCol
 	size[1] = p2[1];
 }
 
+//renders text
 void Text::render(Render2D* render2d, ID2D1HwndRenderTarget * renderTarget, ID2D1SolidColorBrush ** colorPalette, IDWriteTextFormat** fontPalette)
 {
 	Point instanceOrigin = render2d->getInstance();

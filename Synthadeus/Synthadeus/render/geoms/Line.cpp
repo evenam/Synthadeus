@@ -1,5 +1,6 @@
 ﻿#include "Line.h"
 
+// create line object
 Line::Line(Point startPoint, Point endPoint, unsigned int lineColor, int lineWidth)
 {
 	point1[0] = startPoint[0];
@@ -10,6 +11,7 @@ Line::Line(Point startPoint, Point endPoint, unsigned int lineColor, int lineWid
 	width = lineWidth;
 }
 
+//renders line object
 void Line::render(Render2D* render2d, ID2D1HwndRenderTarget * renderTarget, ID2D1SolidColorBrush ** colorPalette, IDWriteTextFormat** fontPalette)
 {
 	// calculate render area based on origin and viewport

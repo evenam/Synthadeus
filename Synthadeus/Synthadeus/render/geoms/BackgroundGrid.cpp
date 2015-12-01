@@ -1,5 +1,6 @@
 #include "BackgroundGrid.h"
 
+// creates grid design object for background image
 BackgroundGrid::BackgroundGrid(Point origin, Point size, Point cellSize, unsigned int lineColor, unsigned int bkgColor)
 	: gridOrigin(origin), gridSize(size), gridCellSize(cellSize), gridColor(lineColor), gridBackground(bkgColor)
 {
@@ -11,6 +12,7 @@ BackgroundGrid::BackgroundGrid(Point origin, Point size, Point cellSize, unsigne
 	gridCellSize.y = cellSize.y;
 }
 
+// renders background image
 void BackgroundGrid::render(Render2D* render2d, ID2D1HwndRenderTarget * renderTarget, ID2D1SolidColorBrush ** colorPalette, IDWriteTextFormat** fontPalette)
 {
 	// fill background

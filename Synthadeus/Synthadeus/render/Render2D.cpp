@@ -41,6 +41,7 @@ void Render2D::createDeviceDependentResources()
 	}
 }
 
+// creates font 
 HRESULT Render2D::createFont(int font, CONST WCHAR* name, float size, DWRITE_FONT_WEIGHT weight, DWRITE_TEXT_ALIGNMENT hAlign, DWRITE_PARAGRAPH_ALIGNMENT vAlign)
 {
 	// create the font
@@ -62,12 +63,14 @@ HRESULT Render2D::createFont(int font, CONST WCHAR* name, float size, DWRITE_FON
 	return hr;
 }
 
+// creates brush
 HRESULT Render2D::createBrush(int color, unsigned int colorCode, float alpha)
 {
 	// return the errror code from creating the brush (succeeds on S_OK)
 	return renderTarget->CreateSolidColorBrush(D2D1::ColorF(colorCode, alpha), &colorPalette[color]);;
 }
 
+// removes resources that are device-dependent
 void Render2D::removeDeviceDependentResources()
 {
 	// release the render target
@@ -195,6 +198,7 @@ void Render2D::render()
 	assert(instanceStackSize == 0);
 }
 
+// adds rendered object to render list
 void Render2D::addToRenderList(Renderable * item)
 {
 	// assign the list if it is empty
@@ -215,6 +219,7 @@ void Render2D::addToRenderList(Renderable * item)
 	}
 }
 
+// clears rendered list
 void Render2D::clearList()
 {
 	// clear out the render list and free memory
@@ -222,6 +227,7 @@ void Render2D::clearList()
 	renderList = NULL;
 }
 
+// retrieves render list
 Renderable* Render2D::getRenderList()
 {
 	return renderList;

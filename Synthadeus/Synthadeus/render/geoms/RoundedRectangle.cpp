@@ -1,7 +1,7 @@
 #include "RoundedRectangle.h"
 
 
-
+// creates a rectangle object with rounded edges
 RoundedRectangle::RoundedRectangle(Point origin, Point size, unsigned int lineColor, unsigned int bkgColor, float XRadius, float YRadius) 
 	: Rectangle2(origin, size, lineColor, bkgColor)
 {
@@ -9,7 +9,7 @@ RoundedRectangle::RoundedRectangle(Point origin, Point size, unsigned int lineCo
 	yRadius = YRadius;
 }
 
-
+// renders rounded rectangle objects
 void RoundedRectangle::render(Render2D* render2d, ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette)
 {
 	Point instanceOrigin = render2d->getInstance();
