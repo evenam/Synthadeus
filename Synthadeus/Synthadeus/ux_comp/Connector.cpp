@@ -14,7 +14,7 @@ Connector::Connector(Point connectorOrigin, Point connectorSize, Node* connector
 	color = connectorColor;
 	setBoundingRectangle(origin, size);
 }
-
+//set the size of connector 
 void Connector::setSize(Point connectorOrigin, Point connectorSize)
 {
 	otherCoords[0] = 0.f;
@@ -26,11 +26,12 @@ void Connector::setSize(Point connectorOrigin, Point connectorSize)
 	setBoundingRectangle(origin, size);
 }
 
+//set connector color 
 void Connector::setColor(unsigned int connectorColor)
 {
 	color = connectorColor;
 }
-
+//set connector parent
 void Connector::setParent(Node* connectorParent)
 {
 	parent = connectorParent;
@@ -78,7 +79,7 @@ Node* InputConnector::getConnectionParent()
 	if (connectedComponent && connected) return connectedComponent->getParent();
 	return NULL;
 }
-
+//connector has been removed 
 void InputConnector::disconnect()
 {
 	if (!connected) return;
@@ -86,14 +87,14 @@ void InputConnector::disconnect()
 	connected = false;
 	connectedComponent = NULL;
 }
-
+//connection is destroyed
 void InputConnector::onDestroy()
 {
 	disconnect();
 	connectedComponent = NULL;
 	connected = 0;
 }
-
+//output connection occurs
 void InputConnector::connect(OutputConnector* other)
 {
 	if (other == NULL) return;
@@ -102,7 +103,7 @@ void InputConnector::connect(OutputConnector* other)
 	connected = true;
 	connectedComponent = other;
 }
-
+//mouse events for left and right checks that are pressed
 void InputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 {
 	if (!connected)
@@ -136,7 +137,7 @@ void InputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMou
 		callback(app, this);
 	}
 }
-
+//updates the connection
 void InputConnector::update()
 {
 	if (connected && connectedComponent)
@@ -145,7 +146,7 @@ void InputConnector::update()
 		otherCoords[1] = connectedComponent->getAbsoluteOrigin()[1] + connectedComponent->size[1] * 0.5f - getAbsoluteOrigin()[1] + origin[1];
 	}
 }
-
+//find connector in the list
 int OutputConnector::findConnectorInList(InputConnector* connector)
 {
 	for (int i = 0; i < numConnectedComponents; i++)
@@ -155,13 +156,13 @@ int OutputConnector::findConnectorInList(InputConnector* connector)
 	}
 	return -1;
 }
-
+//connector components
 OutputConnector::OutputConnector(Point connectorOrigin, Point connectorSize, unsigned int connectorColor, Node* connectorParent)
 	: Connector(connectorOrigin, connectorSize, connectorParent, connectorColor)
 {
 	numConnectedComponents = 0;
 }
-
+//get the parent connection 
 Node* OutputConnector::getConnectionParent(int index)
 {
 	if (index < 0) return NULL;
@@ -169,7 +170,7 @@ Node* OutputConnector::getConnectionParent(int index)
 
 	return connectedComponents[index]->getParent();
 }
-
+//checking connector for a disconnection
 void OutputConnector::disconnect(int index)
 {
 	if (index < 0) return;
@@ -178,13 +179,13 @@ void OutputConnector::disconnect(int index)
 		connectedComponents[i] = connectedComponents[i + 1];
 	numConnectedComponents--;
 }
-
+//index for found connector
 void OutputConnector::disconnect(InputConnector* other)
 {
 	int index = findConnectorInList(other);
 	disconnect(index);
 }
-
+//connector is destroyed
 void OutputConnector::onDestroy()
 {
 	for (int i = numConnectedComponents - 1; i >= 0; i--)
@@ -211,7 +212,7 @@ InputConnector* OutputConnector::getConnected(int otherIndex)
 	if (otherIndex < 0) return NULL;
 	return connectedComponents[otherIndex];
 }
-
+//mouse events for left and right check presses
 void OutputConnector::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 {
 	otherCoords[0] = vMouse->instancePosition()[0];
