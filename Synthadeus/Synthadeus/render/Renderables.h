@@ -10,6 +10,7 @@
 
 #pragma once
 
+// a list of everything we can render
 #include "BackgroundGrid.h"
 #include "BezierCurve.h"
 #include "Line.h"

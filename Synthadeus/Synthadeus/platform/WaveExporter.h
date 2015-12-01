@@ -7,19 +7,21 @@
 //   Handles the process of creating and exporting a Waveform File            //
 //                                                                            //
 ////////////////////////////////////////////////////////////////////////////////
+
 #pragma once
 
-//#include "Error.h"
+#include "Error.h"
 
-#include <cassert>
 #include <Windows.h>
 #include <stdio.h>
 
+// little endian shifts
 #define SHIFT0(a) ((a) >> 24)
 #define SHIFT1(a) ((a) >> 16)
 #define SHIFT2(a) ((a) >> 8)
 #define SHIFT3(a) (a)
 
+// wave exporting as per specification of a Microsoft Waveform File (.wav)
 
 class WaveExporter
 {
@@ -30,6 +32,7 @@ private:
 	const static unsigned int   MASK32_1 = 0x00FF0000;
 	const static unsigned int   MASK32_0 = 0xFF000000;
 
+	// same masks but for shorts (2-byte) values
 	const static unsigned short MASK16_1 = 0x00FF;
 	const static unsigned short MASK16_0 = 0xFF00;
 
@@ -80,17 +83,33 @@ private:
 	inline int calcAlign() { return (channels * bits) / 8; }
 	inline int calcAvgBps() { return sampleRate * align; }
 
-	// misc
+	// success flag
 	bool successful;
+
+	// audio channel pointers
 	float* channel1, *channel2;
+
 public:
+
+	// 2-channel export
 	WaveExporter(int numAudioSamples, float* audioSamplesL, float* audioSamplesR);
+
+	// 1-channel export
 	WaveExporter(int numAudioSamples, float* audioSamples);
+
+	// whether the export was successful
 	inline bool wasSuccessful() { return successful; }
+
+	// whether the export preparation was successful
 	inline bool isPrepared() { return prepared; }
 
+	// prepare the wave header and wave data for export
 	void prepareExport();
+
+	// save file dialog prompt and export
 	void saveWaveFile();
+
+	// free the memory we used along the way
 	void unprepareExport();
 };
 

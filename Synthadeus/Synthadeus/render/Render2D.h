@@ -62,10 +62,14 @@ private:
 
 	// handle the dynamic creation of resources as they are created and invalidated
 	void createDeviceDependentResources();
+
+	// remove all of the resources we are using
 	void removeDeviceDependentResources();
 
-	// routine to simplify resource creation
+	// routine to simplify font creation
 	HRESULT createFont(int font, CONST WCHAR* name, float size, DWRITE_FONT_WEIGHT weight, DWRITE_TEXT_ALIGNMENT hAlign, DWRITE_PARAGRAPH_ALIGNMENT vAlign);
+	
+	// routine to simplify brush creation
 	HRESULT createBrush(int color, unsigned int colorCode, float alpha);
 
 	// list of renderables which need drawing
@@ -81,31 +85,48 @@ private:
 	float viewportZoom;
 
 public:
-	// create and devistate
+	// create the render area with this window handle
 	Render2D(HWND hWnd);
+
+	// free the resources we used
 	~Render2D();
 
 	// render the current list
 	void render();
 
-	// set or remove the current render list
+	// add another item to the list
 	void addToRenderList(Renderable* item);
+
+	// remove an item from the list
 	void clearList();
+
+	// generate the render list to actaully draw
 	Renderable* getRenderList();
 
-	// instance and restore relative drawing positions
+	// get the current origin
 	Point getInstance();
+
+	// move the coordinate system
 	void instance(Point otherOrigin);
+
+	// restore the coordinate system
 	void restore();
 
 	// apply viewport transform to 1D and 2D vectors
+	// these are undefined as of now, TODO: implement and propigate to renderables
 	Vector2D applyViewportTransform(Vector2D p);
 	float applyViewportTransform(float f);
+
+	// get the current viewport location
 	Point getViewportInstance();
 
-	// modify the viewport
+	// modify the viewport zoom
 	void viewportApplyZoom(float relativeZoom);
+
+	// modify viewport translation
 	void viewportApplyTranslation(Point relativeTranslation);
+
+	// reset viewport to the default
 	void viewportSetDefault();
 };
 

@@ -70,7 +70,6 @@ namespace CFMaths
 }
 
 // created to help find math errors
-//#define USE_CMATH_ALSO
 #ifndef USE_CMATH_ALSO
 // quick redefines for these functions
 #define fsinf(x) (CFMaths::__fast_sin(x))
@@ -79,13 +78,17 @@ namespace CFMaths
 
 #define fpowf(x, y) (CFMaths::__powf(x, y))
 #else
+
+// redefine the cmath equivalents
 #include <cmath>
 #define fsinf sinf
 #define fcosf cosf
-#define fpowf powf
 #define fabsf abs
+
+#define fpowf powf
 #endif
 
+// these will always be defined since there are no counterparts
 #define iswapf(x, y) (CFMaths::__inplace_swap(x, y))
 #define rfactf(x) (CFMaths::__regular_factorial(x))
 #define CONST_FACTORIAL(a) CFMaths::__factorial_templ<(a)>::val();

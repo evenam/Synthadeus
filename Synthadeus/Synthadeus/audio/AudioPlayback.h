@@ -18,6 +18,7 @@
 #include "CFMaths.h"
 #include "AudioDefines.h"
 
+// we need portaudio
 #pragma comment(lib, "portaudio_x86.lib")
 
 // easy macro to get the default device

@@ -16,18 +16,23 @@
 class RoundedRectangle : public Rectangle2
 {
 private:
+
 	// radiuses for rounding the rectangle
 	float xRadius;
 	float yRadius;
 
 public:
+
+	// runtime type information
 	RTTI_MACRO(RoundedRectangle);
 
 	// construct a rounded rectangle
 	RoundedRectangle(Point rectOrigin, Point rectSize, unsigned int lineColor, unsigned int bkgColor, float XRadius, float YRadius);
 
-	// overrides from renderable
+	// the ID2D commands
 	virtual void render(Render2D* render2d, ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette);
+	
+	// get the origin
 	virtual Point getOrigin();
 };
 

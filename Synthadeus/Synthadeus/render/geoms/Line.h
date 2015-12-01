@@ -16,19 +16,27 @@
 class Line : public Renderable
 {
 private:
-	// line data
+	// position
 	Point point1, point2;
+
+	// color
 	unsigned int color;
+
+	// linewidth
 	int width;
 
 public:
+
+	// run time type information
 	RTTI_MACRO(Line);
 
 	// set up the line
 	Line(Point startPoint, Point endPoint, unsigned int lineColor, int lineWidth);
 
-	// overrides from renderable
+	// the ID2D calls
 	virtual void render(Render2D* render2d, ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette);
+	
+	// my current origin
 	virtual Point getOrigin();
 };
 

@@ -17,7 +17,7 @@
 class Vector2D : public Object
 {
 private:
-	// actual data
+	// actual element data
 	float elem[VECTOR_SIZE];
 
 public:
@@ -30,24 +30,38 @@ public:
 	// define the X and Y 
 	Vector2D(float pX = 0.f, float pY = 0.f);
 
-	// designed to make sense
+	// array style element access (const)
 	const float& operator[] (int item) const;
+
+	// array style element access (mutable)
 	float& operator[] (int item);
 
-	// handy dandy vector math
+	// standard 2D vector dot product
 	static float dot(const Vector2D& v1, const Vector2D& v2);
+
+	// standard 2D vector cross product
 	static float cross(const Vector2D& v1, const Vector2D& v2);
 
-	// operator overloads
+	// assignment
 	Vector2D& operator= (const Vector2D& v);
+
+	// multiplication assignment by a constant
 	Vector2D& operator*= (const float c);
+
+	// addition assignment by a constant
 	Vector2D& operator+= (const Vector2D& v);
+
+	// subtraction assignment by a constant
 	Vector2D& operator-= (const Vector2D& v);
 };
 
-// more operator overloads
+// constant multiplication
 Vector2D operator* (const float c, const Vector2D& v);
+
+// vector component addition
 Vector2D operator+ (const Vector2D& v1, const Vector2D& v2);
+
+// vector component subtraction
 Vector2D operator- (const Vector2D& v1, const Vector2D& v2);
 
 // make vectors and points equivalent

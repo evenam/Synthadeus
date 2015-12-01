@@ -69,3 +69,5 @@
 #define FONT_ARIAL20 0
 #define FONT_ARIAL40 1
 #define FONT_ARIAL11 2
+
+// TODO: make an enum... :(

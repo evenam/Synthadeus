@@ -39,7 +39,7 @@ Building the Project
 For a detailed view of the changes of the files over time, please refer to the GitHub page network graph for the project. (https://github.com/evenam/Synthadeus/network)
 
 User Guide:
- Synthadeus has online documentation at http://everettmoser.me/synthesizer/. 
+ Synthadeus has online documentation at http://everettmoser.me/synthesizer/. Use a QWERTY keyboard layout if no midi controller is present. 
  Overview of controls:
  * Synthadeus has the following viewport controls:
   1) Arrow keys move the view around the graph.
@@ -53,6 +53,7 @@ User Guide:
   2) Right click a graph node to delete it. (NOTE: The audio endpoint node CANNOT be deleted.)
   3) Left click and drag connector dots to other connector dots to create connections between nodes. 
   4) Right click a connector to remove all connections with that connector. 
+ * Playback within Synthadeus uses most of the remaining general alpha-numerical keys. It's intuitive with C5 as Q/M keys. 
 
 Dependencies - Windows, DirectX, PortAudio, PortMidi
  More specifically, this app uses 

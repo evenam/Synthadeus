@@ -26,24 +26,34 @@
 template <int N> class BezierCurve : public Renderable
 {
 private:
+	
+	// local bezier to do bezier formula calculations
 	Bezier<N> thisCurve;
 
 public:
+
+	// run time type information
 	RTTI_MACRO(BezierCurve);
 
+	// construct a curve from a number of points
 	inline BezierCurve(Point first = Point(), ...) : thisCurve(Point(0.f, 0.f))
 	{
+		// read through the arguments
 		assert(N > 0);
 		va_list vl;
 		int num = N;
+
+		// set the initial point
 		va_start(vl, first);
 		thisCurve.setPoint(0, first);
+
+		// add additional points to the local curve
 		for (int i = 1; i < N; i++)
 			thisCurve.setPoint(i,*(Point*)&va_arg(vl, Vector2D));
 		va_end(vl);
 	};
 
-	// render the curve, overriden from renderable
+	// render the curve, overriden from renderable (AKA ID2D calls)
 	inline virtual void render(Render2D* render2d, ID2D1HwndRenderTarget* renderTarget, ID2D1SolidColorBrush** colorPalette, IDWriteTextFormat** fontPalette)
 	{
 		// drawn with 'segments' amount of lines

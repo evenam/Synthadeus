@@ -27,22 +27,34 @@ private:
 	static unsigned short nHeapObjects;
 	static Object* heapObject[USHRT_MAX];
 
-	// modify the list of object
+	// insert a pointer to the heap listing
 	static void insertPointer(Object* pointer);
+
+	// remove a pointer from the heap listing
 	static void removePointer(Object* pointer);
 
 public:
-	// manage memory allocation and deallocation to modify the static list
+	// redefine new to track the reference
 	void* operator new(size_t size);
+
+	// redefine new[] to to track the reference
 	void* operator new[](size_t size);
+
+	// redefine delete to also remove the reference
 	void operator delete(void* ptr);
+
+	// redefine delete[] to remove the reference
 	void operator delete[](void* ptr);
 
 	// pure virtual function enforces RTTI macro when inheriting
 	inline virtual const char* getClassName() = 0;
 
-	// query information about the list of objects allocated
+	// number of Object-s allocated
 	static unsigned short heapObjectCount();
+
+	// the list of Object-s allocated
 	static Object** heapObjectList(); 
+
+	// prints a nifty list of unfreed objects on the heap and throws an assert
 	static void AssertNoAbandonObjects();
 };

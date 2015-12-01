@@ -53,27 +53,39 @@ protected:
 	// window width and height
 	int wndHeight, wndWidth;
 
-	// specific window styles
+	// toggle the window border flag during initialization
 	void setBordered(bool isBordered);
+
+	// toggle the window titlebar flags during initialization
 	void setTitlebarAndButtons(bool hasTitlebar, bool isMinimizeable, bool isMaximizeable);
 
-	// overrideable [de]initialization function
+	// overrideable initialization function
 	virtual bool initialize() { return true; }
+
+	// overrideable uninitialization function
 	virtual bool uninitialize() { return true; }
 	
 	// handles a message, -1 if message not handled
 	virtual int handleMessage(UINT msg, WPARAM wParam, LPARAM lParam) = 0;
+
+	// window update function called once a frame
 	inline virtual void update() {};
 
 public:
 
 	// constructs a window class
 	Window(int nCmdShow = SW_SHOWNORMAL, int wndWidth = WINDOW_DEFAULT_WIDTH, int wndHeight = WINDOW_DEFAULT_HEIGHT);
+
+	// free resources used in our windows
 	~Window();
 
-	// window sizing functions
+	// window sizing function
 	void setSize(int width, int height);
+
+	// query the width
 	int getWidth();
+
+	// query the height
 	int getHeight();
 
 	// run the message loop
@@ -82,8 +94,10 @@ public:
 	// return the window handle
 	HWND getWindowHandle(); 
 
-	// creates and destroys the window
+	// creates the window
 	void createWindow();
+
+	// destroy the window
 	void destroyWindow();
 };
 

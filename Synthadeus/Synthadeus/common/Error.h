@@ -29,6 +29,7 @@
 #define DebugPrintf
 #endif
 
+// shortcuts to find errors reported by the windows API
 #define AssertWindowsError() DebugLogging::dbgAssertWindowsError(__func__)
 #define AssertWindowsHRESULT(hresult) DebugLogging::dbgAssertWindowsHRESULT(__func__, hresult)
 

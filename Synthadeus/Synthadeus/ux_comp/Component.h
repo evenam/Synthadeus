@@ -15,6 +15,7 @@
 #include "Renderable.h"
 #include "InputDevice.h"
 
+// components are 128-trees!
 #define COMPONENT_MAX_CHILDREN 128
 
 class Synthadeus;
@@ -24,30 +25,41 @@ private:
 	// bounding rectangle
 	Point origin, size;
 
+	// the parent
+	Component* parent;
+
 	// sub-components
 	Component* children[COMPONENT_MAX_CHILDREN];
-	Component* parent;
 	int numChildren;
 
+	// find the component which is currently hogging events
 	inline Component* handleCurrentlyInteracting(Synthadeus* app, InputDevice::Mouse* vMouse)
 	{
+		// if it's me, handle me and return
 		if (interacting)
 		{
 			mouseEventHandler(app, vMouse);
 			return this;
 		}
 
+		// else find a child element
 		for (int i = 0; i < numChildren; i++)
 		{
+			// make sure the mouse is in the right position
 			vMouse->instance(origin);
 			Component* temporary = children[i]->handleCurrentlyInteracting(app, vMouse);
 			vMouse->restore();
+
+			// if handled, return the child
 			if (temporary) return temporary;
 		}
+
+		// noone from this component down is currently interacting
 		return NULL;
 	}
 
 protected:
+
 	// set the bounds of this component
 	inline void setBoundingRectangle(Point rectOrigin, Point rectSize)
 	{
@@ -67,10 +79,20 @@ protected:
 	bool removeMe;
 
 public:
+
+	// initializes a component node with no children, not interacting, and present for future update cycles
 	inline Component() { numChildren = 0; interacting = false; removeMe = false; }
+
+	// the overrideable mouse event handler
 	inline virtual void mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse) {};
+
+	// the overrideable update cycle event
 	inline virtual void update() {};
+
+	// upon the destruction of this components we...
 	inline virtual void onDestroy() {};
+
+	// gereate the renderable list
 	inline virtual Renderable* getRenderList() { return NULL; };
 
 	// depth first event handling
@@ -100,6 +122,7 @@ public:
 		return true;
 	}
 	
+	// check if a point is in the rectangle described
 	inline static bool rectanglePointCollisionCheck(Point point, Point rectOrigin, Point rectSize)
 	{
 		// determine the relative mouse point to the collision rectangle
@@ -118,7 +141,10 @@ public:
 	// manually mark an object for deletion
 	inline void signalRemoval()
 	{
+		// signal myself
 		removeMe = true;
+
+		// and signal the children, if they haven't been disposed of already
 		for (int i = 0; i < numChildren; i++)
 		{
 			if (children[i] != NULL)
@@ -132,8 +158,11 @@ public:
 		Component* current = NULL;
 		for (int i = numChildren - 1; i >= 0; i--)
 		{
+			// recuse before we destroy the child
 			current = children[i];
 			current->sweepDeletion();
+
+			// destroy the child if signal'd
 			if (children[i]->needsDeletion())
 			{
 				DebugPrintf("Deleting child %s\n", children[i]->getClassName());
@@ -150,6 +179,7 @@ public:
 		return children[index];
 	}
 
+	// add a subcomponent child
 	inline int addChild(Component* child)
 	{
 		assert(numChildren < COMPONENT_MAX_CHILDREN);
@@ -168,6 +198,7 @@ public:
 		return numChildren++;
 	}
 
+	// remove a subcomponent child by reference
 	inline void removeChild(Component* child)
 	{
 		// check all of the children
@@ -190,10 +221,11 @@ public:
 		}
 	}
 
+	// remove a subcomponent child by index
 	inline void removeChild(int index)
 	{
 		// remove the child at the index, called responsible for managing memory
-		// much quicker because we do not need to search for the component
+		// quicker because we do not need to search for the component
 		children[index]->parent = NULL;
 		for (int j = index; j < numChildren - 1; j++)
 		{
@@ -202,6 +234,7 @@ public:
 		numChildren--;
 	}
 
+	// query the current number of child component nodes
 	inline int getNumChildren() { return numChildren; };
 
 	// return whether we are currently interacting with the input system
@@ -210,14 +243,24 @@ public:
 		return interacting;
 	}
 
+	// generate the render list for this component and all sub components
 	inline Renderable* getRenderTree()
 	{
+		// returned list
 		Renderable* thisList = getRenderList();
+
+		// a child list to generate
 		Renderable* thisChildList = NULL;
+
+		// a pointer to the next position in the list
 		Renderable* realCurrent = NULL;
+
+		// get all child lists
 		for (int i = 0; i < numChildren; i++)
 		{
 			Renderable* current = children[i]->getRenderTree();
+
+			// assign the first item
 			if (i == 0)
 			{
 				thisChildList = current;
@@ -225,58 +268,80 @@ public:
 			}
 			else
 			{
+				// but append the second, third, etc. 
 				while (realCurrent->next != NULL)
 					realCurrent = realCurrent->next;
 				realCurrent->next = current;
 			}
 		}
 
+		// traverse the list tree to find the last child
 		realCurrent = thisList;
 		while (realCurrent->child)
 			realCurrent = realCurrent->child;
+
+		// append the children and return
 		realCurrent->child = thisChildList;
 		return thisList;
 	}
 
+	// call all the update events for this node and the children
 	inline void updateTree()
 	{
+		// self update
 		update();
+
+		// children update
 		for (int i = 0; i < numChildren; i++)
 			children[i]->updateTree();
 	}
 
+	// see if me or a subcomponent is currently at the point specified
 	inline Component* getComponentAtPoint(Point pt)
 	{
+		// if we dont pass the rectangle check, we are not on the point
 		if (!rectanglePointCollisionCheck(pt, origin, size)) return NULL;
 
 		// instance the origin
 		pt += -1.f * origin;
+
+		// search the children for a possible subcomponent collision
 		for (int i = 0; i < numChildren; i++)
 		{
 			Component* childComp = children[i]->getComponentAtPoint(pt);
 			if (childComp) return childComp;
 		}
+		
+		// no child component found at the point, so it must be me
 		return this;
 	}
 
+	// the absolute origin of this component to the base node
 	inline Point getAbsoluteOrigin()
 	{
+		// if i have a parent, then tack on its origin
 		if (parent)
 			return parent->getAbsoluteOrigin() + origin;
 		else
+		// we are the base node, so based
 			return Point(0.f, 0.f);
 	}
 
+	// see if we need deletion
 	inline bool needsDeletion() { return removeMe; };
 
+	// get the origin
 	inline Point getOrigin() { return origin; }
+
+	// get the size
 	inline Point getSize() { return size; }
 
-	inline Component* getParent()
-	{
-		return parent;
-	}
+	// get the parent
+	inline Component* getParent() { return parent; }
 };
 
+// generic callback function
 typedef void(*ActionCallback)(Synthadeus* app, Component* myself);
+
+// the default callback function
 inline void DEFAULT_ACTION_CALLBACK(Synthadeus* app, Component* myself) {};
