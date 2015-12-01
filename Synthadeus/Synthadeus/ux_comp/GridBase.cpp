@@ -1,7 +1,7 @@
 #include "GridBase.h"
 #include "Renderables.h"
 #include "CommandMenu.h"
-
+//grid components 
 GridBase::GridBase(Point gridOrigin, Point gridSize, unsigned int gridForeground, unsigned int gridBackground) : Component()
 {
 	origin[0] = gridOrigin[0];
@@ -12,7 +12,7 @@ GridBase::GridBase(Point gridOrigin, Point gridSize, unsigned int gridForeground
 	bgColor = gridBackground;
 	setBoundingRectangle(origin, size);
 }
-
+//sets grid sizes 
 void GridBase::setSize(Point gridOrigin, Point gridSize)
 {
 	origin[0] = gridOrigin[0];
@@ -22,7 +22,7 @@ void GridBase::setSize(Point gridOrigin, Point gridSize)
 	setBoundingRectangle(origin, size);
 	menu = NULL;
 }
-
+//handles mouse events 
 void GridBase::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 {
 	if (menu)
@@ -48,7 +48,7 @@ void GridBase::update()
 {
 	// nothing
 }
-
+//render list for components
 Renderable* GridBase::getRenderList()
 {
 	return new BackgroundGrid(origin, size, Point(32.f, 32.f), fgColor, bgColor);
