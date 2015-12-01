@@ -230,6 +230,7 @@ void Render2D::clearList()
 // retrieves render list
 Renderable* Render2D::getRenderList()
 {
+	//Local render list
 	return renderList;
 }
 
