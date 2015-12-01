@@ -54,13 +54,13 @@ Renderable* Slider::getRenderList()
 	float tick = 0.f;
 	if (orientation == VERTICAL)
 	{
-		// lerp
+		// lerp the normalized value, and calculate based on graphic size
 		tick = sliderOrigin[1] + sliderSize[1] / 2.f + normalizedLerpValue() * (sliderSize[1] / 2.f);
 		tickMarker = new Line(Point(sliderOrigin[0], tick), Point(sliderOrigin[0] + sliderSize[0], tick), sliderFgColor, 4.5f);
 	}
 	else
 	{
-		// lerp
+		// lerp the normalized value, and calculate based on graphic size
 		tick = sliderOrigin[0] + sliderSize[0] / 2.f + normalizedLerpValue() * (sliderSize[0] / 2.f);
 		tickMarker = new Line(Point(tick, sliderOrigin[1]), Point(tick, sliderOrigin[1] + sliderSize[1]), sliderFgColor, 4.5f);
 	}
@@ -72,6 +72,8 @@ Renderable* Slider::getRenderList()
 		char stringBuffer[15];
 		sprintf_s(stringBuffer, "%.3f\0", sliderLogicUnit.getValue());
 		Renderable* text = NULL;
+
+		// position depends on orientation
 		if (orientation == VERTICAL)
 			text = new Text(stringBuffer, Point((sliderSize[0] - 50.f) / 2.f, -18.f), Point(50.f, 15.f), FONT_ARIAL11, COLOR_WHITE);
 		else
@@ -91,22 +93,28 @@ void Slider::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 {
 	
 	float tick = 0.f;
+
+	// calculate the nearest tick
 	if (orientation == HORIZONTAL)
 		tick = (vMouse->instancePosition()[0] - sliderOrigin[0]) / (sliderSize[0]);									 
 	else										 
 		tick = (vMouse->instancePosition()[1] - sliderOrigin[1]) / (sliderSize[1]);
 
+	// if interacting, update the value
 	if (!interacting && vMouse->left.checkPressed())
 	{
 		interacting = true;
 		sliderLogicUnit.setValue(tick * totalValue + minimumValue);
 	}
+
+	// once it is changed, call the callback
 	else if (interacting && vMouse->left.checkReleased())
 	{
 		interacting = false;
 		callback(app, this);
 	}
 
+	// update the value
 	if (interacting && vMouse->left.check())
 		sliderLogicUnit.setValue(tick * totalValue + minimumValue);
 }

@@ -3,14 +3,23 @@
 //generate node components 
 Node::Node(Point nodeOrigin, Point nodeSize, unsigned int nodeFgColor, unsigned int nodeBgColor, bool isRemoveable) : Component()
 {
+	// set origin
 	origin[0] = nodeOrigin[0];
 	origin[1] = nodeOrigin[1];
+
+	// set size
 	size[0] = nodeSize[0];
 	size[1] = nodeSize[1];
+
+	// set the color
 	fgColor = nodeFgColor;
 	bgColor = nodeBgColor;
+
+	// update bounds
 	setBoundingRectangle(origin, size);
 	interacting = false;
+
+	// default relative mouse position pre-drag
 	relativeMouseX = 0.f;
 	relativeMouseY = 0.f;
 	removeable = isRemoveable;
@@ -68,11 +77,13 @@ void Node::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 				OutputConnector* output = dynamic_cast<OutputConnector*>(child(i));
 				if (input)
 				{
+					// disconnect and callback since its an input node
 					input->disconnect();
 					input->callback(app, input);
 				}
 				else if (output)
 				{
+					// search through output node connected connectors and disconnect them, calling the callback
 					for (int i = output->numConnectedComponents - 1; i >= 0; i--)
 					{
 						input = output->connectedComponents[i];

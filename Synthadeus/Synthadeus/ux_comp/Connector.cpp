@@ -201,6 +201,8 @@ int OutputConnector::connect(InputConnector* other)
 	if (numConnectedComponents >= MAX_CONNECTED_COMPONENTS) return -1;
 	if (other == NULL) return -1;
 	if (findConnectorInList(other) >= 0) return -1;
+
+	// we can connect, so apply the connection
 	connectedComponents[numConnectedComponents] = other;
 	DebugPrintf("Connecting %s (input) to %s (output)\n", getParent()->getClassName(), other->getParent()->getClassName());
 	return numConnectedComponents++;
