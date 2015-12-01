@@ -18,6 +18,8 @@
 class Slider : public Component
 {
 public:
+
+	// enum for specifying orientation
 	enum Orientation { VERTICAL, HORIZONTAL };
 
 private:

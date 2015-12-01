@@ -1,4 +1,3 @@
-#include "Window.h"
 ////////////////////////////////////////////////////////////////////////////////
 //                                                                            //
 //   Window Something or other                                                //
@@ -9,7 +8,12 @@
 //   static members on class                                                  //
 ////////////////////////////////////////////////////////////////////////////////
 
+#include "Window.h"
+
+// window class name
 const char* Window::wndClassName = "NULL";
+
+// minimum ms before going onto the next frame
 const static float minFrameMS = 1000.f / 60.f;
 
 //Constructor that creates window!
@@ -35,8 +39,8 @@ Window::Window(int nCmdShow, int inWidth, int inHeight) :
     wcex.hbrBackground = CreateSolidBrush(RGB(255, 255, 255));
     wcex.lpszMenuName = NULL;
     wcex.lpszClassName = wndClassName;
-	wcex.hIcon = LoadIcon(HINST_THISCOMPONENT, MAKEINTRESOURCE(IDI_ICON1));
-	wcex.hIconSm = LoadIcon(HINST_THISCOMPONENT, MAKEINTRESOURCE(IDI_ICON1));
+	wcex.hIcon = LoadIcon(HINST_THISCOMPONENT, MAKEINTRESOURCE(IDI_ICON1));   // thanks Justin!
+	wcex.hIconSm = LoadIcon(HINST_THISCOMPONENT, MAKEINTRESOURCE(IDI_ICON1)); // icon is swag
 	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
 
 	// register the class
@@ -49,14 +53,15 @@ Window::Window(int nCmdShow, int inWidth, int inHeight) :
 	// wait for createWindow
 }
 
-//Closes window
 Window::~Window()
 {
+	//Closes window
 	DestroyWindow(hWnd);
 }
 
 void Window::setBordered(bool isBordered)
 {
+	// toggle the border
 	if (isBordered)
 		windowStyle |= WS_THICKFRAME;
 	else
@@ -65,14 +70,19 @@ void Window::setBordered(bool isBordered)
 
 void Window::setTitlebarAndButtons(bool hasTitlebar, bool isMinimizeable, bool isMaximizeable)
 {
+	// toggle on titlebar window style
 	if (hasTitlebar)
 		windowStyle |= WS_CAPTION;
 	else
 		windowStyle &= ~WS_CAPTION;
+
+	// toggle the minimize bar
 	if (isMinimizeable)
 		windowStyle |= WS_MINIMIZEBOX;
 	else
 		windowStyle &= ~WS_MINIMIZEBOX;
+
+	// toggle the maximize bar
 	if (isMaximizeable)
 		windowStyle |= WS_MAXIMIZEBOX;
 	else
@@ -143,8 +153,11 @@ HWND Window::getWindowHandle()
 
 void Window::setSize(int width, int height)
 {
+	// set the width and the height
 	wndWidth = width;
 	wndHeight = height;
+
+	// make sure the window updates properly
 	if (!SetWindowPos(hWnd, HWND_TOP, 0, 0, width, height, SWP_NOZORDER | SWP_NOMOVE | SWP_SHOWWINDOW))
 		AssertWindowsError();
 }
@@ -157,6 +170,8 @@ LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPar
 		// retrieve window pointer passed in lParam
 		LPCREATESTRUCT pcs = (LPCREATESTRUCT)lParam;
 		wnd = (Window *)pcs->lpCreateParams;
+
+		// failed to get the window pointer
 		if (!SetWindowLongPtrW(hWnd, GWLP_USERDATA, PtrToLong(wnd)))
 			AssertWindowsError(); 
 	}
@@ -164,6 +179,8 @@ LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPar
 	// grab a previously set window if this isn't create
 	if (!wnd)
 		wnd = reinterpret_cast<Window*>(static_cast<LONG_PTR>(GetWindowLongPtrW(hWnd, GWLP_USERDATA)));
+
+	// if the window has not been initialized, just pass it down
 	if (!wnd || !wnd->isInitialized)
 	{
 		AssertWindowsError(); // this shouldn't fail if create was not called prior to other messages
@@ -172,6 +189,8 @@ LRESULT CALLBACK Window::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPar
 
 	// handle message
 	int eventCode = wnd->handleMessage(msg, lParam, wParam);
+
+	// message wasn't handled, pass it down
 	if (eventCode == -1)
 		eventCode = DefWindowProc(hWnd, msg, wParam, lParam);
 
@@ -189,6 +208,8 @@ void Window::createWindow()
 	windowRect.left = 0;
 	windowRect.bottom = wndHeight;
 	windowRect.right = wndWidth;
+
+	// make sure the client size is has the appropriate area
 	if (!AdjustWindowRect(&windowRect, windowStyle, false))
 		AssertWindowsError();
 

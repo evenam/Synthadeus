@@ -1,6 +1,7 @@
 #include "InputDevice.h"
 #include "MidiInterface.h"
 
+// assert we have a full keyboard
 static_assert(InputDevice::Piano::KEYS * InputDevice::Piano::OCTAVES + InputDevice::Piano::KEYS == InputDevice::Piano::TOTAL_KEYS, "Improper key alignment.");
 
 InputDevice::InputDevice()
@@ -24,17 +25,23 @@ InputDevice::InputDevice()
 	vController.quit.debounce();
 	vController.waveExport.debounce();
 
-	// reset the piano 
+	// initialize the piano critical section
 	InitializeCriticalSection(&vPiano.pianoCriticalSection);
+
+	// modifying the piano requires thread safety from midi thread
 	EnterCriticalSection(&vPiano.pianoCriticalSection);
+
+	// no keys pressed
 	vPiano.numKeysPressed = 0;
 	for (int i = 0; i < Piano::OCTAVES; i++)
 	{
 		for (int j = 0; j < Piano::KEYS; j++)
 		{
+			// debounce everything
 			vPiano.keys[i][j].debounce();
 		}
 	}
+	// done with the piano for now
 	LeaveCriticalSection(&vPiano.pianoCriticalSection);
 }
 

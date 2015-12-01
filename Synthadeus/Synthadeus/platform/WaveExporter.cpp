@@ -8,24 +8,36 @@ const char WaveExporter::DATA[4] = {'d', 'a', 't', 'a'};
 
 WaveExporter::WaveExporter(int numAudioSamples, float * audioSamplesL, float * audioSamplesR)
 {
+	// set up the header information
 	channels = 2;
 	nSamples = numAudioSamples;
 	sampleRate = AUDIO_SAMPLE_RATE;
-	prepared = false;
-	successful = false;
+
+	// point the channel data at the appropriate buffers
 	channel1 = audioSamplesL;
 	channel2 = audioSamplesR;
+
+	// default initialized and prepared state
+	prepared = false;
+	successful = false;
 }
 
 WaveExporter::WaveExporter(int numAudioSamples, float * audioSamples)
 {
+	// currenly, this is not supported, so throw an assert
 	assert(!"Unsupported in Synthadeus.");
+
+	// set up some predefined variables and constants which will be loaded into header data
 	channels = 1;
 	nSamples = numAudioSamples;
 	sampleRate = AUDIO_SAMPLE_RATE;
+
+	// 1 channel, so we point channel 1 at the samples for consistency
+	channel1 = audioSamples;
+
+	// default prepared and initialized state
 	prepared = false;
 	successful = false;
-	channel1 = audioSamples;
 }
 
 void WaveExporter::prepareExport()
@@ -117,17 +129,21 @@ void WaveExporter::prepareExport()
 	// flesh out the audio samples data
 	if (channels == 1)
 	{
+		// allocate temporary memory
 		rawAudioData = new short[nSamples];
 		for (int i = 0; i < nSamples; i++)
 		{
+			// convert to short by multiplying by (2.f)^15
 			((short*)rawAudioData)[i] = (short)(32768.f * channel1[i]);
 		}
 	}
 	else
 	{
+		// allocate temporary memory
 		rawAudioData = new short[nSamples * 2];
 		for (int i = 0; i < nSamples; i ++)
 		{
+			// convert to short by multiplying by (2.f)^15
 			((short*)rawAudioData)[2 * i] = (short)(32768.f * channel1[i]);
 			((short*)rawAudioData)[2 * i + 1] = (short)(32768.f * channel2[i]);
 		}
@@ -139,6 +155,7 @@ void WaveExporter::prepareExport()
 
 void WaveExporter::saveWaveFile()
 {
+	// idiot test
 	assert(prepared);
 
 	// set up the open file structure
@@ -158,6 +175,7 @@ void WaveExporter::saveWaveFile()
 	// set the current directory to the home directory
 	SetCurrentDirectory("%USERPROFILE%");
 	successful = false;
+
 	if (GetSaveFileName(&filename))
 	{
 		// export the file 
@@ -166,16 +184,19 @@ void WaveExporter::saveWaveFile()
 		fwrite(rawHeaderData, 1, waveSize, f);
 		fwrite(rawAudioData, 2, nSamples * channels, f);
 		fclose(f);
+
+		// the file was successfully saved
 		successful = true;
 	}
 }
 
 void WaveExporter::unprepareExport()
 {
+	// only unprepare if the wave header was prepared
 	if (prepared)
 	{
+		// free the memory we used
 		delete[] rawAudioData;
-		//delete[] rawHeaderData;
 		prepared = false;
 	}
 }
