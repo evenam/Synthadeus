@@ -1,6 +1,6 @@
 #include "Node.h"
 #include "Connector.h"
-
+//generate node components 
 Node::Node(Point nodeOrigin, Point nodeSize, unsigned int nodeFgColor, unsigned int nodeBgColor, bool isRemoveable) : Component()
 {
 	origin[0] = nodeOrigin[0];
@@ -15,7 +15,7 @@ Node::Node(Point nodeOrigin, Point nodeSize, unsigned int nodeFgColor, unsigned 
 	relativeMouseY = 0.f;
 	removeable = isRemoveable;
 }
-
+//sets the size a node 
 void Node::setSize(Point nodeOrigin, Point nodeSize)
 {
 	origin[0] = nodeOrigin[0];
@@ -23,13 +23,13 @@ void Node::setSize(Point nodeOrigin, Point nodeSize)
 	size[0] = nodeSize[0];
 	size[1] = nodeSize[1];
 }
-
+//sets the color scheme
 void Node::setColorScheme(unsigned int nodeFgColor, unsigned int nodeBgColor)
 {
 	fgColor = nodeFgColor;
 	bgColor = nodeBgColor;
 }
-
+//handles the mouse events for interaction
 void Node::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 {
 	static Point diff;
@@ -89,7 +89,7 @@ void Node::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 void Node::update()
 {
 }
-
+//get render list for this certain node
 Renderable* Node::getRenderList()
 {
 	Renderable* rect = new RoundedRectangle(origin, size, fgColor, bgColor, 5.f, 5.f);
