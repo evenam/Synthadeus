@@ -36,16 +36,19 @@ void Node::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 
 	if (vMouse->left.checkPressed())
 	{
+		// mouse clicked
 		interacting = true;
 		diff = vMouse->instancePosition();
 	}
 	else if (vMouse->left.checkReleased())
 	{
+		// mouse released
 		interacting = false;
 		diff[0] = diff[1] = 0;
 	}
 	else if (vMouse->left.check() && interacting)
 	{
+		// mouse moving
 		diff = vMouse->instancePosition() - diff;
 		origin += diff;
 		setBoundingRectangle(origin, size);
