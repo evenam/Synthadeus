@@ -3,6 +3,7 @@
 Slider::Slider(Point origin, Point size, unsigned int bkgColor, unsigned int fgColor, Orientation orien, float minVal, float maxVal, float initVal, float tickVal, ActionCallback actionCallbackFunction) 
 	: sliderLogicUnit(minVal, maxVal, initVal, tickVal), minimumValue(minVal), maximumValue(maxVal), totalValue(maxVal - minVal)
 {
+	//Slider constructor
 	orientation = orien;
 	sliderOrigin[0] = origin[0];
 	sliderOrigin[1] = origin[1];
@@ -17,6 +18,7 @@ Slider::Slider(Point origin, Point size, unsigned int bkgColor, unsigned int fgC
 
 float Slider::normalizedLerpValue()
 {
+	//Creates the normalized lerp value and returns it.
 	float normalizedValue = (sliderLogicUnit.getValue() - minimumValue) / totalValue;
 	assert(normalizedValue >= 0.f);
 	assert(normalizedValue <= 1.f);
@@ -35,6 +37,7 @@ void Slider::setSize(Point origin, Point size)
 
 void Slider::setColorScheme(unsigned int bkgColor, unsigned int fgColor)
 {
+	//Color scheme for Slider
 	sliderBkgColor = bkgColor;
 	sliderFgColor = fgColor;
 }
@@ -65,6 +68,7 @@ Renderable* Slider::getRenderList()
 
 	if (interacting)
 	{
+		//Creates the slider floating text
 		char stringBuffer[15];
 		sprintf_s(stringBuffer, "%.3f\0", sliderLogicUnit.getValue());
 		Renderable* text = NULL;
@@ -80,11 +84,12 @@ Renderable* Slider::getRenderList()
 
 void Slider::update()
 {
-
+	//nothing
 }
 
 void Slider::mouseEventHandler(Synthadeus* app, InputDevice::Mouse* vMouse)
 {
+	
 	float tick = 0.f;
 	if (orientation == HORIZONTAL)
 		tick = (vMouse->instancePosition()[0] - sliderOrigin[0]) / (sliderSize[0]);									 
