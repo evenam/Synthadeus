@@ -120,6 +120,26 @@ float CFMaths::__powf(float b, int e)
 			return (e < 0 ? 1.f / z : z);
 	}
 }
+/*
+float __powff(float x, float y)
+{
+	__asm {
+		fyl2x
+		fld st0
+		frndint
+		fld st1
+		fsub st0, st1
+		f2xm1
+		fld1
+		faddp st1, st0
+		fxch st1, st0
+		fld1
+		fscale
+		fxch st0, st1
+		fstp st0
+		fmulp st1, st0
+	}
+}*/
 
 float CFMaths::__lookup_sin(float radians)
 {

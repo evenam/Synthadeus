@@ -11,6 +11,7 @@
 #pragma once
 
 #include "Error.h"
+#include "AudioDefines.h"
 
 #include <Windows.h>
 #include <stdio.h>
@@ -78,7 +79,7 @@ private:
 	void* rawAudioData;
 
 	// calculations
-	inline int calcByteTotal() { return sizeof(short) * channels * nSamples; }
+	inline int calcByteTotal() { return sizeof(short) * channels * nSamples * 1000; }
 	inline int calcRiffSize() { return calcByteTotal() - 8 + waveSize; }
 	inline int calcAlign() { return (channels * bits) / 8; }
 	inline int calcAvgBps() { return sampleRate * align; }

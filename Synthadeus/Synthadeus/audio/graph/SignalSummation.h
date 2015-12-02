@@ -26,6 +26,8 @@ class SignalSummation : public AudioNode
 	// calculate the size of the buffers
 	int calculatePhase();
 
+	void calculateBuffer();
+
 public:
 
 	// run time type information

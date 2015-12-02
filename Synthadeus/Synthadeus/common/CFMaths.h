@@ -70,6 +70,7 @@ namespace CFMaths
 }
 
 // created to help find math errors
+#define USE_CMATH_ALSO
 #ifndef USE_CMATH_ALSO
 // quick redefines for these functions
 #define fsinf(x) (CFMaths::__fast_sin(x))

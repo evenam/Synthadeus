@@ -4,6 +4,8 @@ SignalSummation::SignalSummation(int signalCount, AudioNode** theSignals) : numS
 {
 	for (int i = 0; i < signalCount; i++)
 		signals[i] = theSignals[i];
+
+	calculateBuffer();
 }
 
 int SignalSummation::calculatePhase()
@@ -46,6 +48,7 @@ void SignalSummation::removeChild(int signalIndex)
 	// overwrite the signal pointer
 	for (int i = signalIndex; i < numSignals; i++)
 		signals[i] = signals[i + 1];
+	signals[numSignals] = NULL;
 
 	// remove it
 	numSignals--;
@@ -80,7 +83,7 @@ AudioNode* SignalSummation::getSignal(int signalIndex)
 	return signals[signalIndex];
 }
 
-void SignalSummation::recalculate()
+void SignalSummation::calculateBuffer()
 {
 	// force recalculation of the input signals
 	for (int j = 0; j < numSignals; j++)
@@ -107,4 +110,9 @@ void SignalSummation::recalculate()
 		bufferL[i] /= (float)numSignals;
 		bufferR[i] /= (float)numSignals;
 	}
+}
+
+void SignalSummation::recalculate()
+{
+	calculateBuffer();
 }

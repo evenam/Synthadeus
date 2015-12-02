@@ -28,7 +28,7 @@
 #include "MultiplierNode.h"
 
 // current Synthadeus version string, once envelopes are put in, Synthadeus gets a 1.0
-#define SYNTHADEUS_VERSION "Synthadeus 0.9"
+#define SYNTHADEUS_VERSION "Synthadeus 1.0"
 
 class Synthadeus : public Application
 {

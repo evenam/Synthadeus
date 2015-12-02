@@ -4,6 +4,9 @@ void SignalMultiplier::calculateBuffer()
 {
 	// buffer size is the same as the input
 	bufferSize = POTENTIAL_NULL(input, getBufferSize(), 0);
+	POTENTIAL_NULL(input, recalculate(), 0);
+
+	setMaxPosition(bufferSize);
 
 	// if there is input, multiply the sample into this node's buffer
 	for (int i = 0; i < bufferSize; i++)
@@ -22,6 +25,8 @@ SignalMultiplier::SignalMultiplier(float signalValue, AudioNode * inputNode)
 
 	// initial buffer calculation
 	calculateBuffer();
+
+	setMaxPosition(bufferSize);
 }
 
 void SignalMultiplier::setInput(AudioNode * inputNode)

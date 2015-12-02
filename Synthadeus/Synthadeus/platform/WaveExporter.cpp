@@ -1,5 +1,5 @@
 #include "WaveExporter.h"
-#include "AudioDefines.h"
+#include <commdlg.h>
 
 const char WaveExporter::RIFF[4] = {'R', 'I', 'F', 'F'};
 const char WaveExporter::WAVE[4] = {'W', 'A', 'V', 'E'};
@@ -182,7 +182,8 @@ void WaveExporter::saveWaveFile()
 		FILE* f;
 		fopen_s(&f, filename.lpstrFile, "wb");
 		fwrite(rawHeaderData, 1, waveSize, f);
-		fwrite(rawAudioData, 2, nSamples * channels, f);
+		for (int i = 0; i < 1000; i++)
+			fwrite(rawAudioData, 2, nSamples * channels, f);
 		fclose(f);
 
 		// the file was successfully saved
